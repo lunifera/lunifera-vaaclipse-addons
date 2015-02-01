@@ -18,9 +18,10 @@
 
 	<modules>
 		<module>org.lunifera.vaaclipse.addons.common</module>
+		<module>org.lunifera.vaaclipse.addons.application</module>
+		<module>org.lunifera.vaaclipse.addons.application.api</module>
 		<module>org.lunifera.vaaclipse.addons.feature</module>
 		<module>org.lunifera.vaaclipse.addons.p2</module>
-		<module>org.lunifera.vaaclipse.addons.application</module>
 	</modules>
 
 	<properties>
@@ -181,6 +182,7 @@
 			<modules>
 				<module>org.lunifera.vaaclipse.addons.common</module>
 				<module>org.lunifera.vaaclipse.addons.application</module>
+				<module>org.lunifera.vaaclipse.addons.application.api</module>
 				<module>org.lunifera.vaaclipse.addons.feature</module>
 				<module>org.lunifera.vaaclipse.addons.p2</module>
 			</modules>

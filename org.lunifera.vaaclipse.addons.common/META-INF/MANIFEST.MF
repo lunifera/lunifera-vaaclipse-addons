@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Common API
+Bundle-SymbolicName: org.lunifera.vaaclipse.addons.common
+Bundle-Version: 0.8.1.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: org.slf4j
+Service-Component: OSGI-INF/*.xml
+Bundle-ActivationPolicy: lazy

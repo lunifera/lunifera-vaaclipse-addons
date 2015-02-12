@@ -14,12 +14,25 @@ import com.vaadin.server.Resource;
 
 public interface IExplorerInfo {
 
+	public static final String PROP__LABEL = "label";
+	public static final String PROP__DESCRIPTION = "description";
+	public static final String PROP__ICON = "icon";
+
 	/**
 	 * Returns the unique ID of the info.
 	 * 
 	 * @return
 	 */
 	String getId();
+
+	/**
+	 * Returns the target information of the info. May be <code>null</code>. For
+	 * views that will be the original view id. And for a category it will be
+	 * the original package it represents.
+	 * 
+	 * @return
+	 */
+	String getTarget();
 
 	/**
 	 * Returns the category of the info.
@@ -33,7 +46,7 @@ public interface IExplorerInfo {
 	 * 
 	 * @return
 	 */
-	Resource getIcon();
+	String getIconI18nKey();
 
 	/**
 	 * Returns the label key for i18n translations.
@@ -48,4 +61,32 @@ public interface IExplorerInfo {
 	 * @return
 	 */
 	String getI18nDescriptionKey();
+
+	/**
+	 * Returns the icon.
+	 * 
+	 * @return
+	 */
+	Resource getIcon();
+
+	/**
+	 * Returns the icon uri.
+	 * 
+	 * @return
+	 */
+	String getIconURI();
+
+	/**
+	 * Returns the label.
+	 * 
+	 * @return
+	 */
+	String getLabel();
+
+	/**
+	 * Returns the description.
+	 * 
+	 * @return
+	 */
+	String getDescription();
 }

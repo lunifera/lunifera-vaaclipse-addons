@@ -10,10 +10,14 @@
  */
 package org.lunifera.vaaclipse.addons.common.api.explorer;
 
+import org.eclipse.e4.core.contexts.IEclipseContext;
+
 public interface IExplorerLeaf extends IExplorerInfo {
 
 	/**
 	 * Executes the info. This method may open a view or also do nothing.
+	 * 
+	 * @param eclipseContext
 	 */
-	void execute();
+	void execute(IEclipseContext eclipseContext);
 }

@@ -44,10 +44,10 @@ import com.vaadin.ui.themes.Reindeer;
  * The explorer view is the main entry point for the user to deal with the
  * applications. Applications, processes,... and beeing displayed there.
  */
-public class ExplorerView implements ItemClickListener, ExpandListener {
+public class ExplorerView2 implements ItemClickListener, ExpandListener {
 
 	private static final Logger LOGGER = LoggerFactory
-			.getLogger(ExplorerView.class);
+			.getLogger(ExplorerView2.class);
 
 	private Tree tree;
 	private Panel panel;
@@ -59,7 +59,7 @@ public class ExplorerView implements ItemClickListener, ExpandListener {
 	private Set<IExplorerInfo> resolved = new HashSet<IExplorerInfo>();
 
 	@Inject
-	public ExplorerView(VerticalLayout parent, IEclipseContext eclipseContext,
+	public ExplorerView2(VerticalLayout parent, IEclipseContext eclipseContext,
 			MApplication app) {
 
 		this.eclipseContext = eclipseContext;

@@ -19,8 +19,11 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 public interface IExplorerInfoManager {
 
 	/**
-	 * Needs to return an iterable of explorer infos. These infos will be showed
-	 * in the explorer view.
+	 * Needs to return an iterable of explorer infos that are located in the
+	 * given parent. These infos will be showed in the explorer view.
+	 * <p>
+	 * Note, that the manager will also add the new loaded {@link IExplorerInfo
+	 * infos} as childs to the given parent.
 	 * 
 	 * @param parent
 	 * @param context

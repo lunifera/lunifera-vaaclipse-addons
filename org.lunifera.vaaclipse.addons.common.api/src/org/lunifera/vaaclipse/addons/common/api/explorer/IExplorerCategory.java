@@ -10,8 +10,11 @@
  */
 package org.lunifera.vaaclipse.addons.common.api.explorer;
 
+import java.util.List;
+
 public interface IExplorerCategory extends IExplorerInfo {
 
+	
 	/**
 	 * Returns the parent category of this category or <code>null</code> if no
 	 * parent category exists.
@@ -19,5 +22,12 @@ public interface IExplorerCategory extends IExplorerInfo {
 	 * @return
 	 */
 	IExplorerCategory getParentCategory();
+
+	/**
+	 * Returns a unmodifiable list of children.
+	 * 
+	 * @return
+	 */
+	List<IExplorerInfo> getChildren();
 
 }

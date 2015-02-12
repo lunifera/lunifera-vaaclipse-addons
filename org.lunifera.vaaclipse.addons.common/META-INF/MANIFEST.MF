@@ -8,7 +8,7 @@ Import-Package: org.osgi.framework;version="1.8.0",
  org.slf4j
 Service-Component: OSGI-INF/*.xml
 Bundle-ActivationPolicy: lazy
-Export-Package: org.lunifera.vaaclipse.addons.common.status
+Export-Package: org.lunifera.vaaclipse.addons.common.status;uses:="org.lunifera.vaaclipse.addons.common.api.status"
 Require-Bundle: com.vaadin.server,
  org.eclipse.e4.core.contexts,
  org.lunifera.vaaclipse.addons.common.api;bundle-version="0.8.1"

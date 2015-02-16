@@ -16,6 +16,8 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
+import org.eclipse.e4.ui.model.application.ui.menu.MMenuFactory;
+import org.eclipse.e4.ui.model.application.ui.menu.MToolBar;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService.PartState;
@@ -52,6 +54,8 @@ public class ExplorerApplicationLeaf extends AbstractExplorerInfo implements
 		part.setToBeRendered(true);
 		part.setVisible(true);
 		part.getTags().add(EPartService.REMOVE_ON_HIDE_TAG);
+		MToolBar mToolbar = MMenuFactory.INSTANCE.createToolBar();
+		part.setToolbar(mToolbar);
 
 		stack.getChildren().add(part); // Add part to stack
 		MPart viewPart = partService.showPart(part, PartState.ACTIVATE); // Show

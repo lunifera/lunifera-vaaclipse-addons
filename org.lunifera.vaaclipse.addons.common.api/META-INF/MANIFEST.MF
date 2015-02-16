@@ -9,6 +9,7 @@ Import-Package: org.osgi.framework;version="1.8.0",
 Service-Component: OSGI-INF/*.xml
 Bundle-ActivationPolicy: lazy
 Export-Package: org.lunifera.vaaclipse.addons.common.api;uses:="com.vaadin.server",
+ org.lunifera.vaaclipse.addons.common.api.di,
  org.lunifera.vaaclipse.addons.common.api.explorer;uses:="org.eclipse.e4.core.contexts,com.vaadin.server",
  org.lunifera.vaaclipse.addons.common.api.status
 Require-Bundle: com.vaadin.server,

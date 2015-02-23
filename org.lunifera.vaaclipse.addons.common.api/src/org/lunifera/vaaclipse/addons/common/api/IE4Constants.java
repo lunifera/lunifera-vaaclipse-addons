@@ -34,4 +34,9 @@ public interface IE4Constants {
 	public static final String BUNDLECLASS_GENERIC_ECVIEW_VIEWPART = "bundleclass://org.lunifera.vaaclipse.addons.ecview/org.lunifera.vaaclipse.addons.ecview.views.GenericECViewView";
 	public static final String ID__PARTSTACK__DYNAMIC_APPLICATIONS = "org.lunifera.vaaclipse.addons.application.partstack.areadefaultstack";
 
+	/**
+	 * Used as property in OSGi services.
+	 */
+	public static final String APPLICATION_ID = "e4.application.id";
+
 }

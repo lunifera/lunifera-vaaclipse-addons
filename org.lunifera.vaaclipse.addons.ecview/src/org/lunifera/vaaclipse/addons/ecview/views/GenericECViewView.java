@@ -15,6 +15,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -39,6 +40,7 @@ import org.lunifera.dsl.dto.lib.impl.DtoServiceAccess;
 import org.lunifera.dsl.dto.lib.services.IDTOService;
 import org.lunifera.ecview.core.common.beans.ISlot;
 import org.lunifera.ecview.core.common.context.ContextException;
+import org.lunifera.ecview.core.common.context.II18nService;
 import org.lunifera.ecview.core.common.context.IViewContext;
 import org.lunifera.ecview.core.common.model.core.YBeanSlot;
 import org.lunifera.ecview.core.common.model.core.YExposedAction;
@@ -50,6 +52,7 @@ import org.lunifera.runtime.common.state.ISharedStateContextProvider;
 import org.lunifera.runtime.web.ecview.presentation.vaadin.VaadinRenderer;
 import org.lunifera.vaaclipse.addons.common.api.IE4Constants;
 import org.lunifera.vaaclipse.addons.common.api.di.Callback;
+import org.lunifera.vaaclipse.addons.common.event.EventTopicNormalizer;
 import org.lunifera.vaaclipse.addons.ecview.IECViewConstants;
 import org.lunifera.vaaclipse.addons.ecview.event.E4EventBrokerAdapter;
 import org.lunifera.vaaclipse.addons.ecview.impl.Activator;
@@ -76,22 +79,27 @@ public class GenericECViewView {
 
 	private MPart mPart;
 	private org.eclipse.e4.core.services.events.IEventBroker e4EventBroker;
+	private EventTopicNormalizer topicNormalizer;
 
 	private HashMap<String, Set<YBeanSlot>> redirectedEventtopics;
 	private Set<EventHandler> eventHandlers;
 
 	private ISharedStateContextProvider sharedStateProvider;
 	private ISharedStateContext sharedState;
+	private II18nService i18nService;
 
 	@Inject
 	public GenericECViewView(VerticalLayout parent,
 			IEclipseContext eclipseContext, MPart mPart,
 			org.eclipse.e4.core.services.events.IEventBroker e4EventBroker,
-			ISharedStateContextProvider sharedStateProvider) {
+			ISharedStateContextProvider sharedStateProvider,
+			EventTopicNormalizer topicNormalizer, II18nService i18nService) {
 		this.eclipseContext = eclipseContext;
 		this.mPart = mPart;
 		this.e4EventBroker = e4EventBroker;
 		this.sharedStateProvider = sharedStateProvider;
+		this.topicNormalizer = topicNormalizer;
+		this.i18nService = i18nService;
 
 		this.viewId = mPart.getPersistedState().get(
 				IE4Constants.PROP_INPUT_VIEW_ID);
@@ -263,7 +271,10 @@ public class GenericECViewView {
 		MHandledToolItem toolItem = MMenuFactory.INSTANCE
 				.createHandledToolItem();
 		toolItem.setCommand(mSaveCommand);
-		toolItem.setLabel(yAction.getLabelI18nKey());
+		toolItem.setTooltip(i18nService.getValue(yAction.getLabelI18nKey(),
+				Locale.getDefault()));
+		toolItem.setIconURI(i18nService.getValue(yAction.getIcon(),
+				Locale.getDefault()));
 		toolItem.setVisible(true);
 		toolItem.setToBeRendered(true);
 		// create the parameter that passes the original action id
@@ -350,7 +361,13 @@ public class GenericECViewView {
 	 * @param event
 	 */
 	protected void dispatchEventBrokerEvent(Event event) {
-		String eventTopic = event.getTopic();
+		if (redirectedEventtopics == null) {
+			return;
+		}
+		String eventTopic = topicNormalizer.unwrapTopic(event.getTopic());
+		if (!redirectedEventtopics.containsKey(eventTopic)) {
+			return;
+		}
 		for (YBeanSlot yBeanSlot : redirectedEventtopics.get(eventTopic)) {
 			ISlot slot = viewContext.getBeanSlot(yBeanSlot.getName());
 			slot.setValue(event.getProperty(IEventBroker.DATA));

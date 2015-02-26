@@ -7,7 +7,6 @@
       <children xsi:type="advanced:Perspective" xmi:id="_xeIHkKucEeS21pCaYI4ioQ" elementId="org.lunifera.vaaclipse.addons.application.perspective.general" label="General" iconURI="platform:/plugin/org.lunifera.vaaclipse.addons.application/images/xmi.png" tooltip="General">
         <children xsi:type="basic:PartSashContainer" xmi:id="_8RKzYKucEeS21pCaYI4ioQ" elementId="org.lunifera.vaaclipse.addons.application.partsashcontainer.0" horizontal="true">
           <children xsi:type="basic:PartStack" xmi:id="_9peDEKucEeS21pCaYI4ioQ" elementId="org.lunifera.vaaclipse.addons.application.partstack.leftside" containerData="25">
-            <children xsi:type="advanced:Placeholder" xmi:id="_V6IkEKu9EeS21pCaYI4ioQ" elementId="org.lunifera.vaaclipse.addons.application.placeholder.generic" ref="_bcD7kKu9EeS21pCaYI4ioQ" closeable="true"/>
             <children xsi:type="advanced:Placeholder" xmi:id="_Fy8EkKudEeS21pCaYI4ioQ" elementId="org.lunifera.vaaclipse.addons.application.placeholder.explorer" ref="_WjXU0KudEeS21pCaYI4ioQ"/>
           </children>
           <children xsi:type="basic:PartSashContainer" xmi:id="_-eb8MKucEeS21pCaYI4ioQ" elementId="org.lunifera.vaaclipse.addons.application.partsashcontainer.1" containerData="75">
@@ -30,11 +29,6 @@
     </sharedElements>
     <sharedElements xsi:type="basic:Part" xmi:id="_WjXU0KudEeS21pCaYI4ioQ" elementId="org.lunifera.vaaclipse.addons.application.part.explorer" accessibilityPhrase="" contributionURI="bundleclass://org.lunifera.vaaclipse.addons.application/org.lunifera.vaaclipse.addons.application.views.ExplorerView" label="Explorer" iconURI="platform:/plugin/org.lunifera.vaaclipse.addons.application/images/xmi.png" tooltip="Main entry point for the application" closeable="true">
       <toolbar xmi:id="_epypYKudEeS21pCaYI4ioQ" elementId="org.lunifera.vaaclipse.addons.application.toolbar.0"/>
-    </sharedElements>
-    <sharedElements xsi:type="basic:Part" xmi:id="_bcD7kKu9EeS21pCaYI4ioQ" elementId="org.lunifera.vaaclipse.addons.application.part.explorer2" accessibilityPhrase="" contributionURI="bundleclass://org.lunifera.vaaclipse.addons.application/org.lunifera.vaaclipse.addons.application.views.ExplorerView2" label="Explorer2" iconURI="platform:/plugin/org.lunifera.vaaclipse.addons.application/images/xmi.png" tooltip="Main entry point for the application" closeable="true">
-      <toolbar xmi:id="_bcD7kau9EeS21pCaYI4ioQ" elementId="org.lunifera.vaaclipse.addons.application.toolbar.0">
-        <children xsi:type="menu:HandledToolItem" xmi:id="_EWGhcLXVEeSHovHvSw-FSQ" elementId="org.lunifera.vaaclipse.addons.application.handledtoolitem.0"/>
-      </toolbar>
     </sharedElements>
     <trimBars xmi:id="_PCGfyKoREeSuAOXH-urFdQ" elementId="org.lunifera.vaaclipse.addons.application.toptrimbar">
       <children xsi:type="menu:ToolBar" xmi:id="_PCGfyaoREeSuAOXH-urFdQ" elementId="org.lunifera.vaaclipse.addons.application.toolbar.main"/>

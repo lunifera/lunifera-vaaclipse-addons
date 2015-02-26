@@ -16,7 +16,7 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.lunifera.runtime.common.state.ISharedStateContextProvider;
 import org.osgi.service.component.annotations.Component;
 
-@Component(property = { "service.context.key=ISharedStateContextProvider" })
+@Component(service = org.eclipse.e4.core.contexts.IContextFunction.class, property = { "service.context.key=org.lunifera.runtime.common.state.ISharedStateContextProvider" })
 public class SharedStateContextAdapterFactory extends ContextFunction {
 
 	@Override

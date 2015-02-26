@@ -18,7 +18,7 @@ public class ResourceUtil {
 	 * @return
 	 */
 	public static Resource getResource(String iconURI) {
-		if (iconURI.startsWith("bundleclass")) {
+		if (iconURI.startsWith("platform:/plugin/")) {
 			return BundleResource.valueOf(iconURI);
 		} else if (iconURI.startsWith("theme:/")) {
 			return new ThemeResource(iconURI.replace("theme:/", ""));

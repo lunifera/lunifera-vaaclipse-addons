@@ -31,5 +31,6 @@ Require-Bundle: com.vaadin.server;bundle-version="7.3.7",
  org.eclipse.e4.core.services;bundle-version="1.2.0",
  org.eclipse.e4.ui.di;bundle-version="1.0.0",
  org.eclipse.e4.ui.services;bundle-version="1.1.0",
- org.lunifera.vaaclipse.addons.common
+ org.lunifera.vaaclipse.addons.common,
+ org.lunifera.runtime.web.vaadin.databinding
 Bundle-Activator: org.lunifera.vaaclipse.addons.ecview.impl.Activator

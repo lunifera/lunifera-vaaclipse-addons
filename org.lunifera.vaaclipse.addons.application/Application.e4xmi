@@ -7,7 +7,7 @@
       <children xsi:type="advanced:Perspective" xmi:id="_xeIHkKucEeS21pCaYI4ioQ" elementId="org.lunifera.vaaclipse.addons.application.perspective.general" label="General" iconURI="platform:/plugin/org.lunifera.vaaclipse.addons.application/images/xmi.png" tooltip="General">
         <children xsi:type="basic:PartSashContainer" xmi:id="_8RKzYKucEeS21pCaYI4ioQ" elementId="org.lunifera.vaaclipse.addons.application.partsashcontainer.0" horizontal="true">
           <children xsi:type="basic:PartStack" xmi:id="_9peDEKucEeS21pCaYI4ioQ" elementId="org.lunifera.vaaclipse.addons.application.partstack.leftside" containerData="25">
-            <children xsi:type="advanced:Placeholder" xmi:id="_Fy8EkKudEeS21pCaYI4ioQ" elementId="org.lunifera.vaaclipse.addons.application.placeholder.explorer" ref="_WjXU0KudEeS21pCaYI4ioQ"/>
+            <children xsi:type="advanced:Placeholder" xmi:id="_Fy8EkKudEeS21pCaYI4ioQ" elementId="org.lunifera.vaaclipse.addons.application.placeholder.explorer" containerData="" ref="_WjXU0KudEeS21pCaYI4ioQ"/>
           </children>
           <children xsi:type="basic:PartSashContainer" xmi:id="_-eb8MKucEeS21pCaYI4ioQ" elementId="org.lunifera.vaaclipse.addons.application.partsashcontainer.1" containerData="75">
             <children xsi:type="basic:PartSashContainer" xmi:id="_DdVfIKudEeS21pCaYI4ioQ" elementId="org.lunifera.vaaclipse.addons.application.partsashcontainer.2" containerData="70" horizontal="true">

@@ -98,7 +98,7 @@ public class ExplorerView implements ItemClickListener, ExpandListener {
 						.getChildren()) {
 					Item item = container.addItem(newInfo);
 					item.getItemProperty("label").setValue(newInfo.getLabel());
-					item.getItemProperty("resource")
+					item.getItemProperty("icon")
 							.setValue(newInfo.getIcon());
 					container.setParent(newInfo, category);
 					if (newInfo instanceof IExplorerLeaf) {
@@ -153,7 +153,7 @@ public class ExplorerView implements ItemClickListener, ExpandListener {
 						eclipseContext)) {
 					Item item = addItem(newInfo);
 					item.getItemProperty("label").setValue(newInfo.getLabel());
-					item.getItemProperty("resource")
+					item.getItemProperty("icon")
 							.setValue(newInfo.getIcon());
 					if (newInfo instanceof IExplorerLeaf) {
 						setChildrenAllowed(newInfo, false);

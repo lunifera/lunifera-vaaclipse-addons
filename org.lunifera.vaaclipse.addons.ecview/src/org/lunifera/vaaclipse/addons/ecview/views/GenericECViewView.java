@@ -34,7 +34,9 @@ import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.menu.MHandledToolItem;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenuFactory;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolBar;
+import org.eclipse.e4.ui.model.application.ui.menu.MToolBarElement;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
+import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.ecore.EObject;
 import org.lunifera.dsl.dto.lib.impl.DtoServiceAccess;
 import org.lunifera.dsl.dto.lib.services.IDTOService;
@@ -42,6 +44,7 @@ import org.lunifera.ecview.core.common.beans.ISlot;
 import org.lunifera.ecview.core.common.context.ContextException;
 import org.lunifera.ecview.core.common.context.II18nService;
 import org.lunifera.ecview.core.common.context.IViewContext;
+import org.lunifera.ecview.core.common.model.core.CoreModelPackage;
 import org.lunifera.ecview.core.common.model.core.YBeanSlot;
 import org.lunifera.ecview.core.common.model.core.YExposedAction;
 import org.lunifera.ecview.core.common.model.core.YView;
@@ -49,9 +52,12 @@ import org.lunifera.ecview.xtext.builder.participant.IECViewAddonsMetadataServic
 import org.lunifera.runtime.common.event.IEventBroker;
 import org.lunifera.runtime.common.state.ISharedStateContext;
 import org.lunifera.runtime.common.state.ISharedStateContextProvider;
+import org.lunifera.runtime.common.state.SharedStateUnitOfWork;
 import org.lunifera.runtime.web.ecview.presentation.vaadin.VaadinRenderer;
+import org.lunifera.runtime.web.vaadin.databinding.VaadinObservables;
 import org.lunifera.vaaclipse.addons.common.api.IE4Constants;
 import org.lunifera.vaaclipse.addons.common.api.di.Callback;
+import org.lunifera.vaaclipse.addons.common.api.di.Delete;
 import org.lunifera.vaaclipse.addons.common.event.EventTopicNormalizer;
 import org.lunifera.vaaclipse.addons.ecview.IECViewConstants;
 import org.lunifera.vaaclipse.addons.ecview.event.E4EventBrokerAdapter;
@@ -63,6 +69,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.vaadin.ui.Notification;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
 @SuppressWarnings("restriction")
@@ -71,41 +78,43 @@ public class GenericECViewView {
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(GenericECViewView.class);
 
-	private final String viewId;
-	private final IEclipseContext eclipseContext;
-
-	private IViewContext viewContext;
-	private IDTOService<?> dtoService;
-
+	@Inject
+	private IEclipseContext eclipseContext;
+	@Inject
 	private MPart mPart;
+	@Inject
+	private VerticalLayout parentLayout;
+	@Inject
 	private org.eclipse.e4.core.services.events.IEventBroker e4EventBroker;
+	@Inject
 	private EventTopicNormalizer topicNormalizer;
-
-	private HashMap<String, Set<YBeanSlot>> redirectedEventtopics;
-	private Set<EventHandler> eventHandlers;
-
+	@Inject
 	private ISharedStateContextProvider sharedStateProvider;
-	private ISharedStateContext sharedState;
+	@Inject
 	private II18nService i18nService;
 
-	@Inject
-	public GenericECViewView(VerticalLayout parent,
-			IEclipseContext eclipseContext, MPart mPart,
-			org.eclipse.e4.core.services.events.IEventBroker e4EventBroker,
-			ISharedStateContextProvider sharedStateProvider,
-			EventTopicNormalizer topicNormalizer, II18nService i18nService) {
-		this.eclipseContext = eclipseContext;
-		this.mPart = mPart;
-		this.e4EventBroker = e4EventBroker;
-		this.sharedStateProvider = sharedStateProvider;
-		this.topicNormalizer = topicNormalizer;
-		this.i18nService = i18nService;
+	private String viewId;
+	private ExposedActionsCallback exposedActionsCallback;
+	private IViewContext viewContext;
+	private IDTOService<Object> dtoService;
+	private HashMap<String, Set<YBeanSlot>> redirectedEventtopics;
+	private Set<EventHandler> eventHandlers;
+	private ISharedStateContext sharedState;
 
+	public GenericECViewView() {
+	}
+
+	@PostConstruct
+	public void setup() {
 		this.viewId = mPart.getPersistedState().get(
 				IE4Constants.PROP_INPUT_VIEW_ID);
 
+		VaadinObservables.activateRealm(UI.getCurrent());
+
+		exposedActionsCallback = new ExposedActionsCallback();
+
 		VerticalLayout layout = new VerticalLayout();
-		parent.addComponent(layout);
+		parentLayout.addComponent(layout);
 		layout.setSizeFull();
 
 		YView yView = findViewModel();
@@ -122,9 +131,10 @@ public class GenericECViewView {
 					yView.getSharedStateGroup(), null);
 		}
 
-		YBeanSlot yBeanSlot = yView.getBeanSlot("main");
+		YBeanSlot yBeanSlot = yView.getBeanSlot(IViewContext.MAIN_BEAN_SLOT);
 		if (yBeanSlot != null) {
-			dtoService = DtoServiceAccess.getService(yBeanSlot.getValueType());
+			dtoService = (IDTOService<Object>) DtoServiceAccess
+					.getService(yBeanSlot.getValueType());
 		}
 
 		redirectEventTopics(yView);
@@ -152,11 +162,6 @@ public class GenericECViewView {
 		preparePartToolbar(yView);
 	}
 
-	@PostConstruct
-	public void setup() {
-		System.out.println("!huhu");
-	}
-
 	/**
 	 * Remove defined event topics at bean slots. We pass them to custom
 	 * handlers which will forward to the view. So we can avoid loosing changed
@@ -165,6 +170,9 @@ public class GenericECViewView {
 	 * @param yView
 	 */
 	private void redirectEventTopics(YView yView) {
+
+		VaadinObservables.activateRealm(parentLayout.getUI());
+
 		// redirect event topics
 		redirectedEventtopics = new HashMap<String, Set<YBeanSlot>>();
 		for (YBeanSlot yBeanSlot : yView.getBeanSlots()) {
@@ -205,7 +213,30 @@ public class GenericECViewView {
 
 	@Persist
 	public void save() {
+		final Object mainDto = viewContext.getBean(IViewContext.MAIN_BEAN_SLOT);
+		if (mainDto != null) {
+			new SharedStateUnitOfWork<Object>() {
+				@Override
+				protected Object doExecute() {
+					dtoService.update(mainDto);
+					return null;
+				}
+			}.execute(sharedState);
+		}
+	}
 
+	@Delete
+	public void delete() {
+		final Object mainDto = viewContext.getBean(IViewContext.MAIN_BEAN_SLOT);
+		if (mainDto != null) {
+			new SharedStateUnitOfWork<Object>() {
+				@Override
+				protected Object doExecute() {
+					dtoService.delete(mainDto);
+					return null;
+				}
+			}.execute(sharedState);
+		}
 	}
 
 	/**
@@ -217,6 +248,9 @@ public class GenericECViewView {
 	@Callback
 	public void commandExecuted(
 			@Named(IE4Constants.PARAM_ACTION_ID) String actionId) {
+
+		VaadinObservables.activateRealm(parentLayout.getUI());
+
 		// find the action and forward it to the view
 		EObject action = (EObject) viewContext.findModelElement(actionId);
 		if (action instanceof YExposedAction) {
@@ -233,6 +267,9 @@ public class GenericECViewView {
 	private void preparePartToolbar(YView yView) {
 		MToolBar mToolbar = mPart.getToolbar();
 		for (YExposedAction yAction : yView.getExposedActions()) {
+
+			// register the exposed actions callback to handle enabled state
+			yAction.eAdapters().add(exposedActionsCallback);
 
 			MHandledToolItem toolItem = null;
 			if (yAction.getId().equals(IECViewConstants.ACTION__SAVE)) {
@@ -276,7 +313,10 @@ public class GenericECViewView {
 		toolItem.setIconURI(i18nService.getValue(yAction.getIcon(),
 				Locale.getDefault()));
 		toolItem.setVisible(true);
+		toolItem.setEnabled(yAction.isInitialEnabled());
 		toolItem.setToBeRendered(true);
+		toolItem.getTransientData().put(IE4Constants.PARAM_ACTION_ID,
+				yAction.getId());
 		// create the parameter that passes the original action id
 		MParameter mParam = MCommandsFactory.INSTANCE.createParameter();
 		mParam.setName(commandId + "." + IE4Constants.PARAM_ACTION_ID);
@@ -312,6 +352,8 @@ public class GenericECViewView {
 				redirectedEventtopics.clear();
 				redirectedEventtopics = null;
 			}
+
+			exposedActionsCallback = null;
 
 			if (eventHandlers != null) {
 				for (EventHandler handler : eventHandlers) {
@@ -372,5 +414,36 @@ public class GenericECViewView {
 			ISlot slot = viewContext.getBeanSlot(yBeanSlot.getName());
 			slot.setValue(event.getProperty(IEventBroker.DATA));
 		}
+	}
+
+	/**
+	 * Forwards the enabled state to the e4 tool item.
+	 */
+	private class ExposedActionsCallback extends AdapterImpl {
+
+		@Override
+		public void notifyChanged(org.eclipse.emf.common.notify.Notification msg) {
+			if (msg.getEventType() == org.eclipse.emf.common.notify.Notification.SET) {
+				if (msg.getFeature() == CoreModelPackage.Literals.YENABLE__ENABLED) {
+
+					YExposedAction yAction = (YExposedAction) msg.getNotifier();
+					for (MToolBarElement item : mPart.getToolbar()
+							.getChildren()) {
+						if (!(item instanceof MHandledToolItem)) {
+							continue;
+						}
+						MHandledToolItem handledItem = (MHandledToolItem) item;
+						String id = (String) item.getTransientData().get(
+								IE4Constants.PARAM_ACTION_ID);
+						if (id != null && id.equals(yAction.getId())) {
+							boolean newEnabled = msg.getNewBooleanValue();
+							handledItem.setEnabled(newEnabled);
+							break;
+						}
+					}
+				}
+			}
+		}
+
 	}
 }

@@ -10,8 +10,8 @@
  */
 package org.lunifera.vaaclipse.addons.ecview;
 
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -28,7 +28,7 @@ import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ReferenceCardinality;
 import org.osgi.service.component.annotations.ReferencePolicy;
 
-@Component(property = { "service.ranking=100"}, immediate = true)
+@Component(property = { "service.ranking=100" }, immediate = true)
 public class ExplorerInfoManager implements IExplorerInfoManager {
 
 	private static final String I18NKEY_CATEGORY_DESCRIPTION = "desc.%s";
@@ -101,7 +101,8 @@ public class ExplorerInfoManager implements IExplorerInfoManager {
 				category.setIconI18nKey(toImageI18nKey(categoryId));
 				category.setI18nDescriptionKey(toDescriptionI18nKey(categoryId));
 				category.setLabel(translate(category.getI18nLabelKey()));
-				category.setDescription(translate(category.getI18nDescriptionKey()));
+				category.setDescription(translate(category
+						.getI18nDescriptionKey()));
 				category.setIconURI(translate(category.getIconI18nKey()));
 				infos.put(categoryId, category);
 			}
@@ -154,7 +155,8 @@ public class ExplorerInfoManager implements IExplorerInfoManager {
 					category.setIconI18nKey(toImageI18nKey(categoryId));
 					category.setI18nDescriptionKey(toDescriptionI18nKey(categoryId));
 					category.setLabel(translate(category.getI18nLabelKey()));
-					category.setDescription(translate(category.getI18nDescriptionKey()));
+					category.setDescription(translate(category
+							.getI18nDescriptionKey()));
 					category.setIconURI(translate(category.getIconI18nKey()));
 
 					infos.put(categoryId, category);
@@ -162,22 +164,26 @@ public class ExplorerInfoManager implements IExplorerInfoManager {
 			}
 		}
 
-		return infos.values();
+		List<IExplorerInfo> result = new ArrayList<IExplorerInfo>(
+				infos.values());
+		Collections.sort(result);
+
+		return result;
 	}
 
 	private List<String> getSortedRootViewNames(String pkgName,
 			boolean includeChildren) {
 		List<String> viewNames = ecviewService.getIDEViewNames(pkgName,
 				includeChildren);
-		Collections.sort(viewNames, new Comparator<String>() {
-			@Override
-			public int compare(String o0, String o1) {
-				String pkg0 = o0.substring(0, o0.lastIndexOf("."));
-				String pkg1 = o1.substring(0, o1.lastIndexOf("."));
-
-				return pkg0.length() - pkg1.length();
-			}
-		});
+		// Collections.sort(viewNames, new Comparator<String>() {
+		// @Override
+		// public int compare(String o0, String o1) {
+		// String pkg0 = o0.substring(0, o0.lastIndexOf("."));
+		// String pkg1 = o1.substring(0, o1.lastIndexOf("."));
+		//
+		// return pkg0.length() - pkg1.length();
+		// }
+		// });
 		return viewNames;
 	}
 

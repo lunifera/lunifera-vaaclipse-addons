@@ -12,51 +12,36 @@ package org.lunifera.vaaclipse.addons.application.handler;
 
 import javax.inject.Named;
 
+import org.eclipse.e4.core.contexts.Active;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.model.application.ui.MContext;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
-import org.eclipse.e4.ui.services.IServiceConstants;
-import org.lunifera.dsl.dto.lib.impl.DtoServiceAccess;
-import org.lunifera.dsl.dto.lib.services.IDTOService;
 import org.lunifera.vaaclipse.addons.common.api.IE4Constants;
 import org.lunifera.vaaclipse.addons.common.api.di.Callback;
+import org.lunifera.vaaclipse.addons.common.api.di.Delete;
 
-@SuppressWarnings("restriction")
 public class DeleteHandler extends AbstractHandler {
-
-	@CanExecute
-	public boolean canExecute(
-			@Named(IServiceConstants.ACTIVE_PART) MContext context) {
-		if (context == null) {
-			return false;
-		}
-		Object dto = context.getContext().get(
-				IServiceConstants.ACTIVE_SELECTION);
-		return dto != null;
-	}
-
 	@Execute
 	public void execute(
-			@Named(IServiceConstants.ACTIVE_PART) MContext context,
-			@Named(IServiceConstants.ACTIVE_PART) MPart part,
+			@Active MContext context,
+			@Active MPart part,
 			@Optional @Named(IE4Constants.COMMAND_DELETE__ACTION_ID) String uiActionId) {
-		Object dto = context.getContext().get(
-				IServiceConstants.ACTIVE_SELECTION);
-
-		if (dto != null) {
-			IDTOService<Object> service = DtoServiceAccess.getService(dto
-					.getClass().getCanonicalName());
-			if (service != null) {
-				service.delete(dto);
-			}
-		}
+		final IEclipseContext pmContext = context.getContext().createChild();
+		ContextInjectionFactory.invoke(part.getObject(), Delete.class,
+				pmContext, null);
 
 		if (uiActionId != null && !uiActionId.equals("")) {
 			ContextInjectionFactory.invoke(part.getObject(), Callback.class,
 					createCallbackContext(context, uiActionId), null);
 		}
+	}
+
+	@CanExecute
+	public boolean canExecute() {
+		return true;
 	}
 }

@@ -24,4 +24,3 @@ Import-Package: javax.inject;version="1.0.0",
  org.osgi.util.tracker;version="1.5.1",
  org.slf4j
 Bundle-ActivationPolicy: lazy
-Service-Component: OSGI-INF/*.xml

@@ -64,7 +64,7 @@ public abstract class AbstractExplorerInfo implements IExplorerInfo {
 
 	@Override
 	public Resource getIcon() {
-		if(icon == null && iconURI != null && !iconURI.equals("")){
+		if (icon == null && iconURI != null && !iconURI.equals("")) {
 			icon = ResourceUtil.getResource(iconURI);
 		}
 		return icon;
@@ -72,7 +72,7 @@ public abstract class AbstractExplorerInfo implements IExplorerInfo {
 
 	@Override
 	public String getLabel() {
-		return label;
+		return label != null ? label : "";
 	}
 
 	@Override
@@ -118,6 +118,11 @@ public abstract class AbstractExplorerInfo implements IExplorerInfo {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	@Override
+	public int compareTo(IExplorerInfo other) {
+		return getLabel().compareTo(other.getLabel());
 	}
 
 	@Override

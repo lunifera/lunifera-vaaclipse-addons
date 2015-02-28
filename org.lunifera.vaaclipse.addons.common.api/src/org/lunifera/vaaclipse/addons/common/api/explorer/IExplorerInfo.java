@@ -12,7 +12,7 @@ package org.lunifera.vaaclipse.addons.common.api.explorer;
 
 import com.vaadin.server.Resource;
 
-public interface IExplorerInfo {
+public interface IExplorerInfo extends Comparable<IExplorerInfo> {
 
 	public static final String PROP__LABEL = "label";
 	public static final String PROP__DESCRIPTION = "description";

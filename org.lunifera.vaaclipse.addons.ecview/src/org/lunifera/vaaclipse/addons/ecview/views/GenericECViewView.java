@@ -38,7 +38,6 @@ import org.eclipse.e4.ui.model.application.ui.menu.MToolBarElement;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.ecore.EObject;
-import org.lunifera.dsl.dto.lib.impl.DtoServiceAccess;
 import org.lunifera.dsl.dto.lib.services.IDTOService;
 import org.lunifera.ecview.core.common.beans.ISlot;
 import org.lunifera.ecview.core.common.context.ContextException;
@@ -48,31 +47,31 @@ import org.lunifera.ecview.core.common.model.core.CoreModelPackage;
 import org.lunifera.ecview.core.common.model.core.YBeanSlot;
 import org.lunifera.ecview.core.common.model.core.YExposedAction;
 import org.lunifera.ecview.core.common.model.core.YView;
-import org.lunifera.ecview.xtext.builder.participant.IECViewAddonsMetadataService;
+import org.lunifera.runtime.common.annotations.DtoUtils;
 import org.lunifera.runtime.common.event.IEventBroker;
 import org.lunifera.runtime.common.state.ISharedStateContext;
-import org.lunifera.runtime.common.state.ISharedStateContextProvider;
 import org.lunifera.runtime.common.state.SharedStateUnitOfWork;
 import org.lunifera.runtime.web.ecview.presentation.vaadin.VaadinRenderer;
-import org.lunifera.runtime.web.vaadin.databinding.VaadinObservables;
+import org.lunifera.runtime.web.vaadin.common.resource.IResourceProvider;
+import org.lunifera.runtime.web.vaadin.components.dialogs.AcceptDeleteDialog;
+import org.lunifera.runtime.web.vaadin.components.dialogs.AcceptLoosingDataDialog;
+import org.lunifera.runtime.web.vaadin.components.dialogs.AcceptReloadDialog;
 import org.lunifera.vaaclipse.addons.common.api.IE4Constants;
 import org.lunifera.vaaclipse.addons.common.api.di.Callback;
 import org.lunifera.vaaclipse.addons.common.api.di.Delete;
+import org.lunifera.vaaclipse.addons.common.api.di.Load;
 import org.lunifera.vaaclipse.addons.common.event.EventTopicNormalizer;
 import org.lunifera.vaaclipse.addons.ecview.IECViewConstants;
 import org.lunifera.vaaclipse.addons.ecview.event.E4EventBrokerAdapter;
-import org.lunifera.vaaclipse.addons.ecview.impl.Activator;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
-import org.osgi.util.tracker.ServiceTracker;
+import org.semanticsoft.vaaclipse.publicapi.commands.IPartItemExecutionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.vaadin.ui.Notification;
-import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
-@SuppressWarnings("restriction")
 public class GenericECViewView {
 
 	private static final Logger LOGGER = LoggerFactory
@@ -89,53 +88,40 @@ public class GenericECViewView {
 	@Inject
 	private EventTopicNormalizer topicNormalizer;
 	@Inject
-	private ISharedStateContextProvider sharedStateProvider;
-	@Inject
 	private II18nService i18nService;
+	@Inject
+	private IResourceProvider resourceProvider;
+	@Inject
+	private YView yView;
+	@Inject
+	private ISharedStateContext sharedState;
+	@Inject
+	private IDTOService<Object> dtoService;
 
-	private String viewId;
 	private ExposedActionsCallback exposedActionsCallback;
 	private IViewContext viewContext;
-	private IDTOService<Object> dtoService;
 	private HashMap<String, Set<YBeanSlot>> redirectedEventtopics;
 	private Set<EventHandler> eventHandlers;
-	private ISharedStateContext sharedState;
 
 	public GenericECViewView() {
 	}
 
 	@PostConstruct
 	public void setup() {
-		this.viewId = mPart.getPersistedState().get(
-				IE4Constants.PROP_INPUT_VIEW_ID);
 
-		VaadinObservables.activateRealm(UI.getCurrent());
+		if (yView == null) {
+			Notification.show("View model is not available!",
+					Notification.Type.ERROR_MESSAGE);
+			return;
+		}
+
+		// VaadinObservables.activateRealm(UI.getCurrent());
 
 		exposedActionsCallback = new ExposedActionsCallback();
 
 		VerticalLayout layout = new VerticalLayout();
 		parentLayout.addComponent(layout);
 		layout.setSizeFull();
-
-		YView yView = findViewModel();
-		if (yView == null) {
-			Notification.show(viewId + " could not be found!",
-					Notification.Type.ERROR_MESSAGE);
-			return;
-		}
-
-		// create shared state
-		if (yView.getSharedStateGroup() != null
-				&& !yView.getSharedStateGroup().trim().equals("")) {
-			sharedState = sharedStateProvider.getContext(
-					yView.getSharedStateGroup(), null);
-		}
-
-		YBeanSlot yBeanSlot = yView.getBeanSlot(IViewContext.MAIN_BEAN_SLOT);
-		if (yBeanSlot != null) {
-			dtoService = (IDTOService<Object>) DtoServiceAccess
-					.getService(yBeanSlot.getValueType());
-		}
 
 		redirectEventTopics(yView);
 
@@ -170,8 +156,6 @@ public class GenericECViewView {
 	 * @param yView
 	 */
 	private void redirectEventTopics(YView yView) {
-
-		VaadinObservables.activateRealm(parentLayout.getUI());
 
 		// redirect event topics
 		redirectedEventtopics = new HashMap<String, Set<YBeanSlot>>();
@@ -212,30 +196,143 @@ public class GenericECViewView {
 	}
 
 	@Persist
-	public void save() {
+	public void save(
+			final @Named(IE4Constants.PARAM_ACTION_ID) String actionId,
+			IEclipseContext context) {
+		final YExposedAction yAction = (YExposedAction) viewContext
+				.findModelElement(actionId);
+
 		final Object mainDto = viewContext.getBean(IViewContext.MAIN_BEAN_SLOT);
-		if (mainDto != null) {
-			new SharedStateUnitOfWork<Object>() {
-				@Override
-				protected Object doExecute() {
-					dtoService.update(mainDto);
-					return null;
-				}
-			}.execute(sharedState);
+		boolean processedProperly = false;
+		try {
+			if (mainDto != null) {
+				new SharedStateUnitOfWork<Object>() {
+					@Override
+					protected Object doExecute() {
+						dtoService.update(mainDto);
+						return null;
+					}
+				}.execute(sharedState);
+				// in case of exception, it is still false
+				processedProperly = true;
+			} else {
+			}
+		} finally {
+			if (processedProperly) {
+				ActionExecutedAdapter.notify(yAction);
+			} else {
+				ActionCanceledAdapter.notify(yAction);
+			}
 		}
 	}
 
 	@Delete
-	public void delete() {
+	public void delete(
+			final @Named(IE4Constants.PARAM_ACTION_ID) String actionId,
+			IEclipseContext context) {
+		final YExposedAction yAction = (YExposedAction) viewContext
+				.findModelElement(actionId);
 		final Object mainDto = viewContext.getBean(IViewContext.MAIN_BEAN_SLOT);
 		if (mainDto != null) {
-			new SharedStateUnitOfWork<Object>() {
-				@Override
-				protected Object doExecute() {
-					dtoService.delete(mainDto);
-					return null;
-				}
-			}.execute(sharedState);
+			AcceptDeleteDialog.showDialog(i18nService, resourceProvider,
+					new Runnable() {
+						@Override
+						public void run() {
+							new SharedStateUnitOfWork<Object>() {
+								@Override
+								protected Object doExecute() {
+									boolean processed = false;
+									try {
+										dtoService.delete(mainDto);
+										// in case of exception, it is not
+										// changed
+										processed = true;
+									} finally {
+										if (processed) {
+											ActionExecutedAdapter
+													.notify(yAction);
+										} else {
+											ActionCanceledAdapter
+													.notify(yAction);
+										}
+									}
+									return null;
+								}
+							}.execute(sharedState);
+						}
+					}, new ActionCanceledAdapter(yAction));
+		} else {
+			ActionCanceledAdapter.notify(yAction);
+		}
+	}
+
+	@Load
+	public void reload(
+			final @Named(IE4Constants.PARAM_ACTION_ID) String actionId,
+			IEclipseContext context) {
+		final YExposedAction yAction = (YExposedAction) viewContext
+				.findModelElement(actionId);
+		final Object mainDto = viewContext.getBean(IViewContext.MAIN_BEAN_SLOT);
+		if (mainDto != null) {
+			boolean isDirty = false;
+			try {
+				isDirty = DtoUtils.isDirty(mainDto);
+			} catch (IllegalAccessException e) {
+				// nothing to do
+			}
+
+			// if there is no dirty indicator, or the record is not dirty,
+			// reload the data
+			if (!isDirty) {
+				new SharedStateUnitOfWork<Object>() {
+					@Override
+					protected Object doExecute() {
+						boolean processed = false;
+						try {
+							dtoService.reload(mainDto);
+							// in case of exception, it is not changed
+							processed = true;
+						} finally {
+							if (processed) {
+								ActionExecutedAdapter.notify(yAction);
+							} else {
+								ActionCanceledAdapter.notify(yAction);
+							}
+						}
+						return null;
+					}
+				}.execute(sharedState);
+			} else {
+				AcceptReloadDialog.showDialog(i18nService, resourceProvider,
+						new Runnable() {
+							@Override
+							public void run() {
+								new SharedStateUnitOfWork<Object>() {
+									@Override
+									protected Object doExecute() {
+										boolean processed = false;
+										try {
+											dtoService.reload(mainDto);
+											// in case of exception, it is not
+											// changed
+											processed = true;
+										} finally {
+											if (processed) {
+												ActionExecutedAdapter
+														.notify(yAction);
+											} else {
+												ActionCanceledAdapter
+														.notify(yAction);
+											}
+										}
+										return null;
+									}
+								}.execute(sharedState);
+							}
+						}, new ActionCanceledAdapter(yAction));
+			}
+		} else {
+			ActionCanceledAdapter.notify(yAction);
 		}
 	}
 
@@ -247,15 +344,41 @@ public class GenericECViewView {
 	 */
 	@Callback
 	public void commandExecuted(
-			@Named(IE4Constants.PARAM_ACTION_ID) String actionId) {
-
-		VaadinObservables.activateRealm(parentLayout.getUI());
-
+			@Named(IE4Constants.PARAM_ACTION_ID) String actionId,
+			IEclipseContext context) {
 		// find the action and forward it to the view
 		EObject action = (EObject) viewContext.findModelElement(actionId);
 		if (action instanceof YExposedAction) {
-			YExposedAction yAction = (YExposedAction) action;
-			yAction.setLastClickTime(new Date().getTime());
+
+			// we are going to forward the execution of the action to the ecView
+			// exposed action
+			final YExposedAction yAction = (YExposedAction) action;
+			yAction.setExternalClickTime(new Date().getTime());
+
+			// check if dto is dirty
+			//
+			boolean isDirty = false;
+			final Object mainDto = viewContext
+					.getBean(IViewContext.MAIN_BEAN_SLOT);
+			if (mainDto != null) {
+				try {
+					isDirty = DtoUtils.isDirty(mainDto);
+				} catch (IllegalAccessException e) {
+					// nothing to do -> if there is not dirty flag, we ignore
+					// this
+				}
+			}
+
+			// to notify about executed or canceled state, first check if the
+			// state is dirty
+			if (isDirty && yAction.isCheckDirty()) {
+				// show accept dialog
+				AcceptLoosingDataDialog.showDialog(i18nService,
+						resourceProvider, new ActionExecutedAdapter(yAction),
+						new ActionCanceledAdapter(yAction));
+			} else {
+				ActionExecutedAdapter.notify(yAction);
+			}
 		}
 	}
 
@@ -366,35 +489,9 @@ public class GenericECViewView {
 
 			viewContext.dispose();
 
-			if (sharedState != null) {
-				sharedStateProvider.unget(sharedState);
-			}
-
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-	}
-
-	/**
-	 * Tries to find the view model using the ecview addons service.
-	 * 
-	 * @return
-	 */
-	protected YView findViewModel() {
-		ServiceTracker<IECViewAddonsMetadataService, IECViewAddonsMetadataService> tracker = new ServiceTracker<IECViewAddonsMetadataService, IECViewAddonsMetadataService>(
-				Activator.getContext(), IECViewAddonsMetadataService.class,
-				null);
-		tracker.open();
-		try {
-			IECViewAddonsMetadataService uiService = tracker
-					.waitForService(5000);
-			return uiService.getViewMetadata(viewId);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		} finally {
-			tracker.close();
-		}
-		return null;
 	}
 
 	/**
@@ -402,18 +499,65 @@ public class GenericECViewView {
 	 * 
 	 * @param event
 	 */
-	protected void dispatchEventBrokerEvent(Event event) {
+	protected void dispatchEventBrokerEvent(final Event event) {
 		if (redirectedEventtopics == null) {
 			return;
 		}
-		String eventTopic = topicNormalizer.unwrapTopic(event.getTopic());
+		final String eventTopic = topicNormalizer.unwrapTopic(event.getTopic());
 		if (!redirectedEventtopics.containsKey(eventTopic)) {
 			return;
 		}
-		for (YBeanSlot yBeanSlot : redirectedEventtopics.get(eventTopic)) {
-			ISlot slot = viewContext.getBeanSlot(yBeanSlot.getName());
-			slot.setValue(event.getProperty(IEventBroker.DATA));
+
+		final Object newBean = event.getProperty(IEventBroker.DATA);
+
+		// create a runnable processing the set operations
+		Runnable doRunnable = new Runnable() {
+			@Override
+			public void run() {
+				for (YBeanSlot yBeanSlot : redirectedEventtopics
+						.get(eventTopic)) {
+					final ISlot slot = viewContext.getBeanSlot(yBeanSlot
+							.getName());
+					slot.setValue(newBean);
+				}
+			}
+		};
+
+		if (isBeanslotDirty(eventTopic, newBean)) {
+			// show an accept loosing data dialog
+			AcceptLoosingDataDialog.showDialog(i18nService, resourceProvider,
+					doRunnable, null);
+		} else {
+			doRunnable.run();
 		}
+
+	}
+
+	/**
+	 * Returns true, if one of the bean slots addressed by the eventTopic is
+	 * dirty.
+	 * 
+	 * @param eventTopic
+	 * @return
+	 */
+	protected boolean isBeanslotDirty(String eventTopic, Object newBean) {
+		boolean dirty = false;
+		for (YBeanSlot yBeanSlot : redirectedEventtopics.get(eventTopic)) {
+			final ISlot slot = viewContext.getBeanSlot(yBeanSlot.getName());
+			Object currentBean = slot.getValue();
+			if (currentBean != null && currentBean != newBean) {
+				try {
+					dirty = DtoUtils.isDirty(currentBean);
+					if (dirty) {
+						// dirty found and leave
+						break;
+					}
+				} catch (IllegalAccessException e) {
+					// if there is no dirty flag, we just ignore it
+				}
+			}
+		}
+		return dirty;
 	}
 
 	/**
@@ -441,9 +585,79 @@ public class GenericECViewView {
 							break;
 						}
 					}
+				} else if (msg.getFeature() == CoreModelPackage.Literals.YEXPOSED_ACTION__INTERNAL_CLICK_TIME) {
+					YExposedAction yAction = (YExposedAction) msg.getNotifier();
+					for (MToolBarElement item : mPart.getToolbar()
+							.getChildren()) {
+						if (!(item instanceof MHandledToolItem)) {
+							continue;
+						}
+						String id = (String) item.getTransientData().get(
+								IE4Constants.PARAM_ACTION_ID);
+						if (id != null && id.equals(yAction.getId())) {
+							MHandledToolItem handledItem = (MHandledToolItem) item;
+							IPartItemExecutionService service = mPart
+									.getContext().get(
+											IPartItemExecutionService.class);
+							if (service != null
+									&& service.canExecuteItem(handledItem)) {
+								// notify the exposed action about the external
+								// click
+								yAction.setExternalClickTime(new Date()
+										.getTime());
+								service.executeItem(handledItem);
+							} else {
+								// notify the action about the cancel
+								ActionCanceledAdapter.notify(yAction);
+							}
+							break;
+						}
+					}
 				}
 			}
 		}
-
 	}
+
+	/**
+	 * Notifies the action about a cancel.
+	 */
+	private static class ActionCanceledAdapter implements Runnable {
+		private final YExposedAction action;
+
+		public static void notify(YExposedAction action) {
+			action.setCanceledNotificationTime(new Date().getTime());
+		}
+
+		public ActionCanceledAdapter(YExposedAction action) {
+			super();
+			this.action = action;
+		}
+
+		@Override
+		public void run() {
+			notify(action);
+		}
+	}
+
+	/**
+	 * Notifies the action about their proper execution.
+	 */
+	private static class ActionExecutedAdapter implements Runnable {
+		private final YExposedAction action;
+
+		public static void notify(YExposedAction action) {
+			action.setExecutedNotificationTime(new Date().getTime());
+		}
+
+		public ActionExecutedAdapter(YExposedAction action) {
+			super();
+			this.action = action;
+		}
+
+		@Override
+		public void run() {
+			notify(action);
+		}
+	}
+
 }

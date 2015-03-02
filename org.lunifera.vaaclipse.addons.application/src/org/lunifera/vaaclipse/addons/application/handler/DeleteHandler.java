@@ -30,14 +30,15 @@ public class DeleteHandler extends AbstractHandler {
 			@Active MContext context,
 			@Active MPart part,
 			@Optional @Named(IE4Constants.COMMAND_DELETE__ACTION_ID) String uiActionId) {
-		final IEclipseContext pmContext = context.getContext().createChild();
+		final IEclipseContext pmContext = createCallbackContext(context,
+				uiActionId);
 		ContextInjectionFactory.invoke(part.getObject(), Delete.class,
 				pmContext, null);
 
-		if (uiActionId != null && !uiActionId.equals("")) {
-			ContextInjectionFactory.invoke(part.getObject(), Callback.class,
-					createCallbackContext(context, uiActionId), null);
-		}
+//		if (uiActionId != null && !uiActionId.equals("")) {
+//			ContextInjectionFactory.invoke(part.getObject(), Callback.class,
+//					pmContext, null);
+//		}
 	}
 
 	@CanExecute

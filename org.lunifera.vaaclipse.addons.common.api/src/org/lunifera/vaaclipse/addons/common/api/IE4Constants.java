@@ -8,25 +8,44 @@ public interface IE4Constants {
 	 * and finally associated with this parameter in the context.
 	 */
 	public static final String PARAM_ACTION_ID = "uiActionId";
+
+	/**
+	 * The id of the save command.
+	 */
 	public static final String COMMAND_SAVE = "org.lunifera.vaaclipse.addons.application.command.save";
 	/**
 	 * Contains the original action id from ECView or XWT or...
 	 */
 	public static final String COMMAND_SAVE__ACTION_ID = COMMAND_SAVE + "."
 			+ PARAM_ACTION_ID;
+	/**
+	 * The id of the delete command.
+	 */
 	public static final String COMMAND_DELETE = "org.lunifera.vaaclipse.addons.application.command.delete";
 	/**
 	 * Contains the original action id from ECView or XWT or...
 	 */
 	public static final String COMMAND_DELETE__ACTION_ID = COMMAND_DELETE + "."
 			+ PARAM_ACTION_ID;
+
+	/**
+	 * The id of the part callback command.
+	 */
 	public static final String COMMAND_PART_CALLBACK = "org.lunifera.vaaclipse.addons.application.command.partcallback";
 	/**
 	 * Contains the original action id from ECView or XWT or...
 	 */
 	public static final String COMMAND_PART_CALLBACK__ACTION_ID = COMMAND_PART_CALLBACK
 			+ "." + PARAM_ACTION_ID;
-	public static final String COMMAND_LOAD = "org.lunifera.vaaclipse.addons.application.command.save";
+
+	/**
+	 * The id of the load command.
+	 */
+	public static final String COMMAND_LOAD = "org.lunifera.vaaclipse.addons.application.command.load";
+
+	/**
+	 * Contains the original action id from ECView or XWT or...
+	 */
 	public static final String COMMAND_LOAD__ACTION_ID = COMMAND_LOAD + "."
 			+ PARAM_ACTION_ID;
 

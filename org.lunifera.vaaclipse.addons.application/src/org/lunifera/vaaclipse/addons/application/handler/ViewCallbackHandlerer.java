@@ -29,5 +29,4 @@ public class ViewCallbackHandlerer extends AbstractHandler {
 	public boolean canExecute() {
 		return true;
 	}
-
 }

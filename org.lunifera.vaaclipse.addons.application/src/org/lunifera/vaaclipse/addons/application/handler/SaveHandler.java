@@ -31,13 +31,16 @@ public class SaveHandler extends AbstractHandler {
 			@Active MContext context,
 			@Active MPart part,
 			@Optional @Named(IE4Constants.COMMAND_SAVE__ACTION_ID) String uiActionId) {
-		final IEclipseContext pmContext = context.getContext().createChild();
-		ContextInjectionFactory.invoke(part.getObject(), Persist.class, pmContext, null);
 
-		if (uiActionId != null && !uiActionId.equals("")) {
-			ContextInjectionFactory.invoke(part.getObject(), Callback.class,
-					createCallbackContext(context, uiActionId), null);
-		}
+		final IEclipseContext pmContext = createCallbackContext(context,
+				uiActionId);
+		ContextInjectionFactory.invoke(part.getObject(), Persist.class,
+				pmContext, null);
+
+//		if (uiActionId != null && !uiActionId.equals("")) {
+//			ContextInjectionFactory.invoke(part.getObject(), Callback.class,
+//					pmContext, null);
+//		}
 	}
 
 	@CanExecute

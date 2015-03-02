@@ -22,14 +22,11 @@ import java.util.Set;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.di.Persist;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.commands.MCommand;
-import org.eclipse.e4.ui.model.application.commands.MCommandsFactory;
-import org.eclipse.e4.ui.model.application.commands.MParameter;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.menu.MHandledToolItem;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenuFactory;
@@ -37,7 +34,6 @@ import org.eclipse.e4.ui.model.application.ui.menu.MToolBar;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolBarElement;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
-import org.eclipse.emf.ecore.EObject;
 import org.lunifera.dsl.dto.lib.services.IDTOService;
 import org.lunifera.ecview.core.common.beans.ISlot;
 import org.lunifera.ecview.core.common.context.ContextException;
@@ -60,6 +56,7 @@ import org.lunifera.vaaclipse.addons.common.api.IE4Constants;
 import org.lunifera.vaaclipse.addons.common.api.di.Callback;
 import org.lunifera.vaaclipse.addons.common.api.di.Delete;
 import org.lunifera.vaaclipse.addons.common.api.di.Load;
+import org.lunifera.vaaclipse.addons.common.api.di.Validate;
 import org.lunifera.vaaclipse.addons.common.event.EventTopicNormalizer;
 import org.lunifera.vaaclipse.addons.ecview.IECViewConstants;
 import org.lunifera.vaaclipse.addons.ecview.event.E4EventBrokerAdapter;
@@ -196,12 +193,7 @@ public class GenericECViewView {
 	}
 
 	@Persist
-	public void save(
-			final @Named(IE4Constants.PARAM_ACTION_ID) String actionId,
-			IEclipseContext context) {
-		final YExposedAction yAction = (YExposedAction) viewContext
-				.findModelElement(actionId);
-
+	public void save(final YExposedAction yAction) {
 		final Object mainDto = viewContext.getBean(IViewContext.MAIN_BEAN_SLOT);
 		boolean processedProperly = false;
 		try {
@@ -219,19 +211,22 @@ public class GenericECViewView {
 			}
 		} finally {
 			if (processedProperly) {
-				ActionExecutedAdapter.notify(yAction);
+				notifyExecuted(yAction);
 			} else {
-				ActionCanceledAdapter.notify(yAction);
+				notifyCanceled(yAction);
 			}
 		}
 	}
 
+	@Validate
+	public void validate(final YExposedAction yAction) {
+		if (yAction != null) {
+			notifyExternalClicked(yAction);
+		}
+	}
+
 	@Delete
-	public void delete(
-			final @Named(IE4Constants.PARAM_ACTION_ID) String actionId,
-			IEclipseContext context) {
-		final YExposedAction yAction = (YExposedAction) viewContext
-				.findModelElement(actionId);
+	public void delete(final YExposedAction yAction) {
 		final Object mainDto = viewContext.getBean(IViewContext.MAIN_BEAN_SLOT);
 		if (mainDto != null) {
 			AcceptDeleteDialog.showDialog(i18nService, resourceProvider,
@@ -249,11 +244,9 @@ public class GenericECViewView {
 										processed = true;
 									} finally {
 										if (processed) {
-											ActionExecutedAdapter
-													.notify(yAction);
+											notifyExecuted(yAction);
 										} else {
-											ActionCanceledAdapter
-													.notify(yAction);
+											notifyCanceled(yAction);
 										}
 									}
 									return null;
@@ -262,16 +255,39 @@ public class GenericECViewView {
 						}
 					}, new ActionCanceledAdapter(yAction));
 		} else {
-			ActionCanceledAdapter.notify(yAction);
+			notifyCanceled(yAction);
 		}
 	}
 
+	/**
+	 * Notifies the action about cancel.
+	 * 
+	 * @param yAction
+	 */
+	protected void notifyCanceled(final YExposedAction yAction) {
+		ActionCanceledAdapter.notify(yAction);
+	}
+
+	/**
+	 * Notifies the action about executed.
+	 * 
+	 * @param yAction
+	 */
+	protected void notifyExecuted(final YExposedAction yAction) {
+		ActionExecutedAdapter.notify(yAction);
+	}
+
+	/**
+	 * Notifies the action about external clicked.
+	 * 
+	 * @param yAction
+	 */
+	protected void notifyExternalClicked(final YExposedAction yAction) {
+		ActionExternalClickedAdapter.notify(yAction);
+	}
+
 	@Load
-	public void reload(
-			final @Named(IE4Constants.PARAM_ACTION_ID) String actionId,
-			IEclipseContext context) {
-		final YExposedAction yAction = (YExposedAction) viewContext
-				.findModelElement(actionId);
+	public void reload(final YExposedAction yAction) {
 		final Object mainDto = viewContext.getBean(IViewContext.MAIN_BEAN_SLOT);
 		if (mainDto != null) {
 			boolean isDirty = false;
@@ -294,9 +310,9 @@ public class GenericECViewView {
 							processed = true;
 						} finally {
 							if (processed) {
-								ActionExecutedAdapter.notify(yAction);
+								notifyExecuted(yAction);
 							} else {
-								ActionCanceledAdapter.notify(yAction);
+								notifyCanceled(yAction);
 							}
 						}
 						return null;
@@ -318,11 +334,9 @@ public class GenericECViewView {
 											processed = true;
 										} finally {
 											if (processed) {
-												ActionExecutedAdapter
-														.notify(yAction);
+												notifyExecuted(yAction);
 											} else {
-												ActionCanceledAdapter
-														.notify(yAction);
+												notifyCanceled(yAction);
 											}
 										}
 										return null;
@@ -332,7 +346,7 @@ public class GenericECViewView {
 						}, new ActionCanceledAdapter(yAction));
 			}
 		} else {
-			ActionCanceledAdapter.notify(yAction);
+			notifyCanceled(yAction);
 		}
 	}
 
@@ -343,16 +357,11 @@ public class GenericECViewView {
 	 * @param actionId
 	 */
 	@Callback
-	public void commandExecuted(
-			@Named(IE4Constants.PARAM_ACTION_ID) String actionId,
-			IEclipseContext context) {
-		// find the action and forward it to the view
-		EObject action = (EObject) viewContext.findModelElement(actionId);
-		if (action instanceof YExposedAction) {
-
+	public void commandExecuted(YExposedAction yAction) {
+		if (yAction != null) {
 			// we are going to forward the execution of the action to the ecView
 			// exposed action
-			final YExposedAction yAction = (YExposedAction) action;
+			// final YExposedAction yAction = (YExposedAction) action;
 			yAction.setExternalClickTime(new Date().getTime());
 
 			// check if dto is dirty
@@ -377,7 +386,7 @@ public class GenericECViewView {
 						resourceProvider, new ActionExecutedAdapter(yAction),
 						new ActionCanceledAdapter(yAction));
 			} else {
-				ActionExecutedAdapter.notify(yAction);
+				notifyExecuted(yAction);
 			}
 		}
 	}
@@ -401,9 +410,12 @@ public class GenericECViewView {
 				toolItem = createToolItem(yAction, IE4Constants.COMMAND_DELETE);
 			} else if (yAction.getId().equals(IECViewConstants.ACTION__LOAD)) {
 				toolItem = createToolItem(yAction, IE4Constants.COMMAND_LOAD);
-			} else {
+			} else if (yAction.getExternalCommandId() == null) {
 				toolItem = createToolItem(yAction,
 						IE4Constants.COMMAND_PART_CALLBACK);
+			} else if (yAction.getExternalCommandId() != null) {
+				toolItem = createToolItem(yAction,
+						yAction.getExternalCommandId());
 			}
 
 			if (toolItem != null) {
@@ -422,15 +434,15 @@ public class GenericECViewView {
 	 */
 	private MHandledToolItem createToolItem(YExposedAction yAction,
 			String commandId) {
-		MCommand mSaveCommand = findCommand(mPart, commandId);
-		if (mSaveCommand == null) {
+		MCommand command = findCommand(mPart, commandId);
+		if (command == null) {
 			LOGGER.error("No action created for " + yAction.getId()
 					+ " since command missing: " + commandId);
 			return null;
 		}
 		MHandledToolItem toolItem = MMenuFactory.INSTANCE
 				.createHandledToolItem();
-		toolItem.setCommand(mSaveCommand);
+		toolItem.setCommand(command);
 		toolItem.setTooltip(i18nService.getValue(yAction.getLabelI18nKey(),
 				Locale.getDefault()));
 		toolItem.setIconURI(i18nService.getValue(yAction.getIcon(),
@@ -438,13 +450,9 @@ public class GenericECViewView {
 		toolItem.setVisible(true);
 		toolItem.setEnabled(yAction.isInitialEnabled());
 		toolItem.setToBeRendered(true);
-		toolItem.getTransientData().put(IE4Constants.PARAM_ACTION_ID,
-				yAction.getId());
-		// create the parameter that passes the original action id
-		MParameter mParam = MCommandsFactory.INSTANCE.createParameter();
-		mParam.setName(commandId + "." + IE4Constants.PARAM_ACTION_ID);
-		mParam.setValue(yAction.getId());
-		toolItem.getParameters().add(mParam);
+		toolItem.getTransientData().put(IE4Constants.PARAM_ACTION, yAction);
+		toolItem.getTransientData().put(IE4Constants.PARAM_ACTION_TYPE_KEY,
+				YExposedAction.class);
 
 		return toolItem;
 	}
@@ -458,12 +466,12 @@ public class GenericECViewView {
 	 */
 	private MCommand findCommand(MPart mPart, String id) {
 		EModelService modelService = eclipseContext.get(EModelService.class);
-		List<MCommand> mSaveCommands = modelService.findElements(
+		List<MCommand> commands = modelService.findElements(
 				eclipseContext.get(MApplication.class), id, MCommand.class,
 				Collections.<String> emptyList());
 		MCommand command = null;
-		if (mSaveCommands.size() > 0) {
-			command = mSaveCommands.get(0);
+		if (commands.size() > 0) {
+			command = commands.get(0);
 		}
 		return command;
 	}
@@ -569,7 +577,6 @@ public class GenericECViewView {
 		public void notifyChanged(org.eclipse.emf.common.notify.Notification msg) {
 			if (msg.getEventType() == org.eclipse.emf.common.notify.Notification.SET) {
 				if (msg.getFeature() == CoreModelPackage.Literals.YENABLE__ENABLED) {
-
 					YExposedAction yAction = (YExposedAction) msg.getNotifier();
 					for (MToolBarElement item : mPart.getToolbar()
 							.getChildren()) {
@@ -577,9 +584,11 @@ public class GenericECViewView {
 							continue;
 						}
 						MHandledToolItem handledItem = (MHandledToolItem) item;
-						String id = (String) item.getTransientData().get(
-								IE4Constants.PARAM_ACTION_ID);
-						if (id != null && id.equals(yAction.getId())) {
+						YExposedAction yOther = (YExposedAction) item
+								.getTransientData().get(
+										IE4Constants.PARAM_ACTION);
+						if (yOther != null
+								&& yOther.getId().equals(yAction.getId())) {
 							boolean newEnabled = msg.getNewBooleanValue();
 							handledItem.setEnabled(newEnabled);
 							break;
@@ -592,9 +601,11 @@ public class GenericECViewView {
 						if (!(item instanceof MHandledToolItem)) {
 							continue;
 						}
-						String id = (String) item.getTransientData().get(
-								IE4Constants.PARAM_ACTION_ID);
-						if (id != null && id.equals(yAction.getId())) {
+						YExposedAction yOther = (YExposedAction) item
+								.getTransientData().get(
+										IE4Constants.PARAM_ACTION);
+						if (yOther != null
+								&& yOther.getId().equals(yAction.getId())) {
 							MHandledToolItem handledItem = (MHandledToolItem) item;
 							IPartItemExecutionService service = mPart
 									.getContext().get(
@@ -650,6 +661,28 @@ public class GenericECViewView {
 		}
 
 		public ActionExecutedAdapter(YExposedAction action) {
+			super();
+			this.action = action;
+		}
+
+		@Override
+		public void run() {
+			notify(action);
+		}
+	}
+
+	/**
+	 * Notifies the action about the external click.
+	 */
+	private static class ActionExternalClickedAdapter implements Runnable {
+		private final YExposedAction action;
+
+		public static void notify(YExposedAction action) {
+			action.setExternalClickTime(new Date().getTime());
+		}
+
+		@SuppressWarnings("unused")
+		public ActionExternalClickedAdapter(YExposedAction action) {
 			super();
 			this.action = action;
 		}

@@ -33,6 +33,7 @@ import org.lunifera.vaaclipse.addons.common.api.IE4Constants;
 import org.lunifera.vaaclipse.addons.ecview.impl.Activator;
 import org.osgi.util.tracker.ServiceTracker;
 
+@SuppressWarnings("restriction")
 public class DynamicViewSupport {
 
 	@Inject
@@ -117,7 +118,7 @@ public class DynamicViewSupport {
 			YBeanSlot yBeanSlot = yView
 					.getBeanSlot(IViewContext.MAIN_BEAN_SLOT);
 			if (yBeanSlot != null) {
-				@SuppressWarnings({ "restriction", "unchecked" })
+				@SuppressWarnings({ "unchecked" })
 				IDTOService<Object> dtoService = (IDTOService<Object>) DtoServiceAccess
 						.getService(yBeanSlot.getValueType());
 				partContext.set(IDTOService.class, dtoService);

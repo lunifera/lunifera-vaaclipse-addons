@@ -17,7 +17,6 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.lunifera.vaaclipse.addons.common.api.explorer.AbstractExplorerInfo;
 import org.lunifera.vaaclipse.addons.common.api.explorer.IExplorerLeaf;
 
-@SuppressWarnings("restriction")
 public class ExplorerApplicationLeaf extends AbstractExplorerInfo implements
 		IExplorerLeaf {
 

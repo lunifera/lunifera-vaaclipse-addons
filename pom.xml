@@ -19,7 +19,7 @@
 	<modules>
 		<module>org.lunifera.vaaclipse.addons.common</module>
 		<module>org.lunifera.vaaclipse.addons.application</module>
-		<module>org.lunifera.vaaclipse.addons.application.api</module>
+		<module>org.lunifera.vaaclipse.addons.common.api</module>
 		<module>org.lunifera.vaaclipse.addons.ecview</module>
 		<module>org.lunifera.vaaclipse.addons.feature</module>
 		<module>org.lunifera.vaaclipse.addons.p2</module>

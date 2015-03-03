@@ -65,7 +65,7 @@
 				</property>
 			</activation>
 			<modules>
-				<module>org.lunifera.idesdk.p2</module>
+				<module>org.lunifera.vaaclipse.addons.p2</module>
 			</modules>
 		</profile>
 	</profiles>

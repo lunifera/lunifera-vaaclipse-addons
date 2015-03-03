@@ -23,11 +23,10 @@
 		<module>org.lunifera.vaaclipse.addons.ecview</module>
 		<module>org.lunifera.vaaclipse.addons.feature</module>
 		<module>org.lunifera.vaaclipse.addons.p2</module>
-		
+
 	</modules>
 
 	<properties>
-		<next-release>0.7.6</next-release>
 		<tycho-version>0.21.0</tycho-version>
 		<tychoExtrasVersion>0.21.0</tychoExtrasVersion>
 
@@ -59,263 +58,82 @@
 
 	<profiles>
 		<profile>
-			<id>prepare-for-next-release</id>
+			<id>build.p2</id>
 			<activation>
-				<activeByDefault>false</activeByDefault>
+				<property>
+					<name>lunifera.build.p2</name>
+				</property>
 			</activation>
-			<build>
-				<defaultGoal>org.eclipse.tycho:tycho-versions-plugin:set-version</defaultGoal>
-				<plugins>
-					<plugin>
-						<groupId>org.eclipse.tycho</groupId>
-						<artifactId>tycho-versions-plugin</artifactId>
-						<version>${tycho-version}</version>
-						<executions>
-							<execution>
-								<id>change-next-release</id>
-								<goals>
-									<goal>set-version</goal>
-								</goals>
-							</execution>
-						</executions>
-						<configuration>
-							<newVersion>${next-release}</newVersion>
-							<artifacts>org.lunifera.ecview.core
-							</artifacts>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-
-		<profile>
-			<id>testAll</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-			</activation>
-			<build>
-				<defaultGoal>verify</defaultGoal>
-				<plugins>
-					<plugin>
-						<groupId>org.eclipse.tycho</groupId>
-						<artifactId>target-platform-configuration</artifactId>
-						<version>${tycho-version}</version>
-						<configuration>
-							<dependency-resolution>
-								<optionalDependencies>ignore</optionalDependencies>
-							</dependency-resolution>
-							<!-- <resolver>p2</resolver> -->
-							<!-- <pomDependencies>consider</pomDependencies> -->
-							<ignoreTychoRepositories>true</ignoreTychoRepositories>
-							<target>
-								<artifact>
-									<groupId>org.lunifera.ecview.core</groupId>
-									<artifactId>org.lunifera.ecview.core.target.kepler</artifactId>
-									<version>${project.version}</version>
-								</artifact>
-							</target>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
 			<modules>
-
-			</modules>
-		</profile>
-
-		<profile>
-			<id>p2-luna-core</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-			</activation>
-			<build>
-				<defaultGoal>verify</defaultGoal>
-				<plugins>
-					<plugin>
-						<groupId>org.eclipse.tycho</groupId>
-						<artifactId>target-platform-configuration</artifactId>
-						<version>${tycho-version}</version>
-						<configuration>
-							<dependency-resolution>
-								<optionalDependencies>ignore</optionalDependencies>
-							</dependency-resolution>
-							<!-- <resolver>p2</resolver> -->
-							<!-- <pomDependencies>consider</pomDependencies> -->
-							<ignoreTychoRepositories>true</ignoreTychoRepositories>
-							<target>
-								<artifact>
-									<groupId>org.lunifera.ecview.core</groupId>
-									<artifactId>org.lunifera.ecview.core.target.kepler</artifactId>
-									<version>${project.version}</version>
-								</artifact>
-							</target>
-						</configuration>
-					</plugin>
-					<plugin>
-						<artifactId>maven-clean-plugin</artifactId>
-						<configuration>
-							<filesets>
-								<fileset>
-									<directory>xtend-gen</directory>
-									<includes>
-										<include>**</include>
-									</includes>
-								</fileset>
-							</filesets>
-						</configuration>
-					</plugin>
-					<plugin>
-						<groupId>org.eclipse.xtend</groupId>
-						<artifactId>xtend-maven-plugin</artifactId>
-						<executions>
-							<execution>
-								<goals>
-									<goal>compile</goal>
-									<goal>testCompile</goal>
-								</goals>
-								<configuration>
-									<outputDirectory>xtend-gen</outputDirectory>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-			<modules>
-				<module>org.lunifera.vaaclipse.addons.common</module>
-				<module>org.lunifera.vaaclipse.addons.application</module>
-				<module>org.lunifera.vaaclipse.addons.application.api</module>
-				<module>org.lunifera.vaaclipse.addons.ecview</module>
-				<module>org.lunifera.vaaclipse.addons.feature</module>
-				<module>org.lunifera.vaaclipse.addons.p2</module>
+				<module>org.lunifera.idesdk.p2</module>
 			</modules>
 		</profile>
 	</profiles>
-
-	<pluginRepositories>
-		<pluginRepository>
-			<id>tycho-snapshots</id>
-			<url>https://oss.sonatype.org/content/groups/public/</url>
-		</pluginRepository>
-		<pluginRepository>
-			<!-- used to find XMLTask jar -->
-			<id>atlassian</id>
-			<url>http://repository.atlassian.com/maven2/</url>
-		</pluginRepository>
-	</pluginRepositories>
-
 	<build>
-		<sourceDirectory>src</sourceDirectory>
-
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-resources-plugin</artifactId>
-			</plugin>
-
-			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>tycho-maven-plugin</artifactId>
-			</plugin>
-
-			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>tycho-compiler-plugin</artifactId>
-			</plugin>
-
-			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>target-platform-configuration</artifactId>
-			</plugin>
-
-			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>tycho-source-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-			</plugin>
-		</plugins>
-
 		<pluginManagement>
 			<plugins>
-				<!-- enable tycho build -->
 				<plugin>
 					<groupId>org.eclipse.tycho</groupId>
-					<artifactId>tycho-maven-plugin</artifactId>
-					<version>${tycho-version}</version>
-					<extensions>true</extensions>
-				</plugin>
-				<plugin>
-					<groupId>org.eclipse.tycho</groupId>
-					<artifactId>tycho-compiler-plugin</artifactId>
+					<artifactId>target-platform-configuration</artifactId>
 					<version>${tycho-version}</version>
 					<configuration>
-						<compilerVersion>1.7</compilerVersion>
-						<encoding>UTF-8</encoding>
-						<source>1.7</source>
-						<target>1.7</target>
+						<resolver>p2</resolver>
+						<pomDependencies>consider</pomDependencies>
+						<environments>
+							<environment>
+								<os>win32</os>
+								<ws>win32</ws>
+								<arch>x86_64</arch>
+							</environment>
+							<environment>
+								<os>linux</os>
+								<ws>gtk</ws>
+								<arch>x86</arch>
+							</environment>
+							<environment>
+								<os>linux</os>
+								<ws>gtk</ws>
+								<arch>x86_64</arch>
+							</environment>
+							<environment>
+								<os>macosx</os>
+								<ws>cocoa</ws>
+								<arch>x86_64</arch>
+							</environment>
+						</environments>
 					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-resources-plugin</artifactId>
-					<version>2.5</version>
-					<configuration>
-						<encoding>UTF-8</encoding>
-					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-dependency-plugin</artifactId>
-					<version>2.7</version>
-					<configuration>
-						<encoding>UTF-8</encoding>
-					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.eclipse.tycho</groupId>
-					<artifactId>tycho-source-plugin</artifactId>
-					<version>${tycho-version}</version>
-					<executions>
-						<execution>
-							<id>plugin-source</id>
-							<goals>
-								<goal>plugin-source</goal>
-							</goals>
-						</execution>
-					</executions>
-				</plugin>
-				<plugin>
-					<groupId>org.eclipse.tycho</groupId>
-					<artifactId>tycho-surefire-plugin</artifactId>
-					<version>${tycho-version}</version>
-					<configuration>
-						<includes>
-							<include>**/*Tests.java</include>
-						</includes>
-						<showEclipseLog>true</showEclipseLog>
-						<useUIHarness>false</useUIHarness>
-						<useUIThread>false</useUIThread>
-						<failIfNoTests>false</failIfNoTests>
-						<!-- <appArgLine>-Dfile.encoding=UTF-8</appArgLine> -->
-						<argLine>-Dfile.encoding=UTF-8</argLine>
-						<!-- Kill test JVM if tests take more than 10 minutes (600 seconds) 
-							to finish -->
-						<forkedProcessTimeoutInSeconds>600</forkedProcessTimeoutInSeconds>
-					</configuration>
-				</plugin>
-				<plugin>
-					<artifactId>maven-clean-plugin</artifactId>
-					<version>2.5</version>
-				</plugin>
-				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>build-helper-maven-plugin</artifactId>
-					<version>1.7</version>
 				</plugin>
 			</plugins>
 		</pluginManagement>
+		<plugins>
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<configuration>
+					<filesets>
+						<fileset>
+							<directory>xtend-gen</directory>
+							<includes>
+								<include>**</include>
+							</includes>
+						</fileset>
+					</filesets>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.xtend</groupId>
+				<artifactId>xtend-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compile</goal>
+							<goal>testCompile</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>xtend-gen</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
 	</build>
 </project>

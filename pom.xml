@@ -10,7 +10,7 @@
 
 	<groupId>org.lunifera.vaaclipse.addons</groupId>
 	<artifactId>org.lunifera.vaaclipse.addons</artifactId>
-	<version>0.8.1-SNAPSHOT</version>
+	<version>0.9.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>Lunifera :: Vaaclipse Addons :: Aggregator</name>

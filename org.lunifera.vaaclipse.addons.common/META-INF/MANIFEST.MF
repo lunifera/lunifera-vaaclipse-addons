@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Common API
 Bundle-SymbolicName: org.lunifera.vaaclipse.addons.common
-Bundle-Version: 0.8.1.qualifier
+Bundle-Version: 0.9.1.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: javax.inject,
  org.eclipse.osgi.util;version="1.1.0",
@@ -18,8 +18,8 @@ Export-Package: org.lunifera.vaaclipse.addons.common.event,
  org.lunifera.vaaclipse.addons.common.status;x-internal:=true;uses:="org.lunifera.vaaclipse.addons.common.api.status"
 Require-Bundle: com.vaadin.server,
  org.eclipse.e4.core.contexts,
- org.lunifera.vaaclipse.addons.common.api;bundle-version="0.8.1",
- org.lunifera.runtime.common;bundle-version="0.8.1",
+ org.lunifera.vaaclipse.addons.common.api;bundle-version="[0.9.0,0.10.0)",
+ org.lunifera.runtime.common;bundle-version="[0.9.0,0.10.0)",
  org.eclipse.e4.core.di;bundle-version="1.4.0",
  org.eclipse.e4.core.services,
  org.eclipse.e4.ui.di,

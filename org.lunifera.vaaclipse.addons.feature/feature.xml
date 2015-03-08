@@ -2,7 +2,7 @@
 <feature
       id="org.lunifera.vaaclipse.addons.feature"
       label="%featureName"
-      version="0.8.1.qualifier"
+      version="0.9.1.qualifier"
       provider-name="%providerName">
 
    <description>
@@ -16,5 +16,33 @@
    <license url="%licenseURL">
       %license
    </license>
+
+   <plugin
+         id="org.lunifera.vaaclipse.addons.application"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.lunifera.vaaclipse.addons.common"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.lunifera.vaaclipse.addons.common.api"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.lunifera.vaaclipse.addons.ecview"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
 
 </feature>

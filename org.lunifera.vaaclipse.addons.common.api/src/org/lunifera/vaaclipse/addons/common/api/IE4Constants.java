@@ -35,9 +35,9 @@ public interface IE4Constants {
 	// + PARAM_ACTION_ID;
 
 	/**
-	 * The id of the part callback command.
+	 * The id of the default part callback command.
 	 */
-	public static final String COMMAND_PART_CALLBACK = "org.lunifera.vaaclipse.addons.application.command.partcallback";
+	public static final String COMMAND_DEFAULT_PART_CALLBACK = "org.lunifera.vaaclipse.addons.application.command.default";
 	// /**
 	// * Contains the original action id from ECView or XWT or...
 	// */

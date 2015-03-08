@@ -58,7 +58,6 @@ import org.lunifera.vaaclipse.addons.common.api.di.Delete;
 import org.lunifera.vaaclipse.addons.common.api.di.Load;
 import org.lunifera.vaaclipse.addons.common.api.di.Validate;
 import org.lunifera.vaaclipse.addons.common.event.EventTopicNormalizer;
-import org.lunifera.vaaclipse.addons.ecview.IECViewConstants;
 import org.lunifera.vaaclipse.addons.ecview.event.E4EventBrokerAdapter;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
@@ -404,15 +403,18 @@ public class GenericECViewView {
 			yAction.eAdapters().add(exposedActionsCallback);
 
 			MHandledToolItem toolItem = null;
-			if (yAction.getId().equals(IECViewConstants.ACTION__SAVE)) {
-				toolItem = createToolItem(yAction, IE4Constants.COMMAND_SAVE);
-			} else if (yAction.getId().equals(IECViewConstants.ACTION__DELETE)) {
-				toolItem = createToolItem(yAction, IE4Constants.COMMAND_DELETE);
-			} else if (yAction.getId().equals(IECViewConstants.ACTION__LOAD)) {
-				toolItem = createToolItem(yAction, IE4Constants.COMMAND_LOAD);
-			} else if (yAction.getExternalCommandId() == null) {
+			// if (yAction.getId().equals(IECViewConstants.ACTION__SAVE)) {
+			// toolItem = createToolItem(yAction, IE4Constants.COMMAND_SAVE);
+			// } else if
+			// (yAction.getId().equals(IECViewConstants.ACTION__DELETE)) {
+			// toolItem = createToolItem(yAction, IE4Constants.COMMAND_DELETE);
+			// } else if (yAction.getId().equals(IECViewConstants.ACTION__LOAD))
+			// {
+			// toolItem = createToolItem(yAction, IE4Constants.COMMAND_LOAD);
+			// } else
+			if (yAction.getExternalCommandId() == null) {
 				toolItem = createToolItem(yAction,
-						IE4Constants.COMMAND_PART_CALLBACK);
+						IE4Constants.COMMAND_DEFAULT_PART_CALLBACK);
 			} else if (yAction.getExternalCommandId() != null) {
 				toolItem = createToolItem(yAction,
 						yAction.getExternalCommandId());

@@ -8,6 +8,7 @@
         <children xsi:type="basic:PartSashContainer" xmi:id="_8RKzYKucEeS21pCaYI4ioQ" elementId="org.lunifera.vaaclipse.addons.application.partsashcontainer.0" horizontal="true">
           <children xsi:type="basic:PartStack" xmi:id="_9peDEKucEeS21pCaYI4ioQ" elementId="org.lunifera.vaaclipse.addons.application.partstack.leftside" containerData="25">
             <children xsi:type="advanced:Placeholder" xmi:id="_Fy8EkKudEeS21pCaYI4ioQ" elementId="org.lunifera.vaaclipse.addons.application.placeholder.explorer" containerData="" ref="_WjXU0KudEeS21pCaYI4ioQ"/>
+            <children xsi:type="advanced:Placeholder" xmi:id="_qeBKsMTeEeScC54J_BF33Q" elementId="org.lunifera.vaaclipse.addons.application.placeholder.datasources" containerData="" ref="_elwjQMTeEeScC54J_BF33Q"/>
           </children>
           <children xsi:type="basic:PartSashContainer" xmi:id="_-eb8MKucEeS21pCaYI4ioQ" elementId="org.lunifera.vaaclipse.addons.application.partsashcontainer.1" containerData="75">
             <children xsi:type="basic:PartSashContainer" xmi:id="_DdVfIKudEeS21pCaYI4ioQ" elementId="org.lunifera.vaaclipse.addons.application.partsashcontainer.2" containerData="70" horizontal="true">
@@ -30,6 +31,9 @@
     <sharedElements xsi:type="basic:Part" xmi:id="_WjXU0KudEeS21pCaYI4ioQ" elementId="org.lunifera.vaaclipse.addons.application.part.explorer" accessibilityPhrase="" contributionURI="bundleclass://org.lunifera.vaaclipse.addons.application/org.lunifera.vaaclipse.addons.application.views.ExplorerView" label="Explorer" iconURI="platform:/plugin/org.lunifera.vaaclipse.addons.application/images/xmi.png" tooltip="Main entry point for the application" closeable="true">
       <toolbar xmi:id="_epypYKudEeS21pCaYI4ioQ" elementId="org.lunifera.vaaclipse.addons.application.toolbar.0"/>
     </sharedElements>
+    <sharedElements xsi:type="basic:Part" xmi:id="_elwjQMTeEeScC54J_BF33Q" elementId="org.lunifera.vaaclipse.addons.application.part.datasource" accessibilityPhrase="" contributionURI="bundleclass://org.lunifera.vaaclipse.addons.application/org.lunifera.vaaclipse.addons.application.views.DatasourceView" label="Datasources" iconURI="platform:/plugin/org.lunifera.vaaclipse.addons.application/images/datasource.png" tooltip="Configure datasources" closeable="true">
+      <toolbar xmi:id="_elwjQcTeEeScC54J_BF33Q" elementId="org.lunifera.vaaclipse.addons.application.toolbar.0"/>
+    </sharedElements>
     <trimBars xmi:id="_PCGfyKoREeSuAOXH-urFdQ" elementId="org.lunifera.vaaclipse.addons.application.toptrimbar">
       <children xsi:type="menu:ToolBar" xmi:id="_PCGfyaoREeSuAOXH-urFdQ" elementId="org.lunifera.vaaclipse.addons.application.toolbar.main"/>
     </trimBars>
@@ -41,6 +45,7 @@
   <handlers xmi:id="_AFaJgLXvEeSlMNkaQV5RDA" elementId="org.lunifera.vaaclipse.addons.application.handler.load" contributionURI="bundleclass://org.lunifera.vaaclipse.addons.application/org.lunifera.vaaclipse.addons.application.handler.LoadHandler" command="_wQPnoLXuEeSlMNkaQV5RDA"/>
   <handlers xmi:id="_1c4ygMDtEeSmRJXSDVN_4Q" elementId="org.lunifera.vaaclipse.addons.application.handler.openBrowser" contributionURI="bundleclass://org.lunifera.vaaclipse.addons.application/org.lunifera.vaaclipse.addons.application.handler.OpenBrowserHandler" command="_xkyfkMDtEeSmRJXSDVN_4Q"/>
   <handlers xmi:id="_FXjXEMD8EeSQwIz-O_iJHw" elementId="org.lunifera.vaaclipse.addons.application.handler.validate" contributionURI="bundleclass://org.lunifera.vaaclipse.addons.application/org.lunifera.vaaclipse.addons.application.handler.ValidateHandler" command="_ConroMD8EeSQwIz-O_iJHw"/>
+  <handlers xmi:id="_BLpHQMThEeScC54J_BF33Q" elementId="org.lunifera.vaaclipse.addons.application.handler.createdatasource" contributionURI="bundleclass://org.lunifera.vaaclipse.addons.application/org.lunifera.vaaclipse.addons.application.handler.CreateDatasourceHandler" command="_GEPN4MThEeScC54J_BF33Q"/>
   <bindingTables xmi:id="_8Qv5kKoQEeSuAOXH-urFdQ" elementId="org.lunifera.vaaclipse.addons.bindingtable1">
     <bindings xmi:id="_8Qv5kaoQEeSuAOXH-urFdQ" elementId="_SeXUHu8EEd6FC9cDb6iV7g" keySequence="CTRL+S">
       <command href="CassandraApplication.e4xmi#contacts.save"/>
@@ -54,11 +59,12 @@
   </rootContext>
   <descriptors xmi:id="_XBGroKubEeS21pCaYI4ioQ" elementId="org.lunifera.vaaclipse.addons.application.partdescriptor.explorer" label="Explorer" iconURI="platform:/plugin/org.lunifera.vaaclipse.addons.application/images/package_explorer.png" tooltip="Main entry point for the application" closeable="true" contributionURI="bundleclass://org.lunifera.vaaclipse.addons.application/org.lunifera.vaaclipse.addons.application.views.ExplorerView"/>
   <commands xmi:id="_NPgK4LWwEeSHovHvSw-FSQ" elementId="org.lunifera.vaaclipse.addons.application.command.save" commandName="Save" description="Save"/>
-  <commands xmi:id="_Eupb8LXjEeSHovHvSw-FSQ" elementId="org.lunifera.vaaclipse.addons.application.command.defaultback" commandName="Part Action Callback" description="A callback to the active part if command was executed. Used for actions without any command specifications."/>
+  <commands xmi:id="_Eupb8LXjEeSHovHvSw-FSQ" elementId="org.lunifera.vaaclipse.addons.application.command.default" commandName="Part Action Callback" description="A callback to the active part if command was executed. Used for actions without any command specifications."/>
   <commands xmi:id="_VnMscLXuEeSlMNkaQV5RDA" elementId="org.lunifera.vaaclipse.addons.application.command.delete" commandName="Delete" description="Delete"/>
   <commands xmi:id="_wQPnoLXuEeSlMNkaQV5RDA" elementId="org.lunifera.vaaclipse.addons.application.command.load" commandName="Load" description="Load"/>
   <commands xmi:id="_xkyfkMDtEeSmRJXSDVN_4Q" elementId="org.lunifera.vaaclipse.addons.application.command.openBrowser" commandName="Open Browser" description="Open Browser"/>
   <commands xmi:id="_ConroMD8EeSQwIz-O_iJHw" elementId="org.lunifera.vaaclipse.addons.application.command.validate" commandName="Validate" description="Validate"/>
+  <commands xmi:id="_GEPN4MThEeScC54J_BF33Q" elementId="org.lunifera.vaaclipse.addons.application.command.createdatasource" commandName="Create Datasource" description="Create a new Datasource"/>
   <addons xmi:id="_c1YngaljEeS1DvGiQJCYNA" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
   <addons xmi:id="_c1YngqljEeS1DvGiQJCYNA" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
   <addons xmi:id="_c1YnhKljEeS1DvGiQJCYNA" elementId="org.eclipse.e4.ui.workbench.commands.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.CommandProcessingAddon"/>

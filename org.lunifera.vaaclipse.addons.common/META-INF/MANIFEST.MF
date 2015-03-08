@@ -14,6 +14,7 @@ Service-Component: OSGI-INF/*.xml
 Bundle-ActivationPolicy: lazy
 Export-Package: org.lunifera.vaaclipse.addons.common.event,
  org.lunifera.vaaclipse.addons.common.event.impl;x-internal:=true,
+ org.lunifera.vaaclipse.addons.common.resource;x-internal:=true,
  org.lunifera.vaaclipse.addons.common.state;x-internal:=true,
  org.lunifera.vaaclipse.addons.common.status;x-internal:=true;uses:="org.lunifera.vaaclipse.addons.common.api.status"
 Require-Bundle: com.vaadin.server,

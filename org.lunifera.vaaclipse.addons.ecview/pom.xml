@@ -9,7 +9,7 @@
 	</parent>
 	<artifactId>org.lunifera.vaaclipse.addons.ecview</artifactId>
 	<name>Vaaclipse Addons for ECView UI project</name>
-	<description>Common API</description>
+	<description>Vaaclipse Addons for ECView UI project</description>
 	<packaging>eclipse-plugin</packaging>
 
 </project>

@@ -9,8 +9,8 @@
 	</parent>
 	
 	<artifactId>org.lunifera.vaaclipse.addons.application</artifactId>
-	<name>Common API</name>
-	<description>Common API</description>
+	<name>Application Addons</name>
+	<description>Application Addons</description>
 	<packaging>eclipse-plugin</packaging>
 
 </project>

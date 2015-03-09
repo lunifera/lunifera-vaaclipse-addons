@@ -9,8 +9,8 @@
 	</parent>
 
 	<artifactId>org.lunifera.vaaclipse.addons.extension.system</artifactId>
-	<name>Common API</name>
-	<description>Common API</description>
+	<name>Extension for System perspective</name>
+	<description>Extension for System perspective</description>
 	<packaging>eclipse-plugin</packaging>
 
 </project>

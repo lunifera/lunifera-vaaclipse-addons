@@ -23,7 +23,6 @@
 		<module>org.lunifera.vaaclipse.addons.ecview</module>
 		<module>org.lunifera.vaaclipse.addons.feature</module>
 		<module>org.lunifera.vaaclipse.addons.p2</module>
-
 	</modules>
 
 	<properties>
@@ -70,6 +69,7 @@
 		</profile>
 	</profiles>
 	<build>
+		<sourceDirectory>src</sourceDirectory>
 		<pluginManagement>
 			<plugins>
 				<plugin>
@@ -103,9 +103,112 @@
 						</environments>
 					</configuration>
 				</plugin>
+				<!-- enable tycho build -->
+				<plugin>
+					<groupId>org.eclipse.tycho</groupId>
+					<artifactId>tycho-maven-plugin</artifactId>
+					<version>${tycho-version}</version>
+					<extensions>true</extensions>
+				</plugin>
+				<plugin>
+					<groupId>org.eclipse.tycho</groupId>
+					<artifactId>tycho-compiler-plugin</artifactId>
+					<version>${tycho-version}</version>
+					<configuration>
+						<compilerVersion>1.7</compilerVersion>
+						<encoding>UTF-8</encoding>
+						<source>1.7</source>
+						<target>1.7</target>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>2.5</version>
+					<configuration>
+						<encoding>UTF-8</encoding>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-dependency-plugin</artifactId>
+					<version>2.7</version>
+					<configuration>
+						<encoding>UTF-8</encoding>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.eclipse.tycho</groupId>
+					<artifactId>tycho-source-plugin</artifactId>
+					<version>${tycho-version}</version>
+					<executions>
+						<execution>
+							<id>plugin-source</id>
+							<goals>
+								<goal>plugin-source</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.eclipse.tycho</groupId>
+					<artifactId>tycho-surefire-plugin</artifactId>
+					<version>${tycho-version}</version>
+					<configuration>
+						<includes>
+							<include>**/*Tests.java</include>
+						</includes>
+						<showEclipseLog>true</showEclipseLog>
+						<useUIHarness>false</useUIHarness>
+						<useUIThread>false</useUIThread>
+						<failIfNoTests>false</failIfNoTests>
+						<!-- <appArgLine>-Dfile.encoding=UTF-8</appArgLine> -->
+						<argLine>-Dfile.encoding=UTF-8</argLine>
+						<!-- Kill test JVM if tests take more than 10 minutes (600 seconds) 
+							to finish -->
+						<forkedProcessTimeoutInSeconds>600</forkedProcessTimeoutInSeconds>
+					</configuration>
+				</plugin>
+				<plugin>
+					<artifactId>maven-clean-plugin</artifactId>
+					<version>2.5</version>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>build-helper-maven-plugin</artifactId>
+					<version>1.7</version>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-maven-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-compiler-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>target-platform-configuration</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-source-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+			</plugin>
 			<plugin>
 				<artifactId>maven-clean-plugin</artifactId>
 				<configuration>

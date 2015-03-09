@@ -1,25 +1,16 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <artifactId>org.lunifera.vaaclipse.addons.application</artifactId>
-  <name>Common API</name>
-  <description>Common API</description>
-  <build>
-    <sourceDirectory>src</sourceDirectory>
-    <plugins>
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>2.3.2</version>
-        <configuration>
-          <source>1.6</source>
-          <target>1.6</target>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
-  <parent>
-  	<groupId>org.lunifera.vaaclipse.addons</groupId>
-  	<artifactId>org.lunifera.vaaclipse.addons</artifactId>
-  	<version>0.9.1-SNAPSHOT</version>
-  </parent>
-  <packaging>eclipse-plugin</packaging>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.lunifera.vaaclipse.addons</groupId>
+		<artifactId>org.lunifera.vaaclipse.addons</artifactId>
+		<version>0.9.1-SNAPSHOT</version>
+	</parent>
+	
+	<artifactId>org.lunifera.vaaclipse.addons.application</artifactId>
+	<name>Common API</name>
+	<description>Common API</description>
+	<packaging>eclipse-plugin</packaging>
+
 </project>

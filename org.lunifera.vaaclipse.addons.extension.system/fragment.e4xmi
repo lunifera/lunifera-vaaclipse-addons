@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ASCII"?>
+<fragment:ModelFragments xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:advanced="http://www.eclipse.org/ui/2010/UIModel/application/ui/advanced" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:fragment="http://www.eclipse.org/ui/2010/UIModel/fragment" xmi:id="_MNDvwMWxEeSzw8CCZBgGfQ">
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_XYGE0MWxEeSzw8CCZBgGfQ" featurename="children" parentElementId="org.lunifera.vaaclipse.addons.application.perspectivestack.0">
+    <elements xsi:type="advanced:Perspective" xmi:id="_jU_7sMWxEeSzw8CCZBgGfQ" elementId="org.lunifera.vaaclipse.addons.extension.system.perspective." label="System" iconURI="platform:/plugin/org.lunifera.vaaclipse.addons.extension.system/images/system.png" tooltip="Collection of system features">
+      <children xsi:type="basic:PartSashContainer" xmi:id="_8rtFQMWxEeSzw8CCZBgGfQ" elementId="org.lunifera.vaaclipse.addons.application.partsashcontainer.0" horizontal="true">
+        <children xsi:type="basic:PartStack" xmi:id="_8rtFQcWxEeSzw8CCZBgGfQ" elementId="org.lunifera.vaaclipse.addons.application.partstack.leftside" containerData="25">
+          <children xsi:type="advanced:Placeholder" xmi:id="_8rtFQsWxEeSzw8CCZBgGfQ" elementId="org.lunifera.vaaclipse.addons.application.placeholder.explorer" containerData="">
+            <ref xsi:type="basic:Part" href="../org.lunifera.vaaclipse.addons.application/Application.e4xmi#_WjXU0KudEeS21pCaYI4ioQ"/>
+          </children>
+        </children>
+        <children xsi:type="basic:PartSashContainer" xmi:id="_8rtFRMWxEeSzw8CCZBgGfQ" elementId="org.lunifera.vaaclipse.addons.application.partsashcontainer.1" containerData="75">
+          <children xsi:type="basic:PartSashContainer" xmi:id="_8rtFRcWxEeSzw8CCZBgGfQ" elementId="org.lunifera.vaaclipse.addons.application.partsashcontainer.2" containerData="70" horizontal="true">
+            <children xsi:type="advanced:Placeholder" xmi:id="_8rtFRsWxEeSzw8CCZBgGfQ" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.placeholder.2" containerData="70">
+              <ref xsi:type="advanced:Area" href="../org.lunifera.vaaclipse.addons.application/Application.e4xmi#_PCF44qoREeSuAOXH-urFdQ"/>
+            </children>
+            <children xsi:type="basic:PartStack" xmi:id="_8rtFR8WxEeSzw8CCZBgGfQ" elementId="org.lunifera.vaaclipse.addons.application.partstack.dynamicViews"/>
+          </children>
+        </children>
+      </children>
+    </elements>
+  </fragments>
+</fragment:ModelFragments>

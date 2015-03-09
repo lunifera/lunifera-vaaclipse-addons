@@ -7,8 +7,8 @@
 		<artifactId>org.lunifera.vaaclipse.addons</artifactId>
 		<version>0.9.1-SNAPSHOT</version>
 	</parent>
-	
-	<artifactId>org.lunifera.vaaclipse.addons.common.api</artifactId>
+
+	<artifactId>org.lunifera.vaaclipse.addons.extension.system</artifactId>
 	<name>Common API</name>
 	<description>Common API</description>
 	<packaging>eclipse-plugin</packaging>

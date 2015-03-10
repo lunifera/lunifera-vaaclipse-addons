@@ -31,7 +31,7 @@
     <sharedElements xsi:type="basic:Part" xmi:id="_WjXU0KudEeS21pCaYI4ioQ" elementId="org.lunifera.vaaclipse.addons.application.part.explorer" accessibilityPhrase="" contributionURI="bundleclass://org.lunifera.vaaclipse.addons.application/org.lunifera.vaaclipse.addons.application.views.ExplorerView" label="Explorer" iconURI="platform:/plugin/org.lunifera.vaaclipse.addons.application/images/xmi.png" tooltip="Main entry point for the application" closeable="true">
       <toolbar xmi:id="_epypYKudEeS21pCaYI4ioQ" elementId="org.lunifera.vaaclipse.addons.application.toolbar.0"/>
     </sharedElements>
-    <sharedElements xsi:type="basic:Part" xmi:id="_elwjQMTeEeScC54J_BF33Q" elementId="org.lunifera.vaaclipse.addons.application.part.datasource" accessibilityPhrase="" contributionURI="bundleclass://org.lunifera.vaaclipse.addons.application/org.lunifera.vaaclipse.addons.application.views.DatasourceView" label="Datasources" iconURI="platform:/plugin/org.lunifera.vaaclipse.addons.application/images/datasource.png" tooltip="Configure datasources" closeable="true">
+    <sharedElements xsi:type="basic:Part" xmi:id="_elwjQMTeEeScC54J_BF33Q" elementId="org.lunifera.vaaclipse.addons.application.part.datasource" accessibilityPhrase="" contributionURI="bundleclass://org.lunifera.vaaclipse.addons.ecview/org.lunifera.vaaclipse.addons.ecview.views.DatasourceViewatasources" iconURI="platform:/plugin/org.lunifera.vaaclipse.addons.application/images/datasource.png" tooltip="Configure datasources" closeable="true">
       <toolbar xmi:id="_elwjQcTeEeScC54J_BF33Q" elementId="org.lunifera.vaaclipse.addons.application.toolbar.0"/>
     </sharedElements>
     <trimBars xmi:id="_PCGfyKoREeSuAOXH-urFdQ" elementId="org.lunifera.vaaclipse.addons.application.toptrimbar">

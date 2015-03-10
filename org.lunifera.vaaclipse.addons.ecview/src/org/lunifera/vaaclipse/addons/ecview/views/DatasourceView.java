@@ -8,7 +8,7 @@
  * Contributors: 
  * 		Florian Pirchner - Initial implementation
  */
-package org.lunifera.vaaclipse.addons.application.views;
+package org.lunifera.vaaclipse.addons.ecview.views;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;

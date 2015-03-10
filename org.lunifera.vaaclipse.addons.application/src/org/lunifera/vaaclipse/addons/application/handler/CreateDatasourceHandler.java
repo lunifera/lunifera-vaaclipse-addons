@@ -19,6 +19,7 @@ import org.eclipse.e4.ui.model.application.ui.MContext;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.menu.MItem;
 import org.lunifera.runtime.common.datasource.IDataSourceService;
+import org.lunifera.runtime.common.datasource.config.CommonDatasourceConfig;
 import org.lunifera.vaaclipse.addons.common.api.di.Callback;
 
 /**
@@ -29,7 +30,7 @@ public class CreateDatasourceHandler extends AbstractHandler {
 	@Execute
 	public void execute(@Active MContext context, @Active MPart part,
 			@Active MItem item, IDataSourceService dsService,
-			IDataSourceService.DataSourceConfig config) {
+			CommonDatasourceConfig config) {
 
 		dsService.createDataSource(config);
 

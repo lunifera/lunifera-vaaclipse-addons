@@ -16,21 +16,36 @@
 	<name>Lunifera :: Vaaclipse Addons :: Aggregator</name>
 	<description>Aggregator for Lunifera Vaaclipse Addons</description>
 
+
+	<url>${distribution.site.url}</url>
+	<distributionManagement>
+		<site>
+			<id>gh-pages</id>
+			<name>Lunifera GitHub Pages</name>
+			<url>${distribution.site.url}</url>
+		</site>
+	</distributionManagement>
+
 	<modules>
 		<module>org.lunifera.vaaclipse.addons.common</module>
 		<module>org.lunifera.vaaclipse.addons.application</module>
 		<module>org.lunifera.vaaclipse.addons.common.api</module>
 		<module>org.lunifera.vaaclipse.addons.ecview</module>
 		<module>org.lunifera.vaaclipse.addons.feature</module>
-		<module>org.lunifera.vaaclipse.addons.p2</module>
 	</modules>
 
 	<properties>
 		<tycho-version>0.21.0</tycho-version>
 		<tychoExtrasVersion>0.21.0</tychoExtrasVersion>
+		<xtext.version>2.7.3</xtext.version>
+		
+		<lunifera.deployment.p2.name>vaaclipse.addons</lunifera.deployment.p2.name>
+		<lunifera.build.p2.project.name>org.lunifera.vaaclipse.addons.p2</lunifera.build.p2.project.name>
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+		<lunifera.jacoco.include>org.lunifera.vaaclipse.*</lunifera.jacoco.include>
 	</properties>
 
 	<developers>
@@ -41,19 +56,6 @@
 			<timezone>+2</timezone>
 		</developer>
 	</developers>
-
-	<distributionManagement>
-		<repository>
-			<id>lunifera-nexus-release</id>
-			<name>Nexus Release Repository</name>
-			<url>http://maven.lunifera.org:8086/nexus/content/repositories/releases/</url>
-		</repository>
-		<snapshotRepository>
-			<id>lunifera-nexus-snapshots</id>
-			<name>Sonatype Nexus Snapshots</name>
-			<url>http://maven.lunifera.org:8086/nexus/content/repositories/snapshots/</url>
-		</snapshotRepository>
-	</distributionManagement>
 
 	<profiles>
 		<profile>
@@ -68,147 +70,50 @@
 			</modules>
 		</profile>
 	</profiles>
+
 	<build>
-		<sourceDirectory>src</sourceDirectory>
 		<pluginManagement>
 			<plugins>
 				<plugin>
-					<groupId>org.eclipse.tycho</groupId>
-					<artifactId>target-platform-configuration</artifactId>
-					<version>${tycho-version}</version>
-					<configuration>
-						<resolver>p2</resolver>
-						<pomDependencies>consider</pomDependencies>
-						<environments>
-							<environment>
-								<os>win32</os>
-								<ws>win32</ws>
-								<arch>x86_64</arch>
-							</environment>
-							<environment>
-								<os>linux</os>
-								<ws>gtk</ws>
-								<arch>x86</arch>
-							</environment>
-							<environment>
-								<os>linux</os>
-								<ws>gtk</ws>
-								<arch>x86_64</arch>
-							</environment>
-							<environment>
-								<os>macosx</os>
-								<ws>cocoa</ws>
-								<arch>x86_64</arch>
-							</environment>
-						</environments>
-					</configuration>
-				</plugin>
-				<!-- enable tycho build -->
-				<plugin>
-					<groupId>org.eclipse.tycho</groupId>
-					<artifactId>tycho-maven-plugin</artifactId>
-					<version>${tycho-version}</version>
-					<extensions>true</extensions>
-				</plugin>
-				<plugin>
-					<groupId>org.eclipse.tycho</groupId>
-					<artifactId>tycho-compiler-plugin</artifactId>
-					<version>${tycho-version}</version>
-					<configuration>
-						<compilerVersion>1.7</compilerVersion>
-						<encoding>UTF-8</encoding>
-						<source>1.7</source>
-						<target>1.7</target>
-					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-resources-plugin</artifactId>
-					<version>2.5</version>
-					<configuration>
-						<encoding>UTF-8</encoding>
-					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-dependency-plugin</artifactId>
-					<version>2.7</version>
-					<configuration>
-						<encoding>UTF-8</encoding>
-					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.eclipse.tycho</groupId>
-					<artifactId>tycho-source-plugin</artifactId>
-					<version>${tycho-version}</version>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>build-helper-maven-plugin</artifactId>
 					<executions>
 						<execution>
-							<id>plugin-source</id>
+							<id>add-source</id>
+							<phase>initialize</phase>
 							<goals>
-								<goal>plugin-source</goal>
+								<goal>add-source</goal>
 							</goals>
+							<configuration>
+								<sources>
+									<source>src-gen</source>
+									<source>xtend-gen</source>
+								</sources>
+							</configuration>
 						</execution>
 					</executions>
 				</plugin>
 				<plugin>
-					<groupId>org.eclipse.tycho</groupId>
-					<artifactId>tycho-surefire-plugin</artifactId>
-					<version>${tycho-version}</version>
+					<groupId>org.eclipse.xtend</groupId>
+					<artifactId>xtend-maven-plugin</artifactId>
+					<version>${xtext.version}</version>
+					<executions>
+						<execution>
+							<goals>
+								<goal>compile</goal>
+								<goal>xtend-install-debug-info</goal>
+								<goal>testCompile</goal>
+								<goal>xtend-test-install-debug-info</goal>
+							</goals>
+						</execution>
+					</executions>
 					<configuration>
-						<includes>
-							<include>**/*Tests.java</include>
-						</includes>
-						<showEclipseLog>true</showEclipseLog>
-						<useUIHarness>false</useUIHarness>
-						<useUIThread>false</useUIThread>
-						<failIfNoTests>false</failIfNoTests>
-						<!-- <appArgLine>-Dfile.encoding=UTF-8</appArgLine> -->
-						<argLine>-Dfile.encoding=UTF-8</argLine>
-						<!-- Kill test JVM if tests take more than 10 minutes (600 seconds) 
-							to finish -->
-						<forkedProcessTimeoutInSeconds>600</forkedProcessTimeoutInSeconds>
+						<outputDirectory>xtend-gen</outputDirectory>
 					</configuration>
-				</plugin>
-				<plugin>
-					<artifactId>maven-clean-plugin</artifactId>
-					<version>2.5</version>
-				</plugin>
-				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>build-helper-maven-plugin</artifactId>
-					<version>1.7</version>
 				</plugin>
 			</plugins>
 		</pluginManagement>
 		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-resources-plugin</artifactId>
-			</plugin>
-
-			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>tycho-maven-plugin</artifactId>
-			</plugin>
-
-			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>tycho-compiler-plugin</artifactId>
-			</plugin>
-
-			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>target-platform-configuration</artifactId>
-			</plugin>
-
-			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>tycho-source-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-			</plugin>
 			<plugin>
 				<artifactId>maven-clean-plugin</artifactId>
 				<configuration>
@@ -225,6 +130,7 @@
 			<plugin>
 				<groupId>org.eclipse.xtend</groupId>
 				<artifactId>xtend-maven-plugin</artifactId>
+				<version>${xtext.version}</version>
 				<executions>
 					<execution>
 						<goals>
@@ -239,4 +145,174 @@
 			</plugin>
 		</plugins>
 	</build>
+	<!-- <build> -->
+	<!-- <sourceDirectory>src</sourceDirectory> -->
+	<!-- <pluginManagement> -->
+	<!-- <plugins> -->
+	<!-- <plugin> -->
+	<!-- <groupId>org.eclipse.tycho</groupId> -->
+	<!-- <artifactId>target-platform-configuration</artifactId> -->
+	<!-- <version>${tycho-version}</version> -->
+	<!-- <configuration> -->
+	<!-- <resolver>p2</resolver> -->
+	<!-- <pomDependencies>consider</pomDependencies> -->
+	<!-- <environments> -->
+	<!-- <environment> -->
+	<!-- <os>win32</os> -->
+	<!-- <ws>win32</ws> -->
+	<!-- <arch>x86_64</arch> -->
+	<!-- </environment> -->
+	<!-- <environment> -->
+	<!-- <os>linux</os> -->
+	<!-- <ws>gtk</ws> -->
+	<!-- <arch>x86</arch> -->
+	<!-- </environment> -->
+	<!-- <environment> -->
+	<!-- <os>linux</os> -->
+	<!-- <ws>gtk</ws> -->
+	<!-- <arch>x86_64</arch> -->
+	<!-- </environment> -->
+	<!-- <environment> -->
+	<!-- <os>macosx</os> -->
+	<!-- <ws>cocoa</ws> -->
+	<!-- <arch>x86_64</arch> -->
+	<!-- </environment> -->
+	<!-- </environments> -->
+	<!-- </configuration> -->
+	<!-- </plugin> -->
+	<!-- enable tycho build -->
+	<!-- <plugin> -->
+	<!-- <groupId>org.eclipse.tycho</groupId> -->
+	<!-- <artifactId>tycho-maven-plugin</artifactId> -->
+	<!-- <version>${tycho-version}</version> -->
+	<!-- <extensions>true</extensions> -->
+	<!-- </plugin> -->
+	<!-- <plugin> -->
+	<!-- <groupId>org.eclipse.tycho</groupId> -->
+	<!-- <artifactId>tycho-compiler-plugin</artifactId> -->
+	<!-- <version>${tycho-version}</version> -->
+	<!-- <configuration> -->
+	<!-- <compilerVersion>1.7</compilerVersion> -->
+	<!-- <encoding>UTF-8</encoding> -->
+	<!-- <source>1.7</source> -->
+	<!-- <target>1.7</target> -->
+	<!-- </configuration> -->
+	<!-- </plugin> -->
+	<!-- <plugin> -->
+	<!-- <groupId>org.apache.maven.plugins</groupId> -->
+	<!-- <artifactId>maven-resources-plugin</artifactId> -->
+	<!-- <version>2.5</version> -->
+	<!-- <configuration> -->
+	<!-- <encoding>UTF-8</encoding> -->
+	<!-- </configuration> -->
+	<!-- </plugin> -->
+	<!-- <plugin> -->
+	<!-- <groupId>org.apache.maven.plugins</groupId> -->
+	<!-- <artifactId>maven-dependency-plugin</artifactId> -->
+	<!-- <version>2.7</version> -->
+	<!-- <configuration> -->
+	<!-- <encoding>UTF-8</encoding> -->
+	<!-- </configuration> -->
+	<!-- </plugin> -->
+	<!-- <plugin> -->
+	<!-- <groupId>org.eclipse.tycho</groupId> -->
+	<!-- <artifactId>tycho-source-plugin</artifactId> -->
+	<!-- <version>${tycho-version}</version> -->
+	<!-- <executions> -->
+	<!-- <execution> -->
+	<!-- <id>plugin-source</id> -->
+	<!-- <goals> -->
+	<!-- <goal>plugin-source</goal> -->
+	<!-- </goals> -->
+	<!-- </execution> -->
+	<!-- </executions> -->
+	<!-- </plugin> -->
+	<!-- <plugin> -->
+	<!-- <groupId>org.eclipse.tycho</groupId> -->
+	<!-- <artifactId>tycho-surefire-plugin</artifactId> -->
+	<!-- <version>${tycho-version}</version> -->
+	<!-- <configuration> -->
+	<!-- <includes> -->
+	<!-- <include>**/*Tests.java</include> -->
+	<!-- </includes> -->
+	<!-- <showEclipseLog>true</showEclipseLog> -->
+	<!-- <useUIHarness>false</useUIHarness> -->
+	<!-- <useUIThread>false</useUIThread> -->
+	<!-- <failIfNoTests>false</failIfNoTests> -->
+	<!-- <appArgLine>-Dfile.encoding=UTF-8</appArgLine> -->
+	<!-- <argLine>-Dfile.encoding=UTF-8</argLine> -->
+	<!-- Kill test JVM if tests take more than 10 minutes (600 seconds) to finish -->
+	<!-- <forkedProcessTimeoutInSeconds>600</forkedProcessTimeoutInSeconds> -->
+	<!-- </configuration> -->
+	<!-- </plugin> -->
+	<!-- <plugin> -->
+	<!-- <artifactId>maven-clean-plugin</artifactId> -->
+	<!-- <version>2.5</version> -->
+	<!-- </plugin> -->
+	<!-- <plugin> -->
+	<!-- <groupId>org.codehaus.mojo</groupId> -->
+	<!-- <artifactId>build-helper-maven-plugin</artifactId> -->
+	<!-- <version>1.7</version> -->
+	<!-- </plugin> -->
+	<!-- </plugins> -->
+	<!-- </pluginManagement> -->
+	<!-- <plugins> -->
+	<!-- <plugin> -->
+	<!-- <groupId>org.apache.maven.plugins</groupId> -->
+	<!-- <artifactId>maven-resources-plugin</artifactId> -->
+	<!-- </plugin> -->
+
+	<!-- <plugin> -->
+	<!-- <groupId>org.eclipse.tycho</groupId> -->
+	<!-- <artifactId>tycho-maven-plugin</artifactId> -->
+	<!-- </plugin> -->
+
+	<!-- <plugin> -->
+	<!-- <groupId>org.eclipse.tycho</groupId> -->
+	<!-- <artifactId>tycho-compiler-plugin</artifactId> -->
+	<!-- </plugin> -->
+
+	<!-- <plugin> -->
+	<!-- <groupId>org.eclipse.tycho</groupId> -->
+	<!-- <artifactId>target-platform-configuration</artifactId> -->
+	<!-- </plugin> -->
+
+	<!-- <plugin> -->
+	<!-- <groupId>org.eclipse.tycho</groupId> -->
+	<!-- <artifactId>tycho-source-plugin</artifactId> -->
+	<!-- </plugin> -->
+	<!-- <plugin> -->
+	<!-- <groupId>org.apache.maven.plugins</groupId> -->
+	<!-- <artifactId>maven-dependency-plugin</artifactId> -->
+	<!-- </plugin> -->
+	<!-- <plugin> -->
+	<!-- <artifactId>maven-clean-plugin</artifactId> -->
+	<!-- <configuration> -->
+	<!-- <filesets> -->
+	<!-- <fileset> -->
+	<!-- <directory>xtend-gen</directory> -->
+	<!-- <includes> -->
+	<!-- <include>**</include> -->
+	<!-- </includes> -->
+	<!-- </fileset> -->
+	<!-- </filesets> -->
+	<!-- </configuration> -->
+	<!-- </plugin> -->
+	<!-- <plugin> -->
+	<!-- <groupId>org.eclipse.xtend</groupId> -->
+	<!-- <artifactId>xtend-maven-plugin</artifactId> -->
+	<!-- <executions> -->
+	<!-- <execution> -->
+	<!-- <goals> -->
+	<!-- <goal>compile</goal> -->
+	<!-- <goal>testCompile</goal> -->
+	<!-- </goals> -->
+	<!-- <configuration> -->
+	<!-- <outputDirectory>xtend-gen</outputDirectory> -->
+	<!-- </configuration> -->
+	<!-- </execution> -->
+	<!-- </executions> -->
+	<!-- </plugin> -->
+	<!-- </plugins> -->
+	<!-- </build> -->
 </project>

@@ -8,7 +8,7 @@
  * Contributors: 
  * 		Florian Pirchner - Initial implementation
  */
-package org.lunifera.vaaclipse.addons.application.handler;
+package org.lunifera.vaaclipse.addons.extension.system.handler;
 
 import org.eclipse.e4.core.contexts.Active;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
@@ -20,6 +20,7 @@ import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.menu.MItem;
 import org.lunifera.runtime.common.datasource.IDataSourceService;
 import org.lunifera.runtime.common.datasource.config.CommonDatasourceConfig;
+import org.lunifera.vaaclipse.addons.application.handler.AbstractHandler;
 import org.lunifera.vaaclipse.addons.common.api.di.Callback;
 
 /**

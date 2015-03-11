@@ -17,6 +17,10 @@
       %license
    </license>
 
+   <requires>
+      <import feature="org.semanticsoft.vaaclipse.feature.runtime.core" version="2.7.3" match="equivalent"/>
+   </requires>
+
    <plugin
          id="org.lunifera.vaaclipse.addons.application"
          download-size="0"

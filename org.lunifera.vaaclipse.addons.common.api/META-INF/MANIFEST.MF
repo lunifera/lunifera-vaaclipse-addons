@@ -11,8 +11,8 @@ Export-Package: org.lunifera.vaaclipse.addons.common.api;uses:="com.vaadin.serve
  org.lunifera.vaaclipse.addons.common.api.di,
  org.lunifera.vaaclipse.addons.common.api.explorer;uses:="org.eclipse.e4.core.contexts,com.vaadin.server",
  org.lunifera.vaaclipse.addons.common.api.status
-Require-Bundle: com.vaadin.server,
- org.eclipse.e4.core.contexts,
- org.semanticsoft.vaaclipse.api;bundle-version="[2.7.3,3.0.0)",
- org.semanticsoft.vaaclipse.publicapi;bundle-version="[2.7.3,3.0.0)",
- org.semanticsoft.vaaclipse.util;bundle-version="[2.7.3,3.0.0)"
+Require-Bundle: com.vaadin.server;bundle-version="[7.3.7,7.4.0)",
+ org.eclipse.e4.core.contexts;bundle-version="[1.3.100,1.4.0)",
+ org.semanticsoft.vaaclipse.api;bundle-version="[2.7.3,2.8.0)",
+ org.semanticsoft.vaaclipse.publicapi;bundle-version="[2.7.3,2.8.0)",
+ org.semanticsoft.vaaclipse.util;bundle-version="[2.7.3,2.8.0)"

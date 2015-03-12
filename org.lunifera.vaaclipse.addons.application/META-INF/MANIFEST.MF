@@ -4,20 +4,20 @@ Bundle-Name: Common API
 Bundle-SymbolicName: org.lunifera.vaaclipse.addons.application
 Bundle-Version: 0.9.1.qualifier
 Require-Bundle: org.eclipse.core.databinding;bundle-version="1.4.1",
- com.vaadin.server,
- org.eclipse.e4.core.contexts,
- org.eclipse.e4.ui.model.workbench,
- org.eclipse.e4.core.services,
- org.eclipse.e4.core.di.extensions,
- org.eclipse.e4.core.di,
- org.eclipse.e4.ui.di,
- org.eclipse.e4.ui.workbench,
+ com.vaadin.server;bundle-version="[7.3.7,7.4.0)",
+ org.eclipse.e4.core.contexts;bundle-version="[1.3.100,1.4.0)",
+ org.eclipse.e4.ui.model.workbench;bundle-version="[1.1.0,1.2.0)",
+ org.eclipse.e4.core.services;bundle-version="[1.2.1,1.3.0)",
+ org.eclipse.e4.core.di.extensions;bundle-version="[0.12.0,0.13.0)",
+ org.eclipse.e4.core.di;bundle-version="[1.4.0,1.5.0)",
+ org.eclipse.e4.ui.di;bundle-version="[1.0.0,1.1.0)",
+ org.eclipse.e4.ui.workbench;bundle-version="[1.2.2,1.3.0)",
  org.lunifera.vaaclipse.addons.common;bundle-version="[0.9.0,0.10.0)",
- org.lunifera.vaaclipse.addons.common.api,
- javax.inject,
- org.eclipse.e4.ui.services,
- org.lunifera.dsl.dto.lib,
- org.lunifera.runtime.common;bundle-version="0.9.1"
+ org.lunifera.vaaclipse.addons.common.api;bundle-version="[0.9.1,0.10.0)",
+ javax.inject;bundle-version="[1.0.0,2.0.0)",
+ org.eclipse.e4.ui.services;bundle-version="[1.1.0,1.2.0)",
+ org.lunifera.dsl.dto.lib;bundle-version="[0.9.1,0.10.0)",
+ org.lunifera.runtime.common;bundle-version="[0.9.1,0.10.0)"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: javax.inject;version="1.0.0",
  org.osgi.framework;version="1.8.0",

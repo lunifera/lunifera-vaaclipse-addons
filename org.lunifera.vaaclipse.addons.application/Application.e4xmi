@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ASCII"?>
 <e4modelextension:VaaclipseApplication xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:advanced="http://www.eclipse.org/ui/2010/UIModel/application/ui/advanced" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:e4modelextension="http://www.semanticsoft.org/ExtensionUI/e4modelextension" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xsi:schemaLocation="http://www.eclipse.org/ui/2010/UIModel/application/ui/advanced http://www.eclipse.org/ui/2010/UIModel/application#//ui/advanced http://www.eclipse.org/ui/2010/UIModel/application/ui/basic http://www.eclipse.org/ui/2010/UIModel/application#//ui/basic http://www.eclipse.org/ui/2010/UIModel/application/ui/menu http://www.eclipse.org/ui/2010/UIModel/application#//ui/menu" xmi:id="_c1YngKljEeS1DvGiQJCYNA" elementId="org.lunifera.vaaclipse.addons.application">
-  <children xsi:type="basic:TrimmedWindow" xmi:id="_PCF4sKoREeSuAOXH-urFdQ" elementId="mainWindow" label="%windowTitle" x="20" y="20" width="700" height="570">
+  <children xsi:type="basic:TrimmedWindow" xmi:id="_PCF4sKoREeSuAOXH-urFdQ" elementId="mainWindow" label="Lunifera Application" x="20" y="20" width="700" height="570">
     <tags>no-decoration#topdecoration.fxml</tags>
     <tags>mainWindow</tags>
     <children xsi:type="advanced:PerspectiveStack" xmi:id="_PCF4saoREeSuAOXH-urFdQ" elementId="org.lunifera.vaaclipse.addons.application.perspectivestack.0">
@@ -19,10 +19,19 @@
       </children>
     </children>
     <mainMenu xmi:id="_PCF4z6oREeSuAOXH-urFdQ" elementId="menu:org.eclipse.ui.main.menu">
-      <children xsi:type="menu:Menu" xmi:id="_PCF40KoREeSuAOXH-urFdQ" elementId="org.lunifera.vaaclipse.addons.application.file" label="File"/>
-      <children xsi:type="menu:Menu" xmi:id="_PCF41aoREeSuAOXH-urFdQ" elementId="org.lunifera.vaaclipse.addons.application.views" label="View"/>
-      <children xsi:type="menu:Menu" xmi:id="_PCF416oREeSuAOXH-urFdQ" elementId="org.lunifera.vaaclipse.addons.application.window" label="Window"/>
-      <children xsi:type="menu:Menu" xmi:id="_PCF42aoREeSuAOXH-urFdQ" elementId="org.lunifera.vaaclipse.addons.application.help" label="Help"/>
+      <children xsi:type="menu:Menu" xmi:id="_PCF40KoREeSuAOXH-urFdQ" elementId="org.lunifera.vaaclipse.addons.application.file" label="File">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_qloogMvXEeSAOI_Qr45QBA" elementId="org.lunifera.vaaclipse.addons.application.handledmenuitem.sample" label="Sample" tooltip="Sample" command="_em0GEMvXEeSAOI_Qr45QBA"/>
+      </children>
+      <children xsi:type="menu:Menu" xmi:id="_PCF41aoREeSuAOXH-urFdQ" elementId="org.lunifera.vaaclipse.addons.application.views" label="View">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_ZvCCUMvYEeSAOI_Qr45QBA" elementId="org.lunifera.vaaclipse.addons.application.handledmenuitem.sample" label="Sample" tooltip="Sample" command="_em0GEMvXEeSAOI_Qr45QBA"/>
+      </children>
+      <children xsi:type="menu:Menu" xmi:id="_PCF416oREeSuAOXH-urFdQ" elementId="org.lunifera.vaaclipse.addons.application.window" label="Window">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_Z7PSUMvYEeSAOI_Qr45QBA" elementId="org.lunifera.vaaclipse.addons.application.handledmenuitem.sample" label="Sample" tooltip="Sample" command="_em0GEMvXEeSAOI_Qr45QBA"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_nlzoEMvcEeSAOI_Qr45QBA" elementId="org.lunifera.vaaclipse.addons.application.handledmenuitem.sample" label="Show View ..." tooltip="Show View" command="_t-dzQMvcEeSAOI_Qr45QBA"/>
+      </children>
+      <children xsi:type="menu:Menu" xmi:id="_PCF42aoREeSuAOXH-urFdQ" elementId="org.lunifera.vaaclipse.addons.application.help" label="Help">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_aEFsUMvYEeSAOI_Qr45QBA" elementId="org.lunifera.vaaclipse.addons.application.handledmenuitem.sample" label="Sample" tooltip="Sample" command="_em0GEMvXEeSAOI_Qr45QBA"/>
+      </children>
     </mainMenu>
     <sharedElements xsi:type="advanced:Area" xmi:id="_PCF44qoREeSuAOXH-urFdQ" elementId="org.eclipse.ui.editors" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/editor_area.png">
       <children xsi:type="basic:PartStack" xmi:id="_PCF446oREeSuAOXH-urFdQ" elementId="org.lunifera.vaaclipse.addons.application.partstack.areadefaultstack"/>
@@ -42,6 +51,8 @@
   <handlers xmi:id="_1c4ygMDtEeSmRJXSDVN_4Q" elementId="org.lunifera.vaaclipse.addons.application.handler.openBrowser" contributionURI="bundleclass://org.lunifera.vaaclipse.addons.application/org.lunifera.vaaclipse.addons.application.handler.OpenBrowserHandler" command="_xkyfkMDtEeSmRJXSDVN_4Q"/>
   <handlers xmi:id="_FXjXEMD8EeSQwIz-O_iJHw" elementId="org.lunifera.vaaclipse.addons.application.handler.validate" contributionURI="bundleclass://org.lunifera.vaaclipse.addons.application/org.lunifera.vaaclipse.addons.application.handler.ValidateHandler" command="_ConroMD8EeSQwIz-O_iJHw"/>
   <handlers xmi:id="_BLpHQMThEeScC54J_BF33Q" elementId="org.lunifera.vaaclipse.addons.application.handler.createdatasource" contributionURI="bundleclass://org.lunifera.vaaclipse.addons.extension.system/org.lunifera.vaaclipse.addons.extension.system.handler.CreateDatasourceHandlerrceHandler" command="_GEPN4MThEeScC54J_BF33Q"/>
+  <handlers xmi:id="_jA1aUMvXEeSAOI_Qr45QBA" elementId="org.lunifera.vaaclipse.addons.application.handler.noimplementation" contributionURI="bundleclass://org.lunifera.vaaclipse.addons.application/org.lunifera.vaaclipse.addons.application.handler.NotImplementedHandler" command="_em0GEMvXEeSAOI_Qr45QBA"/>
+  <handlers xmi:id="_tKHlMMvcEeSAOI_Qr45QBA" elementId="org.lunifera.vaaclipse.addons.application.handler.showView" contributionURI="bundleclass://org.semanticsoft.vaaclipse.additions/org.semanticsoft.vaaclipse.additions.view.ShowViewHandler" command="_t-dzQMvcEeSAOI_Qr45QBA"/>
   <bindingTables xmi:id="_8Qv5kKoQEeSuAOXH-urFdQ" elementId="org.lunifera.vaaclipse.addons.bindingtable1">
     <bindings xmi:id="_8Qv5kaoQEeSuAOXH-urFdQ" elementId="_SeXUHu8EEd6FC9cDb6iV7g" keySequence="CTRL+S">
       <command href="CassandraApplication.e4xmi#contacts.save"/>
@@ -53,7 +64,10 @@
     <children xmi:id="_5qzyEaoQEeSuAOXH-urFdQ" elementId="org.eclipse.ui.contexts.window" name="In Windows"/>
     <children xmi:id="_5qzyEqoQEeSuAOXH-urFdQ" elementId="org.eclipse.ui.contexts.dialog" name="In Dialogs"/>
   </rootContext>
-  <descriptors xmi:id="_XBGroKubEeS21pCaYI4ioQ" elementId="org.lunifera.vaaclipse.addons.application.partdescriptor.explorer" label="Explorer" iconURI="platform:/plugin/org.lunifera.vaaclipse.addons.application/images/package_explorer.png" tooltip="Main entry point for the application" closeable="true" contributionURI="bundleclass://org.lunifera.vaaclipse.addons.application/org.lunifera.vaaclipse.addons.application.views.ExplorerView"/>
+  <descriptors xmi:id="_XBGroKubEeS21pCaYI4ioQ" elementId="org.lunifera.vaaclipse.addons.application.partdescriptor.explorer" label="Explorer" iconURI="platform:/plugin/org.lunifera.vaaclipse.addons.application/images/package_explorer.png" tooltip="Main entry point for the application" closeable="true" contributionURI="bundleclass://org.lunifera.vaaclipse.addons.application/org.lunifera.vaaclipse.addons.application.views.ExplorerView">
+    <tags>View</tags>
+    <toolbar xmi:id="_NlcLkMveEeSAOI_Qr45QBA" elementId="org.lunifera.vaaclipse.addons.application.toolbar.1"/>
+  </descriptors>
   <commands xmi:id="_NPgK4LWwEeSHovHvSw-FSQ" elementId="org.lunifera.vaaclipse.addons.application.command.save" commandName="Save" description="Save"/>
   <commands xmi:id="_Eupb8LXjEeSHovHvSw-FSQ" elementId="org.lunifera.vaaclipse.addons.application.command.default" commandName="Part Action Callback" description="A callback to the active part if command was executed. Used for actions without any command specifications."/>
   <commands xmi:id="_VnMscLXuEeSlMNkaQV5RDA" elementId="org.lunifera.vaaclipse.addons.application.command.delete" commandName="Delete" description="Delete"/>
@@ -61,6 +75,8 @@
   <commands xmi:id="_xkyfkMDtEeSmRJXSDVN_4Q" elementId="org.lunifera.vaaclipse.addons.application.command.openBrowser" commandName="Open Browser" description="Open Browser"/>
   <commands xmi:id="_ConroMD8EeSQwIz-O_iJHw" elementId="org.lunifera.vaaclipse.addons.application.command.validate" commandName="Validate" description="Validate"/>
   <commands xmi:id="_GEPN4MThEeScC54J_BF33Q" elementId="org.lunifera.vaaclipse.addons.application.command.createdatasource" commandName="Create Datasource" description="Create a new Datasource"/>
+  <commands xmi:id="_em0GEMvXEeSAOI_Qr45QBA" elementId="org.lunifera.vaaclipse.addons.application.command.noimplementation" commandName="No Implementation yet" description="No implementation yet"/>
+  <commands xmi:id="_t-dzQMvcEeSAOI_Qr45QBA" elementId="org.lunifera.vaaclipse.addons.application.command.showView" commandName="Show view" description="Show view"/>
   <addons xmi:id="_c1YngaljEeS1DvGiQJCYNA" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
   <addons xmi:id="_c1YngqljEeS1DvGiQJCYNA" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
   <addons xmi:id="_c1YnhKljEeS1DvGiQJCYNA" elementId="org.eclipse.e4.ui.workbench.commands.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.CommandProcessingAddon"/>

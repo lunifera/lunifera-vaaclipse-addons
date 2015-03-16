@@ -422,6 +422,8 @@ public class GenericECViewView {
 
 			if (toolItem != null) {
 				mToolbar.getChildren().add(toolItem);
+				// set default after rendering
+				toolItem.setEnabled(yAction.isInitialEnabled());
 			}
 		}
 	}
@@ -450,7 +452,7 @@ public class GenericECViewView {
 		toolItem.setIconURI(i18nService.getValue(yAction.getIcon(),
 				Locale.getDefault()));
 		toolItem.setVisible(true);
-		toolItem.setEnabled(yAction.isInitialEnabled());
+//		toolItem.setEnabled(yAction.isInitialEnabled());
 		toolItem.setToBeRendered(true);
 		toolItem.getTransientData().put(IE4Constants.PARAM_ACTION, yAction);
 		toolItem.getTransientData().put(IE4Constants.PARAM_ACTION_TYPE_KEY,

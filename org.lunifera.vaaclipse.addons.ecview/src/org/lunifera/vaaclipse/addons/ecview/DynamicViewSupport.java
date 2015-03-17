@@ -10,12 +10,18 @@
  */
 package org.lunifera.vaaclipse.addons.ecview;
 
+import java.util.Collections;
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.model.application.MApplication;
+import org.eclipse.e4.ui.model.application.ui.MContext;
+import org.eclipse.e4.ui.model.application.ui.MElementContainer;
+import org.eclipse.e4.ui.model.application.ui.MUIElement;
+import org.eclipse.e4.ui.model.application.ui.advanced.MPerspective;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
-import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenuFactory;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolBar;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
@@ -32,12 +38,20 @@ import org.lunifera.runtime.common.state.ISharedStateContextProvider;
 import org.lunifera.vaaclipse.addons.common.api.IE4Constants;
 import org.lunifera.vaaclipse.addons.ecview.impl.Activator;
 import org.osgi.util.tracker.ServiceTracker;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @SuppressWarnings("restriction")
 public class DynamicViewSupport {
 
+	private static final Logger LOGGER = LoggerFactory
+			.getLogger(DynamicViewSupport.class);
+
 	@Inject
 	private ISharedStateContextProvider sharedStateProvider;
+
+	@Inject
+	private EModelService modelService;
 
 	public DynamicViewSupport() {
 	}
@@ -51,38 +65,75 @@ public class DynamicViewSupport {
 	 * @param iconURI
 	 * @param context
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void openNewGenericECViewView(String id, String label,
 			String description, String iconURI, IEclipseContext context) {
 
-		EModelService modelService = context.get(EModelService.class);
 		MApplication app = context.get(MApplication.class);
 		EPartService partService = context.get(EPartService.class);
+		EModelService modelService = context.get(EModelService.class);
+		MUIElement activeElement = modelService.find(id,
+				context.get(MPerspective.class));
+		if (activeElement != null) {
+			// show the part
+			partService.activate((MPart) activeElement, true);
+		} else {
 
-		MPartStack stack = (MPartStack) modelService.find(
-				IE4Constants.ID__PARTSTACK__DYNAMIC_APPLICATIONS, app);
-		MPart part = modelService.createModelElement(MPart.class);
-		part.setElementId(id);
-		part.setLabel(label);
-		part.setDescription(description);
-		part.setIconURI(iconURI);
-		part.setContributionURI(IE4Constants.BUNDLECLASS_GENERIC_ECVIEW_VIEWPART);
-		part.setCloseable(true);
-		part.setOnTop(true);
-		part.setToBeRendered(true);
-		part.setVisible(true);
-		part.getTags().add(EPartService.REMOVE_ON_HIDE_TAG);
-		MToolBar mToolbar = MMenuFactory.INSTANCE.createToolBar();
-		part.setToolbar(mToolbar);
+			YView yView = findViewModel(id);
+			if (yView == null) {
+				LOGGER.error("Could not find view for {}", id);
+				return;
+			}
 
-		//
-		// create a child context and configure with the view model
-		//
-		createPartContext(part, context, id);
+			// determine the view category
+			String viewCategory = yView.getCategory();
+			if(viewCategory == null) {
+				viewCategory = IE4Constants.ID__PARTSTACK__MAIN;
+			}
 
-		stack.getChildren().add(part); // Add part to stack
+			// find a parent container for the category
+			MElementContainer container = null;
+			List<MElementContainer> containers = modelService.findElements(app,
+					null, MElementContainer.class,
+					Collections.singletonList(viewCategory),
+					EModelService.PRESENTATION);
+			if (!containers.isEmpty()) {
+				container = containers.get(0);
+			}else{
+				LOGGER.error("Could not container for category {}", viewCategory);
+				return;
+			}
 
-		// show the part
-		partService.showPart(part, PartState.ACTIVATE); // Show
+			MPart part = modelService.createModelElement(MPart.class);
+			part.setElementId(id);
+			part.setLabel(label);
+			part.setDescription(description);
+			part.setIconURI(iconURI);
+			part.setContributionURI(IE4Constants.BUNDLECLASS_GENERIC_ECVIEW_VIEWPART);
+			part.setCloseable(true);
+			part.setOnTop(true);
+			part.setToBeRendered(true);
+			part.setVisible(true);
+			part.getTags().add(EPartService.REMOVE_ON_HIDE_TAG);
+			MToolBar mToolbar = MMenuFactory.INSTANCE.createToolBar();
+			part.setToolbar(mToolbar);
+
+			//
+			// create a child context and configure with the view model
+			//
+			createPartContext(part, getContext(container), yView, id);
+			container.getChildren().add(part); // Add part to stack
+
+			// show the part
+			partService.showPart(part, PartState.ACTIVATE); // Show
+		}
+	}
+
+	private IEclipseContext getContext(MUIElement parent) {
+		if (parent instanceof MContext) {
+			return ((MContext) parent).getContext();
+		}
+		return modelService.getContainingContext(parent);
 	}
 
 	/**
@@ -90,10 +141,11 @@ public class DynamicViewSupport {
 	 * 
 	 * @param part
 	 * @param context
+	 * @param yView
 	 * @param id
 	 */
 	protected void createPartContext(MPart part, IEclipseContext context,
-			String id) {
+			YView yView, String id) {
 		IEclipseContext partContext = context.createChild();
 
 		// initialize the context -> so no delegation to OSGi services is
@@ -102,7 +154,6 @@ public class DynamicViewSupport {
 		partContext.set(ISharedStateContext.class, null);
 		partContext.set(IDTOService.class, null);
 
-		YView yView = findViewModel(id);
 		partContext.set(YView.class, yView);
 
 		if (yView != null) {

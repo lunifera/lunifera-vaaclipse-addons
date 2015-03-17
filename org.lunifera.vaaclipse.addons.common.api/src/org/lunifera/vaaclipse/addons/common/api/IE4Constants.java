@@ -58,8 +58,14 @@ public interface IE4Constants {
 
 	public static final String PROP_INPUT_VIEW_ID = "viewId";
 	public static final String BUNDLECLASS_GENERIC_ECVIEW_VIEWPART = "bundleclass://org.lunifera.vaaclipse.addons.ecview/org.lunifera.vaaclipse.addons.ecview.views.GenericECViewView";
-	public static final String ID__PARTSTACK__DYNAMIC_APPLICATIONS = "org.lunifera.vaaclipse.addons.application.partstack.areadefaultstack";
-
+	
+	public static final String ID__PARTSTACK__LEFT = "org.lunifera.vaaclipse.addons.application.partstack.left";
+	public static final String ID__PARTSTACK__RIGHT = "org.lunifera.vaaclipse.addons.application.partstack.right";
+	public static final String ID__PARTSTACK__MAIN = "org.lunifera.vaaclipse.addons.application.partstack.main";
+	public static final String ID__PARTSTACK__BOTTOM = "org.lunifera.vaaclipse.addons.application.partstack.bottom";
+	public static final String ID__PARTSTACK__MASTER_DETAIL__MASTER = "org.lunifera.vaaclipse.addons.application.partstack.materdetail.master";
+	
+	
 	/**
 	 * Used as property in OSGi services.
 	 */

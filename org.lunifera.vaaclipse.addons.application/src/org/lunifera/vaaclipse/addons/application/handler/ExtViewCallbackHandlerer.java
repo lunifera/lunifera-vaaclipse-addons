@@ -18,20 +18,23 @@ import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.model.application.ui.MContext;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.menu.MItem;
-import org.lunifera.vaaclipse.addons.common.api.di.Load;
+import org.lunifera.vaaclipse.addons.common.api.di.Callback;
 
-public class LoadHandler extends AbstractHandler {
-
+/**
+ * The enablement of this handler is controlled by the item itself.
+ */
+public class ExtViewCallbackHandlerer extends AbstractHandler {
 	@Execute
-	public void execute(@Active MContext context, @Active MPart part, @Active MItem item) {
-		final IEclipseContext pmContext = createCallbackContext(context,
-				item);
-		ContextInjectionFactory.invoke(part.getObject(), Load.class, pmContext,
-				null);
+	public void execute(@Active MContext context, @Active MPart part,
+			@Active MItem item) {
+		final IEclipseContext pmContext = createCallbackContext(context, item);
+		ContextInjectionFactory.invoke(part.getObject(), Callback.class,
+				pmContext, null);
 	}
 
 	@CanExecute
-	public boolean canExecute() {
-		return true;
+	public boolean canExecute(@Active MItem item) {
+		// since enablement is controlled by external view
+		return item.isEnabled();
 	}
 }

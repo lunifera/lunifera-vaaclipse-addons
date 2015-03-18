@@ -60,13 +60,13 @@
     </trimBars>
     <trimBars xmi:id="_PCGfzqoREeSuAOXH-urFdQ" elementId="org.lunifera.vaaclipse.addons.application.bottomtrimbar" side="Bottom"/>
   </children>
-  <handlers xmi:id="_SOnJMLWwEeSHovHvSw-FSQ" elementId="org.lunifera.vaaclipse.addons.application.handler.save" contributionURI="bundleclass://org.lunifera.vaaclipse.addons.application/org.lunifera.vaaclipse.addons.application.handler.SaveHandler" command="_NPgK4LWwEeSHovHvSw-FSQ"/>
-  <handlers xmi:id="_A5lO4LXjEeSHovHvSw-FSQ" elementId="org.lunifera.vaaclipse.addons.application.handler.partcallback" contributionURI="bundleclass://org.lunifera.vaaclipse.addons.application/org.lunifera.vaaclipse.addons.application.handler.ViewCallbackHandlerer" command="_Eupb8LXjEeSHovHvSw-FSQ"/>
-  <handlers xmi:id="_89IJ8LXuEeSlMNkaQV5RDA" elementId="org.lunifera.vaaclipse.addons.application.handler.delete" contributionURI="bundleclass://org.lunifera.vaaclipse.addons.application/org.lunifera.vaaclipse.addons.application.handler.DeleteHandler" command="_VnMscLXuEeSlMNkaQV5RDA"/>
-  <handlers xmi:id="_AFaJgLXvEeSlMNkaQV5RDA" elementId="org.lunifera.vaaclipse.addons.application.handler.load" contributionURI="bundleclass://org.lunifera.vaaclipse.addons.application/org.lunifera.vaaclipse.addons.application.handler.LoadHandler" command="_wQPnoLXuEeSlMNkaQV5RDA"/>
+  <handlers xmi:id="_SOnJMLWwEeSHovHvSw-FSQ" elementId="org.lunifera.vaaclipse.addons.application.handler.extsave" contributionURI="bundleclass://org.lunifera.vaaclipse.addons.application/org.lunifera.vaaclipse.addons.application.handler.ExtSaveHandler" command="_NPgK4LWwEeSHovHvSw-FSQ"/>
+  <handlers xmi:id="_A5lO4LXjEeSHovHvSw-FSQ" elementId="org.lunifera.vaaclipse.addons.application.handler.extpartcallback" contributionURI="bundleclass://org.lunifera.vaaclipse.addons.application/org.lunifera.vaaclipse.addons.application.handler.ExtViewCallbackHandlerer" command="_Eupb8LXjEeSHovHvSw-FSQ"/>
+  <handlers xmi:id="_89IJ8LXuEeSlMNkaQV5RDA" elementId="org.lunifera.vaaclipse.addons.application.handler.extdelete" contributionURI="bundleclass://org.lunifera.vaaclipse.addons.application/org.lunifera.vaaclipse.addons.application.handler.ExtDeleteHandler" command="_VnMscLXuEeSlMNkaQV5RDA"/>
+  <handlers xmi:id="_AFaJgLXvEeSlMNkaQV5RDA" elementId="org.lunifera.vaaclipse.addons.application.handler.extload" contributionURI="bundleclass://org.lunifera.vaaclipse.addons.application/org.lunifera.vaaclipse.addons.application.handler.ExtLoadHandler" command="_wQPnoLXuEeSlMNkaQV5RDA"/>
   <handlers xmi:id="_1c4ygMDtEeSmRJXSDVN_4Q" elementId="org.lunifera.vaaclipse.addons.application.handler.openBrowser" contributionURI="bundleclass://org.lunifera.vaaclipse.addons.application/org.lunifera.vaaclipse.addons.application.handler.OpenBrowserHandler" command="_xkyfkMDtEeSmRJXSDVN_4Q"/>
-  <handlers xmi:id="_FXjXEMD8EeSQwIz-O_iJHw" elementId="org.lunifera.vaaclipse.addons.application.handler.validate" contributionURI="bundleclass://org.lunifera.vaaclipse.addons.application/org.lunifera.vaaclipse.addons.application.handler.ValidateHandler" command="_ConroMD8EeSQwIz-O_iJHw"/>
-  <handlers xmi:id="_BLpHQMThEeScC54J_BF33Q" elementId="org.lunifera.vaaclipse.addons.application.handler.createdatasource" contributionURI="bundleclass://org.lunifera.vaaclipse.addons.extension.system/org.lunifera.vaaclipse.addons.extension.system.handler.CreateDatasourceHandlerrceHandler" command="_GEPN4MThEeScC54J_BF33Q"/>
+  <handlers xmi:id="_FXjXEMD8EeSQwIz-O_iJHw" elementId="org.lunifera.vaaclipse.addons.application.handler.extvalidate" contributionURI="bundleclass://org.lunifera.vaaclipse.addons.application/org.lunifera.vaaclipse.addons.application.handler.ExtValidateHandler" command="_ConroMD8EeSQwIz-O_iJHw"/>
+  <handlers xmi:id="_BLpHQMThEeScC54J_BF33Q" elementId="org.lunifera.vaaclipse.addons.application.handler.extcreatedatasource" contributionURI="bundleclass://org.lunifera.vaaclipse.addons.extension.system/org.lunifera.vaaclipse.addons.extension.system.handler.CreateDatasourceHandlerrceHandler" command="_GEPN4MThEeScC54J_BF33Q"/>
   <handlers xmi:id="_jA1aUMvXEeSAOI_Qr45QBA" elementId="org.lunifera.vaaclipse.addons.application.handler.noimplementation" contributionURI="bundleclass://org.lunifera.vaaclipse.addons.application/org.lunifera.vaaclipse.addons.application.handler.NotImplementedHandler" command="_em0GEMvXEeSAOI_Qr45QBA"/>
   <handlers xmi:id="_tKHlMMvcEeSAOI_Qr45QBA" elementId="org.lunifera.vaaclipse.addons.application.handler.showView" contributionURI="bundleclass://org.semanticsoft.vaaclipse.additions/org.semanticsoft.vaaclipse.additions.view.ShowViewHandler" command="_t-dzQMvcEeSAOI_Qr45QBA"/>
   <bindingTables xmi:id="_8Qv5kKoQEeSuAOXH-urFdQ" elementId="org.lunifera.vaaclipse.addons.bindingtable1">
@@ -92,12 +92,12 @@
     <tags>View</tags>
     <toolbar xmi:id="_4V24EcyQEeSAOI_Qr45QBA" elementId="org.lunifera.vaaclipse.addons.application.toolbar.1"/>
   </descriptors>
-  <commands xmi:id="_NPgK4LWwEeSHovHvSw-FSQ" elementId="org.lunifera.vaaclipse.addons.application.command.save" commandName="Save" description="Save"/>
-  <commands xmi:id="_Eupb8LXjEeSHovHvSw-FSQ" elementId="org.lunifera.vaaclipse.addons.application.command.default" commandName="Part Action Callback" description="A callback to the active part if command was executed. Used for actions without any command specifications."/>
-  <commands xmi:id="_VnMscLXuEeSlMNkaQV5RDA" elementId="org.lunifera.vaaclipse.addons.application.command.delete" commandName="Delete" description="Delete"/>
-  <commands xmi:id="_wQPnoLXuEeSlMNkaQV5RDA" elementId="org.lunifera.vaaclipse.addons.application.command.load" commandName="Load" description="Load"/>
+  <commands xmi:id="_NPgK4LWwEeSHovHvSw-FSQ" elementId="org.lunifera.vaaclipse.addons.application.command.extsave" commandName="Save" description="Save"/>
+  <commands xmi:id="_Eupb8LXjEeSHovHvSw-FSQ" elementId="org.lunifera.vaaclipse.addons.application.command.extdefault" commandName="Part Action Callback" description="A callback to the active part if command was executed. Used for actions without any command specifications."/>
+  <commands xmi:id="_VnMscLXuEeSlMNkaQV5RDA" elementId="org.lunifera.vaaclipse.addons.application.command.extdelete" commandName="Delete" description="Delete"/>
+  <commands xmi:id="_wQPnoLXuEeSlMNkaQV5RDA" elementId="org.lunifera.vaaclipse.addons.application.command.extload" commandName="Load" description="Load"/>
   <commands xmi:id="_xkyfkMDtEeSmRJXSDVN_4Q" elementId="org.lunifera.vaaclipse.addons.application.command.openBrowser" commandName="Open Browser" description="Open Browser"/>
-  <commands xmi:id="_ConroMD8EeSQwIz-O_iJHw" elementId="org.lunifera.vaaclipse.addons.application.command.validate" commandName="Validate" description="Validate"/>
+  <commands xmi:id="_ConroMD8EeSQwIz-O_iJHw" elementId="org.lunifera.vaaclipse.addons.application.command.extvalidate" commandName="Validate" description="Validate"/>
   <commands xmi:id="_GEPN4MThEeScC54J_BF33Q" elementId="org.lunifera.vaaclipse.addons.application.command.createdatasource" commandName="Create Datasource" description="Create a new Datasource"/>
   <commands xmi:id="_em0GEMvXEeSAOI_Qr45QBA" elementId="org.lunifera.vaaclipse.addons.application.command.noimplementation" commandName="No Implementation yet" description="No implementation yet"/>
   <commands xmi:id="_t-dzQMvcEeSAOI_Qr45QBA" elementId="org.lunifera.vaaclipse.addons.application.command.showView" commandName="Show view" description="Show view"/>

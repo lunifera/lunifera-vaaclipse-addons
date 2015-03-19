@@ -20,9 +20,7 @@
             </children>
           </children>
           <children xsi:type="basic:PartSashContainer" xmi:id="_P_xh8MyMEeSAOI_Qr45QBA" elementId="" containerData="3500">
-            <children xsi:type="basic:PartStack" xmi:id="_XGDj8MyTEeSAOI_Qr45QBA" elementId="org.lunifera.vaaclipse.addons.application.partstack.materdetail.master" containerData="500">
-              <tags>org.lunifera.vaaclipse.addons.application.partstack.materdetail.master</tags>
-            </children>
+            <children xsi:type="advanced:Placeholder" xmi:id="_bzHjgM5VEeSscMz1WjkrfA" elementId="org.lunifera.vaaclipse.addons.application.placeholder.0" containerData="500" ref="_UPxG0M5VEeSscMz1WjkrfA"/>
             <children xsi:type="basic:PartStack" xmi:id="_IflRAKudEeS21pCaYI4ioQ" elementId="org.lunifera.vaaclipse.addons.application.partstack.right" containerData="500">
               <tags>org.lunifera.vaaclipse.addons.application.partstack.outline</tags>
               <tags>org.lunifera.vaaclipse.addons.application.partstack.right</tags>
@@ -52,9 +50,14 @@
         <tags>org.lunifera.vaaclipse.addons.application.partstack.main</tags>
       </children>
     </sharedElements>
-    <sharedElements xsi:type="basic:Part" xmi:id="_WjXU0KudEeS21pCaYI4ioQ" elementId="org.lunifera.vaaclipse.addons.application.part.outline" accessibilityPhrase="" contributionURI="bundleclass://org.lunifera.vaaclipse.addons.application/org.lunifera.vaaclipse.addons.application.views.OutlineView" label="Outline" iconURI="platform:/plugin/org.lunifera.vaaclipse.addons.application/images/outline.png" tooltip="A common Outline" closeable="true"/>
-    <sharedElements xsi:type="basic:Part" xmi:id="_CtR-4MyREeSAOI_Qr45QBA" elementId="org.lunifera.vaaclipse.addons.application.part.explorer" accessibilityPhrase="" contributionURI="bundleclass://org.lunifera.vaaclipse.addons.application/org.lunifera.vaaclipse.addons.application.views.ExplorerView" label="Explorer" iconURI="platform:/plugin/org.lunifera.vaaclipse.addons.application/images/xmi.png" tooltip="Main entry point for the application" closeable="true"/>
-    <sharedElements xsi:type="basic:Part" xmi:id="_C43j0MyREeSAOI_Qr45QBA" elementId="org.lunifera.vaaclipse.addons.application.part.problems" accessibilityPhrase="" contributionURI="bundleclass://org.lunifera.vaaclipse.addons.application/org.lunifera.vaaclipse.addons.application.views.ProblemsView" label="Problems" iconURI="platform:/plugin/org.lunifera.vaaclipse.addons.application/images/problems.png" tooltip="Problems view" closeable="true"/>
+    <sharedElements xsi:type="basic:Part" xmi:id="_WjXU0KudEeS21pCaYI4ioQ" elementId="org.lunifera.vaaclipse.addons.application.partdescriptor.outline" accessibilityPhrase="" contributionURI="bundleclass://org.lunifera.vaaclipse.addons.application/org.lunifera.vaaclipse.addons.application.views.OutlineView" label="Outline" iconURI="platform:/plugin/org.lunifera.vaaclipse.addons.application/images/outline.png" tooltip="A common Outline" closeable="true"/>
+    <sharedElements xsi:type="basic:Part" xmi:id="_CtR-4MyREeSAOI_Qr45QBA" elementId="org.lunifera.vaaclipse.addons.application.partdescriptor.explorer" accessibilityPhrase="" contributionURI="bundleclass://org.lunifera.vaaclipse.addons.application/org.lunifera.vaaclipse.addons.application.views.ExplorerView" label="Explorer" iconURI="platform:/plugin/org.lunifera.vaaclipse.addons.application/images/xmi.png" tooltip="Main entry point for the application" closeable="true"/>
+    <sharedElements xsi:type="basic:Part" xmi:id="_C43j0MyREeSAOI_Qr45QBA" elementId="org.lunifera.vaaclipse.addons.application.partdescriptor.problems" accessibilityPhrase="" contributionURI="bundleclass://org.lunifera.vaaclipse.addons.application/org.lunifera.vaaclipse.addons.application.views.ProblemsView" label="Problems" iconURI="platform:/plugin/org.lunifera.vaaclipse.addons.application/images/problems.png" tooltip="Problems view" closeable="true"/>
+    <sharedElements xsi:type="advanced:Area" xmi:id="_UPxG0M5VEeSscMz1WjkrfA" elementId="org.lunifera.vaaclipse.addons.application.area.materdetail.master" containerData="500" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/editor_area.png">
+      <children xsi:type="basic:PartStack" xmi:id="_XGDj8MyTEeSAOI_Qr45QBA" elementId="org.lunifera.vaaclipse.addons.application.partstack.materdetail.master" containerData="500">
+        <tags>org.lunifera.vaaclipse.addons.application.partstack.materdetail.master</tags>
+      </children>
+    </sharedElements>
     <trimBars xmi:id="_PCGfyKoREeSuAOXH-urFdQ" elementId="org.lunifera.vaaclipse.addons.application.toptrimbar">
       <children xsi:type="menu:ToolBar" xmi:id="_PCGfyaoREeSuAOXH-urFdQ" elementId="org.lunifera.vaaclipse.addons.application.toolbar.main"/>
     </trimBars>
@@ -88,7 +91,7 @@
     <tags>View</tags>
     <toolbar xmi:id="_vCa90cyQEeSAOI_Qr45QBA" elementId="org.lunifera.vaaclipse.addons.application.toolbar.1"/>
   </descriptors>
-  <descriptors xmi:id="_4V24EMyQEeSAOI_Qr45QBA" elementId="org.lunifera.vaaclipse.addons.application.partdescriptor.problems" label="Outline" iconURI="platform:/plugin/org.lunifera.vaaclipse.addons.application/images/outline.png" tooltip="A common outline" category="org.lunifera.vaaclipse.addons.application.partstack.right" closeable="true" contributionURI="bundleclass://org.lunifera.vaaclipse.addons.application/org.lunifera.vaaclipse.addons.application.views.OutlineView">
+  <descriptors xmi:id="_4V24EMyQEeSAOI_Qr45QBA" elementId="org.lunifera.vaaclipse.addons.application.partdescriptor.outline" label="Outline" iconURI="platform:/plugin/org.lunifera.vaaclipse.addons.application/images/outline.png" tooltip="A common outline" category="org.lunifera.vaaclipse.addons.application.partstack.right" closeable="true" contributionURI="bundleclass://org.lunifera.vaaclipse.addons.application/org.lunifera.vaaclipse.addons.application.views.OutlineView">
     <tags>View</tags>
     <toolbar xmi:id="_4V24EcyQEeSAOI_Qr45QBA" elementId="org.lunifera.vaaclipse.addons.application.toolbar.1"/>
   </descriptors>

@@ -452,7 +452,7 @@ public class GenericECViewView {
 		toolItem.setIconURI(i18nService.getValue(yAction.getIcon(),
 				Locale.getDefault()));
 		toolItem.setVisible(true);
-//		toolItem.setEnabled(yAction.isInitialEnabled());
+		// toolItem.setEnabled(yAction.isInitialEnabled());
 		toolItem.setToBeRendered(true);
 		toolItem.getTransientData().put(IE4Constants.PARAM_ACTION, yAction);
 		toolItem.getTransientData().put(IE4Constants.PARAM_ACTION_TYPE_KEY,
@@ -530,6 +530,28 @@ public class GenericECViewView {
 						.get(eventTopic)) {
 					final ISlot slot = viewContext.getBeanSlot(yBeanSlot
 							.getName());
+
+					// TODO workaround for databinding -> New instance may be
+					// polymorphic brother of the current instance. And if
+					// binding
+					// the new instance, numeric field will not become unbound.
+					// So
+					// lets set a new instance of current set instance before
+					// setting the new entry.
+					Object oldValue = slot.getValue();
+					if (oldValue != null) {
+						Class<?> valueClass = oldValue.getClass();
+						try {
+							// now all fields will become unbound from the
+							// current
+							// instance
+							slot.setValue(valueClass.newInstance());
+						} catch (Exception e) {
+							LOGGER.warn("Could not reset the value by {}",
+									valueClass.getName());
+						}
+					}
+
 					slot.setValue(newBean);
 				}
 			}

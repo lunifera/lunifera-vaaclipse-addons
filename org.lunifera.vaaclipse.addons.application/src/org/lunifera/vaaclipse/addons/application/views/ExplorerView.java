@@ -97,6 +97,9 @@ public class ExplorerView implements ItemClickListener, ExpandListener {
 				for (IExplorerInfo newInfo : ((IExplorerCategory) itemId)
 						.getChildren()) {
 					Item item = container.addItem(newInfo);
+					if(item == null){
+						continue;
+					}
 					item.getItemProperty("label").setValue(newInfo.getLabel());
 					item.getItemProperty("icon")
 							.setValue(newInfo.getIcon());

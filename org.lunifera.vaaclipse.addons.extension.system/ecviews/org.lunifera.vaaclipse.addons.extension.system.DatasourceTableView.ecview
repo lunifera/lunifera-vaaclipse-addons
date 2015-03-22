@@ -29,19 +29,19 @@
       <targetEndpoint xsi:type="binding:YECViewModelValueBindingEndpoint" element="//@commandSet/@commands.0">
         <features xsi:type="ecore:EAttribute" href="http://lunifera.org/ecview/v1/core/view#//YSendEventCommand/message"/>
       </targetEndpoint>
-      <modelEndpoint xsi:type="binding:YECViewModelValueBindingEndpoint" element="DatasourceTableView.DataTable" propertyPath=""/>
+      <modelEndpoint xsi:type="binding:YECViewModelValueBindingEndpoint" element="DatasourceTableView.DataTable" propertyPath="selection" type="org.lunifera.runtime.common.datasource.IDataSourceService$DataSourceInfo" typeQualifiedName="org.lunifera.runtime.common.datasource.IDataSourceService$DataSourceInfo"/>
     </bindings>
     <bindings xsi:type="binding:YValueBinding" targetToModelStrategy="ON_REQUEST">
-      <targetEndpoint xsi:type="binding:YECViewModelValueBindingEndpoint" element="DatasourceTableView.DataTable" propertyPath=""/>
+      <targetEndpoint xsi:type="binding:YECViewModelValueBindingEndpoint" element="DatasourceTableView.DataTable" propertyPath="refresh" typeQualifiedName="void"/>
       <modelEndpoint xsi:type="core:YBeanSlotValueBindingEndpoint" attributePath="value" beanSlot="//@beanSlots.0"/>
     </bindings>
     <bindings xsi:type="binding:YValueBinding" targetToModelStrategy="ON_REQUEST">
-      <targetEndpoint xsi:type="binding:YECViewModelValueBindingEndpoint" element="DatasourceTableView.SearchPanel" propertyPath=""/>
-      <modelEndpoint xsi:type="binding:YECViewModelValueBindingEndpoint" element="org.lunifera.actions.applyFilter" propertyPath=""/>
+      <targetEndpoint xsi:type="binding:YECViewModelValueBindingEndpoint" element="DatasourceTableView.SearchPanel" propertyPath="applyFilter" type="org.lunifera.runtime.common.datasource.IDataSourceService$DataSourceInfo" typeQualifiedName="org.lunifera.runtime.common.datasource.IDataSourceService$DataSourceInfo"/>
+      <modelEndpoint xsi:type="binding:YECViewModelValueBindingEndpoint" element="org.lunifera.actions.applyFilter" propertyPath="executedNotificationTime" type="java.lang.Long" typeQualifiedName="java.lang.Long"/>
     </bindings>
     <bindings xsi:type="binding:YValueBinding" targetToModelStrategy="ON_REQUEST">
-      <targetEndpoint xsi:type="binding:YECViewModelValueBindingEndpoint" element="DatasourceTableView.DataTable" propertyPath=""/>
-      <modelEndpoint xsi:type="binding:YECViewModelValueBindingEndpoint" element="DatasourceTableView.SearchPanel" propertyPath=""/>
+      <targetEndpoint xsi:type="binding:YECViewModelValueBindingEndpoint" element="DatasourceTableView.DataTable" propertyPath="filter" type="org.lunifera.runtime.common.datasource.IDataSourceService$DataSourceInfo" typeQualifiedName="org.lunifera.runtime.common.datasource.IDataSourceService$DataSourceInfo"/>
+      <modelEndpoint xsi:type="binding:YECViewModelValueBindingEndpoint" element="DatasourceTableView.SearchPanel" propertyPath="filter" type="org.lunifera.runtime.common.datasource.IDataSourceService$DataSourceInfo" typeQualifiedName="org.lunifera.runtime.common.datasource.IDataSourceService$DataSourceInfo"/>
     </bindings>
   </bindingSet>
   <beanSlots name="tableRefresh" valueType="java.lang.Object" valueTypeQualifiedName="java.lang.Object" eventTopic="org/lunifera/vaaclipse/extension/system/Datasource/table/refresh"/>

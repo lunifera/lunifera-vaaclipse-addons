@@ -8,8 +8,8 @@
 		<version>0.9.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>org.lunifera.vaaclipse.addons.ecview.lib</artifactId>
-	<name>Vaaclipse Addons for ECView UI project</name>
-	<description>Vaaclipse Addons for ECView UI project</description>
+	<name>Vaaclipse Addons for ECView Lib </name>
+	<description>Vaaclipse Addons for ECView Lib </description>
 	<packaging>eclipse-plugin</packaging>
 
 </project>

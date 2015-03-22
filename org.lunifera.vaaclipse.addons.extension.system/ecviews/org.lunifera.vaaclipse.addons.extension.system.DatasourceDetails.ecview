@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:YView xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:binding="http://lunifera.org/ecview/v1/core/binding" xmlns:core="http://lunifera.org/ecview/v1/core/view" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:extension="http://lunifera.org/ecview/v1/extension/view" name="org.lunifera.vaaclipse.addons.extension.system.DatasourceDetails" viewName="org.lunifera.vaaclipse.addons.extension.system.DatasourceDetails" sharedStateGroup="org.lunifera.vaaclipse.extension.system.general">
+  <content xsi:type="extension:YHorizontalLayout" id="DatasourceDetails.Detail" name="Detail">
+    <elements xsi:type="extension:YFormLayout">
+      <elements xsi:type="extension:YTextField" initialEnabled="false" datadescription="//@content/@elements.0/@elements.0/@orphanDatadescriptions.0">
+        <orphanDatadescriptions label="url" labelI18nKey="org.lunifera.runtime.common.datasource.IDataSourceService$DataSourceInfo.url"/>
+      </elements>
+      <elements xsi:type="extension:YTextField" initialEnabled="false" datadescription="//@content/@elements.0/@elements.1/@orphanDatadescriptions.0">
+        <orphanDatadescriptions label="databaseName" labelI18nKey="org.lunifera.runtime.common.datasource.IDataSourceService$DataSourceInfo.databaseName"/>
+      </elements>
+    </elements>
+    <elements xsi:type="extension:YFormLayout">
+      <elements xsi:type="extension:YTextField" initialEnabled="false" datadescription="//@content/@elements.1/@elements.0/@orphanDatadescriptions.0">
+        <orphanDatadescriptions label="pid" labelI18nKey="org.lunifera.runtime.common.datasource.IDataSourceService$DataSourceInfo.pid"/>
+      </elements>
+    </elements>
+  </content>
+  <bindingSet>
+    <bindings xsi:type="binding:YValueBinding" targetToModelStrategy="NEVER">
+      <targetEndpoint xsi:type="binding:YECViewModelValueBindingEndpoint" element="//@content/@elements.0/@elements.0" propertyPath="value" type="org.lunifera.runtime.common.datasource.IDataSourceService$DataSourceInfo" typeQualifiedName="org.lunifera.runtime.common.datasource.IDataSourceService$DataSourceInfo"/>
+      <modelEndpoint xsi:type="binding:YDetailValueBindingEndpoint" propertyPath="url" type="org.lunifera.runtime.common.datasource.IDataSourceService$DataSourceInfo">
+        <masterObservable xsi:type="core:YBeanSlotValueBindingEndpoint" attributePath="value" beanSlot="//@beanSlots.0"/>
+      </modelEndpoint>
+    </bindings>
+    <bindings xsi:type="binding:YValueBinding" targetToModelStrategy="NEVER">
+      <targetEndpoint xsi:type="binding:YECViewModelValueBindingEndpoint" element="//@content/@elements.1/@elements.0" propertyPath="value" type="org.lunifera.runtime.common.datasource.IDataSourceService$DataSourceInfo" typeQualifiedName="org.lunifera.runtime.common.datasource.IDataSourceService$DataSourceInfo"/>
+      <modelEndpoint xsi:type="binding:YDetailValueBindingEndpoint" propertyPath="pid" type="org.lunifera.runtime.common.datasource.IDataSourceService$DataSourceInfo">
+        <masterObservable xsi:type="core:YBeanSlotValueBindingEndpoint" attributePath="value" beanSlot="//@beanSlots.0"/>
+      </modelEndpoint>
+    </bindings>
+    <bindings xsi:type="binding:YValueBinding" targetToModelStrategy="NEVER">
+      <targetEndpoint xsi:type="binding:YECViewModelValueBindingEndpoint" element="//@content/@elements.0/@elements.1" propertyPath="value" type="org.lunifera.runtime.common.datasource.IDataSourceService$DataSourceInfo" typeQualifiedName="org.lunifera.runtime.common.datasource.IDataSourceService$DataSourceInfo"/>
+      <modelEndpoint xsi:type="binding:YDetailValueBindingEndpoint" propertyPath="databaseName" type="org.lunifera.runtime.common.datasource.IDataSourceService$DataSourceInfo">
+        <masterObservable xsi:type="core:YBeanSlotValueBindingEndpoint" attributePath="value" beanSlot="//@beanSlots.0"/>
+      </modelEndpoint>
+    </bindings>
+    <bindings xsi:type="binding:YValueBinding" targetToModelStrategy="ON_REQUEST">
+      <targetEndpoint xsi:type="binding:YECViewModelValueBindingEndpoint" element="//@commandSet/@commands.0">
+        <features xsi:type="ecore:EAttribute" href="http://lunifera.org/ecview/v1/core/view#//YSendEventCommand/message"/>
+      </targetEndpoint>
+      <modelEndpoint xsi:type="binding:YECViewModelValueBindingEndpoint" element="org.lunifera.actions.save" propertyPath=""/>
+    </bindings>
+    <bindings xsi:type="binding:YValueBinding" targetToModelStrategy="ON_REQUEST">
+      <targetEndpoint xsi:type="binding:YECViewModelValueBindingEndpoint" element="//@commandSet/@commands.1">
+        <features xsi:type="ecore:EAttribute" href="http://lunifera.org/ecview/v1/core/view#//YSendEventCommand/message"/>
+      </targetEndpoint>
+      <modelEndpoint xsi:type="binding:YECViewModelValueBindingEndpoint" element="org.lunifera.actions.delete" propertyPath=""/>
+    </bindings>
+    <bindings xsi:type="binding:YValueBinding" targetToModelStrategy="ON_REQUEST">
+      <targetEndpoint xsi:type="binding:YECViewModelValueBindingEndpoint" element="org.lunifera.actions.systems.newDatasource" propertyPath=""/>
+      <modelEndpoint xsi:type="binding:YECViewModelValueBindingEndpoint" element="org.lunifera.actions.delete" propertyPath=""/>
+    </bindings>
+  </bindingSet>
+  <beanSlots name="main" valueType="org.lunifera.runtime.common.datasource.IDataSourceService$DataSourceInfo" valueTypeQualifiedName="org.lunifera.runtime.common.datasource.IDataSourceService$DataSourceInfo" eventTopic="org/lunifera/vaaclipse/extension/system/Datasource/selection"/>
+  <commandSet>
+    <commands xsi:type="core:YSendEventCommand" eventTopic="org/lunifera/vaaclipse/extension/system/Datasource/table/refresh"/>
+    <commands xsi:type="core:YSendEventCommand" eventTopic="org/lunifera/vaaclipse/extension/system/Datasource/table/refresh"/>
+  </commandSet>
+  <visibilityProcessors delegateQualifiedName="org.lunifera.vaaclipse.addons.extension.system.DatasourceActionsVisibilityProcessor">
+    <triggersOn xsi:type="binding:YValueBinding" targetToModelStrategy="NEVER">
+      <targetEndpoint xsi:type="binding:YVisibilityProcessorValueBindingEndpoint" property="main"/>
+      <modelEndpoint xsi:type="core:YBeanSlotValueBindingEndpoint" attributePath="value" beanSlot="//@beanSlots.0"/>
+    </triggersOn>
+  </visibilityProcessors>
+  <exposedActions id="org.lunifera.actions.delete" name="deleteDatasource" initialEnabled="false" icon="org.lunifera.actions.delete.image" label="deleteDatasource" labelI18nKey="org.lunifera.actions.delete" externalCommandId="org.lunifera.vaaclipse.addons.application.command.extdelete"/>
+  <exposedActions id="org.lunifera.actions.save" name="saveDatasource" initialEnabled="false" icon="org.lunifera.actions.save.image" label="saveDatasource" labelI18nKey="org.lunifera.actions.save" externalCommandId="org.lunifera.vaaclipse.addons.application.command.extsave"/>
+  <exposedActions id="org.lunifera.actions.systems.newDatasource" name="newDatasource" icon="org.lunifera.actions.systems.newDatasource.image" label="newDatasource" labelI18nKey="org.lunifera.actions.systems.newDatasource"/>
+</core:YView>

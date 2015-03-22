@@ -31,6 +31,7 @@
 		<module>org.lunifera.vaaclipse.addons.application</module>
 		<module>org.lunifera.vaaclipse.addons.common.api</module>
 		<module>org.lunifera.vaaclipse.addons.ecview</module>
+		<module>org.lunifera.vaaclipse.addons.ecview.lib</module>
 		<module>org.lunifera.vaaclipse.addons.feature</module>
 	</modules>
 

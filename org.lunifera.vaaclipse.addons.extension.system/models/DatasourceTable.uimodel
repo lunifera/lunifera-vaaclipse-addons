@@ -1,0 +1,42 @@
+package org.lunifera.vaaclipse.addons.^extension.system
+
+import org.lunifera.runtime.common.^datasource.IDataSourceService.*
+
+ideview DatasourceTableView {
+	sharedStateGroup "org.lunifera.vaaclipse.extension.system.general" 
+	
+	exposedActions {
+		applyFilter id org.lunifera.actions.applyFilter
+	}
+	
+	datasource tableRefresh:Object
+	eventTopic "org/lunifera/vaaclipse/extension/system/Datasource/table/refresh"
+
+	verticalLayout {
+		searchPanel SearchPanel {
+			type DataSourceInfo
+			searchfield pid
+			searchfield databaseName
+		}
+		align top-fill
+
+		table DataTable {
+			useBeanService
+			type DataSourceInfo
+
+			columns {
+				column databaseName
+				column pid
+				column url
+			}
+
+			bind [this].selection --> sendEvent("org/lunifera/vaaclipse/extension/system/Datasource/selection")
+		}
+		align fill-fill
+	}
+	align fill-fill
+
+	bind tableRefresh --> [this.DataTable].refresh
+	bind [this.applyFilter].onExecuted --> [this.SearchPanel].applyFilter
+	bind [this.SearchPanel].filter --> [this.DataTable].filter
+}

@@ -1,0 +1,6 @@
+ePackage "http://www.lunifera.org/ecview/dsl/uimodel/core" as view
+
+actions {
+	org.lunifera.^actions.systems.newDatasource
+	org.lunifera.^actions.systems.updateDatasource externalCommand "org.lunifera.vaaclipse.addons.extension.system.updateDatasource" disabled
+}

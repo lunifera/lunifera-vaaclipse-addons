@@ -68,10 +68,16 @@ import org.slf4j.LoggerFactory;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.VerticalLayout;
 
-public class GenericECViewView {
+/**
+ * A generic ECView view part implementation. It will be used by the
+ * DynamicViewSupport to create views on the fly.
+ * <p>
+ * Client should not subclass this implementation.
+ */
+public class GenericECViewPart {
 
 	private static final Logger LOGGER = LoggerFactory
-			.getLogger(GenericECViewView.class);
+			.getLogger(GenericECViewPart.class);
 
 	@Inject
 	private IEclipseContext eclipseContext;
@@ -99,7 +105,7 @@ public class GenericECViewView {
 	private HashMap<String, Set<YBeanSlot>> redirectedEventtopics;
 	private Set<EventHandler> eventHandlers;
 
-	public GenericECViewView() {
+	public GenericECViewPart() {
 	}
 
 	@PostConstruct
@@ -110,8 +116,6 @@ public class GenericECViewView {
 					Notification.Type.ERROR_MESSAGE);
 			return;
 		}
-
-		// VaadinObservables.activateRealm(UI.getCurrent());
 
 		exposedActionsCallback = new ExposedActionsCallback();
 

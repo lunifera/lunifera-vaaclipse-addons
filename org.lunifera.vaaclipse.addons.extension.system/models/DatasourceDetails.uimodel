@@ -1,0 +1,40 @@
+package org.lunifera.vaaclipse.addons.^extension.system
+
+import org.lunifera.runtime.common.^datasource.IDataSourceService.*
+
+ideview DatasourceDetails {
+
+	sharedStateGroup "org.lunifera.vaaclipse.extension.system.general"
+
+	exposedActions {
+		deleteDatasource id org.lunifera.actions.delete
+		saveDatasource id org.lunifera.actions.save
+		newDatasource id org.lunifera.actions.systems.newDatasource
+	}
+
+	datasource main:DataSourceInfo eventTopic "org/lunifera/vaaclipse/extension/system/Datasource/selection"
+ 
+	horizontalLayout Detail {
+		autowire source main
+	} align fill-fill 
+	 visibility DatasourceActions {
+		fireOn main as main
+		ui [this.deleteDatasource] as deleteAction
+		ui [this.saveDatasource] as saveAction
+		ui [this.Detail] as mainLayout
+		{
+			mainLayout.enabled = true
+			deleteAction.enabled = false
+			saveAction.enabled = false
+			if(main != null){
+				deleteAction.enabled = true
+			} else {
+				mainLayout.enabled = false
+			}
+		}
+	}
+
+	bind [this.saveDatasource].onExecuted --> sendEvent("org/lunifera/vaaclipse/extension/system/Datasource/table/refresh")
+	bind [this.deleteDatasource].onExecuted --> sendEvent("org/lunifera/vaaclipse/extension/system/Datasource/table/refresh")
+	bind [this.deleteDatasource].onExecuted --> [this.newDatasource].click
+}

@@ -1,0 +1,19 @@
+ePackage "http://www.lunifera.org/ecview/dsl/uimodel/core" as view
+
+actions {
+	org.lunifera.^actions.save externalCommand "org.lunifera.vaaclipse.addons.application.command.extsave" disabled
+	org.lunifera.^actions.load externalCommand "org.lunifera.vaaclipse.addons.application.command.extload" disabled
+	org.lunifera.^actions.delete externalCommand "org.lunifera.vaaclipse.addons.application.command.extdelete" disabled
+	org.lunifera.^actions.validate externalCommand "org.lunifera.vaaclipse.addons.application.command.extvalidate" disabled
+	org.lunifera.^actions.addNewRow
+	org.lunifera.^actions.addNew
+	org.lunifera.^actions.applyFilter
+}
+
+categories {
+	org.lunifera.vaaclipse.addons.application.partstack.left
+	org.lunifera.vaaclipse.addons.application.partstack.right
+	org.lunifera.vaaclipse.addons.application.partstack.main
+	org.lunifera.vaaclipse.addons.application.partstack.bottom
+	org.lunifera.vaaclipse.addons.application.partstack.materdetail.master
+}

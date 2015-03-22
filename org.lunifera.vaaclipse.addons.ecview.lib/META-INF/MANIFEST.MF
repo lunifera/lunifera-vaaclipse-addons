@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Common API
+Bundle-SymbolicName: org.lunifera.vaaclipse.addons.ecview.lib;singleton:=true
+Bundle-Version: 0.9.1.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy
+Require-Bundle: org.lunifera.ecview.core.common;bundle-version="[0.9.0,0.10.0)";visibility:=reexport,
+ org.lunifera.runtime.common;bundle-version="[0.9.0,0.10.0)";visibility:=reexport,
+ org.eclipse.xtext.xbase.lib;bundle-version="[2.7.3,2.8.0)",
+ org.lunifera.ecview.dsl.lib;bundle-version="[0.9.1,0.10.0)";visibility:=reexport
+Export-Package: org.lunifera.vaaclipse.addons.ecview.lib

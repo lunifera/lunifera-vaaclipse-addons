@@ -34,6 +34,7 @@ import org.eclipse.e4.ui.model.application.ui.menu.MToolBar;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolBarElement;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
+import org.lunifera.dsl.dto.lib.services.DtoServiceException;
 import org.lunifera.dsl.dto.lib.services.IDTOService;
 import org.lunifera.ecview.core.common.beans.ISlot;
 import org.lunifera.ecview.core.common.context.ContextException;
@@ -66,6 +67,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.vaadin.ui.Notification;
+import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.VerticalLayout;
 
 /**
@@ -241,10 +243,18 @@ public class GenericECViewPart {
 								protected Object doExecute() {
 									boolean processed = false;
 									try {
-										dtoService.delete(mainDto);
-										// in case of exception, it is not
-										// changed
-										processed = true;
+										try {
+											dtoService.delete(mainDto);
+											// in case of exception, it is not
+											// changed
+											processed = true;
+										} catch (DtoServiceException e) {
+											// catch exception, show message and
+											// return
+											Notification.show("",
+													e.getMessage(),
+													Type.ERROR_MESSAGE);
+										}
 									} finally {
 										if (processed) {
 											notifyExecuted(yAction);

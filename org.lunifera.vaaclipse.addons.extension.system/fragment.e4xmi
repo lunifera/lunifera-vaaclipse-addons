@@ -1,22 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<fragment:ModelFragments xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:advanced="http://www.eclipse.org/ui/2010/UIModel/application/ui/advanced" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:basic_1="http://www.eclipse.org/ui/2010/UIModel/application/descriptor/basic" xmlns:commands="http://www.eclipse.org/ui/2010/UIModel/application/commands" xmlns:fragment="http://www.eclipse.org/ui/2010/UIModel/fragment" xmi:id="_MNDvwMWxEeSzw8CCZBgGfQ">
-  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_XYGE0MWxEeSzw8CCZBgGfQ" featurename="children" parentElementId="org.lunifera.vaaclipse.addons.application.perspectivestack.0">
-    <elements xsi:type="advanced:Perspective" xmi:id="_jU_7sMWxEeSzw8CCZBgGfQ" elementId="org.lunifera.vaaclipse.addons.extension.system.perspective." label="System" iconURI="platform:/plugin/org.lunifera.vaaclipse.addons.extension.system/images/system.png" tooltip="Collection of system features">
-      <children xsi:type="basic:PartSashContainer" xmi:id="_8rtFQMWxEeSzw8CCZBgGfQ" elementId="org.lunifera.vaaclipse.addons.application.partsashcontainer.0" horizontal="true">
-        <children xsi:type="basic:PartStack" xmi:id="_8rtFQcWxEeSzw8CCZBgGfQ" elementId="org.lunifera.vaaclipse.addons.application.partstack.leftside" containerData="25">
-          <children xsi:type="advanced:Placeholder" xmi:id="_X2EKYMdKEeS1P7t7bKAKuw" elementId="org.lunifera.vaaclipse.addons.extension.system.placeholder.0" closeable="true"/>
-        </children>
-        <children xsi:type="basic:PartSashContainer" xmi:id="_8rtFRMWxEeSzw8CCZBgGfQ" elementId="org.lunifera.vaaclipse.addons.application.partsashcontainer.1" containerData="75">
-          <children xsi:type="basic:PartSashContainer" xmi:id="_8rtFRcWxEeSzw8CCZBgGfQ" elementId="org.lunifera.vaaclipse.addons.application.partsashcontainer.2" containerData="70" horizontal="true">
-            <children xsi:type="advanced:Placeholder" xmi:id="_8rtFRsWxEeSzw8CCZBgGfQ" elementId="org.semanticsoft.vaaclipsedemo.cassandra.app.placeholder.2" containerData="70">
-              <ref xsi:type="advanced:Area" href="../org.lunifera.vaaclipse.addons.application/Application.e4xmi#_PCF44qoREeSuAOXH-urFdQ"/>
-            </children>
-            <children xsi:type="basic:PartStack" xmi:id="_8rtFR8WxEeSzw8CCZBgGfQ" elementId="org.lunifera.vaaclipse.addons.application.partstack.dynamicViews"/>
-          </children>
-        </children>
-      </children>
-    </elements>
-  </fragments>
+<fragment:ModelFragments xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/descriptor/basic" xmlns:commands="http://www.eclipse.org/ui/2010/UIModel/application/commands" xmlns:fragment="http://www.eclipse.org/ui/2010/UIModel/fragment" xmi:id="_MNDvwMWxEeSzw8CCZBgGfQ">
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_knKeUMdKEeS1P7t7bKAKuw" featurename="commands" parentElementId="org.lunifera.vaaclipse.addons.application">
     <elements xsi:type="commands:Command" xmi:id="_Gct48MdKEeS1P7t7bKAKuw" elementId="org.lunifera.vaaclipse.addons.extension.system.createdatasource" commandName="Create a new datasource" description="Create a new datasource"/>
   </fragments>
@@ -25,12 +8,12 @@
   </fragments>
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_xCZP8MdKEeS1P7t7bKAKuw" featurename="sharedElements" parentElementId="mainWindow"/>
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_ieGRoM-xEeSscMz1WjkrfA" featurename="descriptors" parentElementId="org.lunifera.vaaclipse.addons.application">
-    <elements xsi:type="basic_1:PartDescriptor" xmi:id="_VG-MkM--EeSqGowmJdFaKQ" elementId="org.lunifera.vaaclipse.addons.extension.system.partdescriptor.datasourceDetails" label="Datasource Edit" iconURI="platform:/plugin/org.lunifera.vaaclipse.addons.extension.system/images/datasource.png" tooltip="Manage Datasources" category="org.lunifera.vaaclipse.addons.application.partstack.main" closeable="true" contributionURI="bundleclass://org.lunifera.vaaclipse.addons.ecview/org.lunifera.vaaclipse.addons.ecview.views.AbstractECViewPart">
+    <elements xsi:type="basic:PartDescriptor" xmi:id="_VG-MkM--EeSqGowmJdFaKQ" elementId="org.lunifera.vaaclipse.addons.extension.system.partdescriptor.datasourceDetails" label="Datasource Edit" iconURI="platform:/plugin/org.lunifera.vaaclipse.addons.extension.system/images/datasource.png" tooltip="Manage Datasources" category="org.lunifera.vaaclipse.addons.application.partstack.main" closeable="true" contributionURI="bundleclass://org.lunifera.vaaclipse.addons.ecview/org.lunifera.vaaclipse.addons.ecview.views.AbstractECViewPart">
       <persistedState key="ecview.viewId" value="org.lunifera.vaaclipse.addons.extension.system.DatasourceDetails"/>
       <tags>View</tags>
       <toolbar xmi:id="_e0UXcM_FEeSqGowmJdFaKQ" elementId="org.lunifera.vaaclipse.addons.extension.system.toolbar.0"/>
     </elements>
-    <elements xsi:type="basic_1:PartDescriptor" xmi:id="_Iq4C0M-_EeSqGowmJdFaKQ" elementId="org.lunifera.vaaclipse.addons.extension.system.partdescriptor.datasourceMaster" label="Datasources" iconURI="platform:/plugin/org.lunifera.vaaclipse.addons.extension.system/images/datasource.png" tooltip="Manage Datasources" category="org.lunifera.vaaclipse.addons.application.partstack.materdetail.master" closeable="true" contributionURI="bundleclass://org.lunifera.vaaclipse.addons.ecview/org.lunifera.vaaclipse.addons.ecview.views.AbstractECViewPart">
+    <elements xsi:type="basic:PartDescriptor" xmi:id="_Iq4C0M-_EeSqGowmJdFaKQ" elementId="org.lunifera.vaaclipse.addons.extension.system.partdescriptor.datasourceMaster" label="Datasources" iconURI="platform:/plugin/org.lunifera.vaaclipse.addons.extension.system/images/datasource.png" tooltip="Manage Datasources" category="org.lunifera.vaaclipse.addons.application.partstack.materdetail.master" closeable="true" contributionURI="bundleclass://org.lunifera.vaaclipse.addons.ecview/org.lunifera.vaaclipse.addons.ecview.views.AbstractECViewPart">
       <persistedState key="ecview.viewId" value="org.lunifera.vaaclipse.addons.extension.system.DatasourceTableView"/>
       <tags>View</tags>
       <toolbar xmi:id="_fCR68M_FEeSqGowmJdFaKQ" elementId="org.lunifera.vaaclipse.addons.extension.system.toolbar.1"/>

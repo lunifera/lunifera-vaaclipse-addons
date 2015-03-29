@@ -56,7 +56,7 @@
     <commands xsi:type="core:YSendEventCommand" eventTopic="org/lunifera/vaaclipse/extension/system/Datasource/table/refresh"/>
     <commands xsi:type="core:YSendEventCommand" eventTopic="org/lunifera/vaaclipse/extension/system/Datasource/table/refresh"/>
   </commandSet>
-  <visibilityProcessors delegate="org.lunifera.vaaclipse.addons.extension.system.DatasourceActionsVisibilityProcessor" delegateQualifiedName="org.lunifera.vaaclipse.addons.extension.system.DatasourceActionsVisibilityProcessor">
+  <visibilityProcessors delegateQualifiedName="org.lunifera.vaaclipse.addons.extension.system.DatasourceActionsVisibilityProcessor">
     <triggersOn xsi:type="binding:YValueBinding" targetToModelStrategy="NEVER">
       <targetEndpoint xsi:type="binding:YVisibilityProcessorValueBindingEndpoint" property="main"/>
       <modelEndpoint xsi:type="core:YBeanSlotValueBindingEndpoint" attributePath="value" beanSlot="//@beanSlots.0"/>

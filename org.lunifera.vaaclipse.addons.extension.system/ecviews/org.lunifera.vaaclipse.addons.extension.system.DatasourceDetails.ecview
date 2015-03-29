@@ -38,17 +38,17 @@
       <targetEndpoint xsi:type="binding:YECViewModelValueBindingEndpoint" element="//@commandSet/@commands.0">
         <features xsi:type="ecore:EAttribute" href="http://lunifera.org/ecview/v1/core/view#//YSendEventCommand/message"/>
       </targetEndpoint>
-      <modelEndpoint xsi:type="binding:YECViewModelValueBindingEndpoint" element="org.lunifera.actions.save" propertyPath="executedNotificationTime" type="java.lang.Long" typeQualifiedName="java.lang.Long"/>
+      <modelEndpoint xsi:type="binding:YECViewModelValueBindingEndpoint" element="org.lunifera.actions.save" propertyPath=""/>
     </bindings>
     <bindings xsi:type="binding:YValueBinding" targetToModelStrategy="ON_REQUEST">
       <targetEndpoint xsi:type="binding:YECViewModelValueBindingEndpoint" element="//@commandSet/@commands.1">
         <features xsi:type="ecore:EAttribute" href="http://lunifera.org/ecview/v1/core/view#//YSendEventCommand/message"/>
       </targetEndpoint>
-      <modelEndpoint xsi:type="binding:YECViewModelValueBindingEndpoint" element="org.lunifera.actions.delete" propertyPath="executedNotificationTime" type="java.lang.Long" typeQualifiedName="java.lang.Long"/>
+      <modelEndpoint xsi:type="binding:YECViewModelValueBindingEndpoint" element="org.lunifera.actions.delete" propertyPath=""/>
     </bindings>
     <bindings xsi:type="binding:YValueBinding" targetToModelStrategy="ON_REQUEST">
-      <targetEndpoint xsi:type="binding:YECViewModelValueBindingEndpoint" element="org.lunifera.actions.systems.newDatasource" propertyPath="internalClickTime" type="java.lang.Long" typeQualifiedName="java.lang.Long"/>
-      <modelEndpoint xsi:type="binding:YECViewModelValueBindingEndpoint" element="org.lunifera.actions.delete" propertyPath="executedNotificationTime" type="java.lang.Long" typeQualifiedName="java.lang.Long"/>
+      <targetEndpoint xsi:type="binding:YECViewModelValueBindingEndpoint" element="org.lunifera.actions.systems.newDatasource" propertyPath=""/>
+      <modelEndpoint xsi:type="binding:YECViewModelValueBindingEndpoint" element="org.lunifera.actions.delete" propertyPath=""/>
     </bindings>
   </bindingSet>
   <beanSlots name="main" valueType="org.lunifera.runtime.common.datasource.IDataSourceService$DataSourceInfo" valueTypeQualifiedName="org.lunifera.runtime.common.datasource.IDataSourceService$DataSourceInfo" eventTopic="org/lunifera/vaaclipse/extension/system/Datasource/selection"/>

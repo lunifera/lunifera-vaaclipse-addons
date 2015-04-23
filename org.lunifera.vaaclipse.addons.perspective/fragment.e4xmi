@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="ASCII"?>
+<fragment:ModelFragments xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:advanced="http://www.eclipse.org/ui/2010/UIModel/application/ui/advanced" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:commands="http://www.eclipse.org/ui/2010/UIModel/application/commands" xmlns:fragment="http://www.eclipse.org/ui/2010/UIModel/fragment" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_MNDvwMWxEeSzw8CCZBgGfQ">
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_xO4gEOdEEeSksfj086eVVA" featurename="children" parentElementId="org.lunifera.vaaclipse.addons.application.window" positionInList="">
+    <elements xsi:type="menu:MenuSeparator" xmi:id="_Iv7g0Om8EeSksfj086eVVA" elementId="org.lunifera.vaaclipse.addons.perspective.menuseparator.0"/>
+    <elements xsi:type="menu:HandledMenuItem" xmi:id="_JQQ1cOdFEeSksfj086eVVA" elementId="org.lunifera.vaaclipse.addons.perspective.handledmenuitem.save" label="Save perspective" tooltip="Save perspective" command="_yZY5cOdGEeSksfj086eVVA"/>
+    <elements xsi:type="menu:HandledMenuItem" xmi:id="_NzQoEOdcEeSksfj086eVVA" elementId="org.lunifera.vaaclipse.addons.perspective.handledmenuitem.delete" label="Delete perspective" tooltip="Delete perspective" command="_QD7DIOdcEeSksfj086eVVA"/>
+    <elements xsi:type="menu:HandledMenuItem" xmi:id="_anBOcOdcEeSksfj086eVVA" elementId="org.lunifera.vaaclipse.addons.perspective.handledmenuitem.reset" label="Reset perspective" tooltip="Reset perspective" command="_cRwR8OdcEeSksfj086eVVA"/>
+  </fragments>
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_9e5qwOdFEeSksfj086eVVA" featurename="commands" parentElementId="org.lunifera.vaaclipse.addons.application">
+    <elements xsi:type="commands:Command" xmi:id="_yZY5cOdGEeSksfj086eVVA" elementId="org.lunifera.vaaclipse.addons.perspective.commands.save" commandName="Save perspective" description="Save perspective"/>
+    <elements xsi:type="commands:Command" xmi:id="_QD7DIOdcEeSksfj086eVVA" elementId="org.lunifera.vaaclipse.addons.perspective.commands.delete" commandName="Delete perspective" description="Delete perspective"/>
+    <elements xsi:type="commands:Command" xmi:id="_cRwR8OdcEeSksfj086eVVA" elementId="org.lunifera.vaaclipse.addons.perspective.commands.reset" commandName="Reset perspective" description="Reset perspective"/>
+  </fragments>
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_5BJ3oOdGEeSksfj086eVVA" featurename="handlers" parentElementId="org.lunifera.vaaclipse.addons.application">
+    <elements xsi:type="commands:Handler" xmi:id="_5BJ3oedGEeSksfj086eVVA" elementId="org.lunifera.vaaclipse.addons.perspective.handler.save" contributionURI="bundleclass://org.lunifera.vaaclipse.addons.perspective/org.lunifera.vaaclipse.addons.perspective.ui.SavePerspectiveHandler" command="_yZY5cOdGEeSksfj086eVVA"/>
+    <elements xsi:type="commands:Handler" xmi:id="_R8FeoOdcEeSksfj086eVVA" elementId="org.lunifera.vaaclipse.addons.perspective.handler.delete" contributionURI="bundleclass://org.lunifera.vaaclipse.addons.perspective/org.lunifera.vaaclipse.addons.perspective.ui.DeletePerspectiveHandler" command="_QD7DIOdcEeSksfj086eVVA"/>
+    <elements xsi:type="commands:Handler" xmi:id="_ciif8OdcEeSksfj086eVVA" elementId="org.lunifera.vaaclipse.addons.perspective.handler.reset" contributionURI="bundleclass://org.lunifera.vaaclipse.addons.perspective/org.lunifera.vaaclipse.addons.perspective.ui.ResetPerspectiveHandler" command="_cRwR8OdcEeSksfj086eVVA"/>
+  </fragments>
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_MdNeEOf_EeSksfj086eVVA" featurename="children" parentElementId="org.lunifera.vaaclipse.addons.application.perspectivestack.0">
+    <elements xsi:type="advanced:Perspective" xmi:id="_UtMXQOf_EeSksfj086eVVA" elementId="org.lunifera.vaaclipse.addons.application.perspective.general2" selectedElement="_UtMXQef_EeSksfj086eVVA" label="General2" iconURI="platform:/plugin/org.lunifera.vaaclipse.addons.application/images/xmi.png" tooltip="General2">
+      <children xsi:type="basic:PartSashContainer" xmi:id="_UtMXQef_EeSksfj086eVVA" elementId="" horizontal="true">
+        <children xsi:type="basic:PartSashContainer" xmi:id="_UtMXQuf_EeSksfj086eVVA" elementId="" containerData="1500" selectedElement="_UtMXQ-f_EeSksfj086eVVA">
+          <children xsi:type="basic:PartStack" xmi:id="_UtMXQ-f_EeSksfj086eVVA" elementId="org.lunifera.vaaclipse.addons.application.partstack.left" containerData="2500">
+            <tags>org.lunifera.vaaclipse.addons.application.partstack.left</tags>
+            <children xsi:type="advanced:Placeholder" xmi:id="_UtMXROf_EeSksfj086eVVA" elementId="org.lunifera.vaaclipse.addons.application.partdescriptor.explorer" containerData="">
+              <ref xsi:type="basic:Part" href="../org.lunifera.vaaclipse.addons.application/Application.e4xmi#_CtR-4MyREeSAOI_Qr45QBA"/>
+            </children>
+          </children>
+        </children>
+        <children xsi:type="basic:PartSashContainer" xmi:id="_UtMXRef_EeSksfj086eVVA" elementId="org.lunifera.vaaclipse.addons.application.partsashcontainer.0" containerData="5000">
+          <children xsi:type="advanced:Placeholder" xmi:id="_UtMXRuf_EeSksfj086eVVA" elementId="org.lunifera.vaaclipse.addons.application.area.main" containerData="9000">
+            <ref xsi:type="advanced:Area" href="../org.lunifera.vaaclipse.addons.application/Application.e4xmi#_PCF44qoREeSuAOXH-urFdQ"/>
+          </children>
+          <children xsi:type="basic:PartStack" xmi:id="_UtMXR-f_EeSksfj086eVVA" elementId="org.lunifera.vaaclipse.addons.application.partstack.bottom" containerData="2500">
+            <tags>org.lunifera.vaaclipse.addons.application.partstack.bottom</tags>
+            <children xsi:type="advanced:Placeholder" xmi:id="_UtMXSOf_EeSksfj086eVVA" elementId="org.lunifera.vaaclipse.addons.application.partdescriptor.problems">
+              <ref xsi:type="basic:Part" href="../org.lunifera.vaaclipse.addons.application/Application.e4xmi#_C43j0MyREeSAOI_Qr45QBA"/>
+            </children>
+          </children>
+        </children>
+        <children xsi:type="basic:PartSashContainer" xmi:id="_UtMXSef_EeSksfj086eVVA" elementId="" containerData="3500">
+          <children xsi:type="advanced:Placeholder" xmi:id="_UtMXSuf_EeSksfj086eVVA" elementId="org.lunifera.vaaclipse.addons.application.area.materdetail.master" containerData="500">
+            <ref xsi:type="advanced:Area" href="../org.lunifera.vaaclipse.addons.application/Application.e4xmi#_UPxG0M5VEeSscMz1WjkrfA"/>
+          </children>
+          <children xsi:type="basic:PartStack" xmi:id="_UtMXS-f_EeSksfj086eVVA" elementId="org.lunifera.vaaclipse.addons.application.partstack.right" containerData="500">
+            <tags>org.lunifera.vaaclipse.addons.application.partstack.outline</tags>
+            <tags>org.lunifera.vaaclipse.addons.application.partstack.right</tags>
+            <children xsi:type="advanced:Placeholder" xmi:id="_UtMXTOf_EeSksfj086eVVA" elementId="org.lunifera.vaaclipse.addons.application.partdescriptor.outline">
+              <ref xsi:type="basic:Part" href="../org.lunifera.vaaclipse.addons.application/Application.e4xmi#_WjXU0KudEeS21pCaYI4ioQ"/>
+            </children>
+          </children>
+        </children>
+      </children>
+    </elements>
+  </fragments>
+</fragment:ModelFragments>

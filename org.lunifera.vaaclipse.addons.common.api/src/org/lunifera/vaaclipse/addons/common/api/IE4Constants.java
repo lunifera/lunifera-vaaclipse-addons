@@ -48,5 +48,5 @@ public interface IE4Constants {
 	 * Used as property in OSGi services.
 	 */
 	public static final String APPLICATION_ID = "e4.application.id";
-
+	
 }

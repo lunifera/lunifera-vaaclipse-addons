@@ -9,22 +9,47 @@
           <children xsi:type="basic:PartSashContainer" xmi:id="_7RTu0MyLEeSAOI_Qr45QBA" elementId="" containerData="1500" selectedElement="_9peDEKucEeS21pCaYI4ioQ">
             <children xsi:type="basic:PartStack" xmi:id="_9peDEKucEeS21pCaYI4ioQ" elementId="org.lunifera.vaaclipse.addons.application.partstack.left" containerData="2500">
               <tags>org.lunifera.vaaclipse.addons.application.partstack.left</tags>
-              <children xsi:type="advanced:Placeholder" xmi:id="_Fy8EkKudEeS21pCaYI4ioQ" elementId="org.lunifera.vaaclipse.addons.application.placeholder.explorer" containerData="" ref="_CtR-4MyREeSAOI_Qr45QBA"/>
+              <children xsi:type="advanced:Placeholder" xmi:id="_Fy8EkKudEeS21pCaYI4ioQ" elementId="org.lunifera.vaaclipse.addons.application.partdescriptor.explorer" containerData="" ref="_CtR-4MyREeSAOI_Qr45QBA"/>
             </children>
           </children>
           <children xsi:type="basic:PartSashContainer" xmi:id="_CRZz0MyUEeSAOI_Qr45QBA" elementId="org.lunifera.vaaclipse.addons.application.partsashcontainer.0" containerData="5000">
-            <children xsi:type="advanced:Placeholder" xmi:id="_2PP28KvNEeS5r6nTfRYz2w" elementId="" containerData="9000" ref="_PCF44qoREeSuAOXH-urFdQ"/>
+            <children xsi:type="advanced:Placeholder" xmi:id="_2PP28KvNEeS5r6nTfRYz2w" elementId="org.lunifera.vaaclipse.addons.application.area.main" containerData="9000" ref="_PCF44qoREeSuAOXH-urFdQ"/>
             <children xsi:type="basic:PartStack" xmi:id="_V2xxkMyMEeSAOI_Qr45QBA" elementId="org.lunifera.vaaclipse.addons.application.partstack.bottom" containerData="2500">
               <tags>org.lunifera.vaaclipse.addons.application.partstack.bottom</tags>
-              <children xsi:type="advanced:Placeholder" xmi:id="_2ASPMMyNEeSAOI_Qr45QBA" elementId="org.lunifera.vaaclipse.addons.application.placeholder.problems" ref="_C43j0MyREeSAOI_Qr45QBA"/>
+              <children xsi:type="advanced:Placeholder" xmi:id="_2ASPMMyNEeSAOI_Qr45QBA" elementId="org.lunifera.vaaclipse.addons.application.partdescriptor.problems" ref="_C43j0MyREeSAOI_Qr45QBA"/>
             </children>
           </children>
           <children xsi:type="basic:PartSashContainer" xmi:id="_P_xh8MyMEeSAOI_Qr45QBA" elementId="" containerData="3500">
-            <children xsi:type="advanced:Placeholder" xmi:id="_bzHjgM5VEeSscMz1WjkrfA" elementId="org.lunifera.vaaclipse.addons.application.placeholder.0" containerData="500" ref="_UPxG0M5VEeSscMz1WjkrfA"/>
+            <children xsi:type="advanced:Placeholder" xmi:id="_bzHjgM5VEeSscMz1WjkrfA" elementId="org.lunifera.vaaclipse.addons.application.area.materdetail.master" containerData="500" ref="_UPxG0M5VEeSscMz1WjkrfA"/>
             <children xsi:type="basic:PartStack" xmi:id="_IflRAKudEeS21pCaYI4ioQ" elementId="org.lunifera.vaaclipse.addons.application.partstack.right" containerData="500">
               <tags>org.lunifera.vaaclipse.addons.application.partstack.outline</tags>
               <tags>org.lunifera.vaaclipse.addons.application.partstack.right</tags>
-              <children xsi:type="advanced:Placeholder" xmi:id="_rYE6YMyNEeSAOI_Qr45QBA" elementId="org.lunifera.vaaclipse.addons.application.placeholder.outline" ref="_WjXU0KudEeS21pCaYI4ioQ"/>
+              <children xsi:type="advanced:Placeholder" xmi:id="_rYE6YMyNEeSAOI_Qr45QBA" elementId="org.lunifera.vaaclipse.addons.application.partdescriptor.outline" ref="_WjXU0KudEeS21pCaYI4ioQ"/>
+            </children>
+          </children>
+        </children>
+      </children>
+      <children xsi:type="advanced:Perspective" xmi:id="_TLzNYOj5EeSksfj086eVVA" elementId="org.lunifera.vaaclipse.addons.application.perspective.generalxxx" selectedElement="_TLzNYej5EeSksfj086eVVA" label="Generalxxx" iconURI="platform:/plugin/org.lunifera.vaaclipse.addons.application/images/xmi.png" tooltip="Generalxxx">
+        <children xsi:type="basic:PartSashContainer" xmi:id="_TLzNYej5EeSksfj086eVVA" elementId="" horizontal="true">
+          <children xsi:type="basic:PartSashContainer" xmi:id="_TLzNZej5EeSksfj086eVVA" elementId="org.lunifera.vaaclipse.addons.application.partsashcontainer.0" containerData="5000">
+            <children xsi:type="advanced:Placeholder" xmi:id="_TLzNZuj5EeSksfj086eVVA" elementId="org.lunifera.vaaclipse.addons.application.area.main" containerData="9000" ref="_PCF44qoREeSuAOXH-urFdQ"/>
+            <children xsi:type="basic:PartStack" xmi:id="_TLzNZ-j5EeSksfj086eVVA" elementId="org.lunifera.vaaclipse.addons.application.partstack.bottom" containerData="2500">
+              <tags>org.lunifera.vaaclipse.addons.application.partstack.bottom</tags>
+              <children xsi:type="advanced:Placeholder" xmi:id="_TLzNaOj5EeSksfj086eVVA" elementId="org.lunifera.vaaclipse.addons.application.partdescriptor.problems" ref="_C43j0MyREeSAOI_Qr45QBA"/>
+            </children>
+          </children>
+          <children xsi:type="basic:PartSashContainer" xmi:id="_TLzNYuj5EeSksfj086eVVA" elementId="" containerData="1500" selectedElement="_TLzNY-j5EeSksfj086eVVA">
+            <children xsi:type="basic:PartStack" xmi:id="_TLzNY-j5EeSksfj086eVVA" elementId="org.lunifera.vaaclipse.addons.application.partstack.left" containerData="2500">
+              <tags>org.lunifera.vaaclipse.addons.application.partstack.left</tags>
+              <children xsi:type="advanced:Placeholder" xmi:id="_TLzNZOj5EeSksfj086eVVA" elementId="org.lunifera.vaaclipse.addons.application.partdescriptor.explorer" containerData="" ref="_CtR-4MyREeSAOI_Qr45QBA"/>
+            </children>
+          </children>
+          <children xsi:type="basic:PartSashContainer" xmi:id="_TLzNaej5EeSksfj086eVVA" elementId="" containerData="3500">
+            <children xsi:type="advanced:Placeholder" xmi:id="_TLzNauj5EeSksfj086eVVA" elementId="org.lunifera.vaaclipse.addons.application.area.materdetail.master" containerData="500" ref="_UPxG0M5VEeSscMz1WjkrfA"/>
+            <children xsi:type="basic:PartStack" xmi:id="_TLzNa-j5EeSksfj086eVVA" elementId="org.lunifera.vaaclipse.addons.application.partstack.right" containerData="500">
+              <tags>org.lunifera.vaaclipse.addons.application.partstack.outline</tags>
+              <tags>org.lunifera.vaaclipse.addons.application.partstack.right</tags>
+              <children xsi:type="advanced:Placeholder" xmi:id="_TLzNbOj5EeSksfj086eVVA" elementId="org.lunifera.vaaclipse.addons.application.partdescriptor.outline" ref="_WjXU0KudEeS21pCaYI4ioQ"/>
             </children>
           </children>
         </children>
@@ -45,7 +70,7 @@
         <children xsi:type="menu:HandledMenuItem" xmi:id="_aEFsUMvYEeSAOI_Qr45QBA" elementId="org.lunifera.vaaclipse.addons.application.handledmenuitem.sample" label="Sample" tooltip="Sample" command="_em0GEMvXEeSAOI_Qr45QBA"/>
       </children>
     </mainMenu>
-    <sharedElements xsi:type="advanced:Area" xmi:id="_PCF44qoREeSuAOXH-urFdQ" elementId="org.lunifera.vaaclipse.addons.application.area.main" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/editor_area.png">
+    <sharedElements xsi:type="advanced:Area" xmi:id="_PCF44qoREeSuAOXH-urFdQ" elementId="org.lunifera.vaaclipse.addons.application.area.main" iconURI="platform:/plugin/org.lunifera.vaaclipse.addons.application/images/editor_area.png">
       <children xsi:type="basic:PartStack" xmi:id="_PCF446oREeSuAOXH-urFdQ" elementId="org.lunifera.vaaclipse.addons.application.partstack.main">
         <tags>org.lunifera.vaaclipse.addons.application.partstack.main</tags>
       </children>
@@ -53,7 +78,7 @@
     <sharedElements xsi:type="basic:Part" xmi:id="_WjXU0KudEeS21pCaYI4ioQ" elementId="org.lunifera.vaaclipse.addons.application.partdescriptor.outline" accessibilityPhrase="" contributionURI="bundleclass://org.lunifera.vaaclipse.addons.application/org.lunifera.vaaclipse.addons.application.views.OutlineView" label="Outline" iconURI="platform:/plugin/org.lunifera.vaaclipse.addons.application/images/outline.png" tooltip="A common Outline" closeable="true"/>
     <sharedElements xsi:type="basic:Part" xmi:id="_CtR-4MyREeSAOI_Qr45QBA" elementId="org.lunifera.vaaclipse.addons.application.partdescriptor.explorer" accessibilityPhrase="" contributionURI="bundleclass://org.lunifera.vaaclipse.addons.application/org.lunifera.vaaclipse.addons.application.views.ExplorerView" label="Explorer" iconURI="platform:/plugin/org.lunifera.vaaclipse.addons.application/images/xmi.png" tooltip="Main entry point for the application" closeable="true"/>
     <sharedElements xsi:type="basic:Part" xmi:id="_C43j0MyREeSAOI_Qr45QBA" elementId="org.lunifera.vaaclipse.addons.application.partdescriptor.problems" accessibilityPhrase="" contributionURI="bundleclass://org.lunifera.vaaclipse.addons.application/org.lunifera.vaaclipse.addons.application.views.ProblemsView" label="Problems" iconURI="platform:/plugin/org.lunifera.vaaclipse.addons.application/images/problems.png" tooltip="Problems view" closeable="true"/>
-    <sharedElements xsi:type="advanced:Area" xmi:id="_UPxG0M5VEeSscMz1WjkrfA" elementId="org.lunifera.vaaclipse.addons.application.area.materdetail.master" containerData="500" iconURI="platform:/plugin/org.semanticsoft.vaaclipsedemo.cassandra.app/img/editor_area.png">
+    <sharedElements xsi:type="advanced:Area" xmi:id="_UPxG0M5VEeSscMz1WjkrfA" elementId="org.lunifera.vaaclipse.addons.application.area.materdetail.master" containerData="500" iconURI="platform:/plugin/org.lunifera.vaaclipse.addons.application/images/editor_area.png">
       <children xsi:type="basic:PartStack" xmi:id="_XGDj8MyTEeSAOI_Qr45QBA" elementId="org.lunifera.vaaclipse.addons.application.partstack.materdetail.master" containerData="500">
         <tags>org.lunifera.vaaclipse.addons.application.partstack.materdetail.master</tags>
       </children>
@@ -71,13 +96,6 @@
   <handlers xmi:id="_FXjXEMD8EeSQwIz-O_iJHw" elementId="org.lunifera.vaaclipse.addons.application.handler.extvalidate" contributionURI="bundleclass://org.lunifera.vaaclipse.addons.application/org.lunifera.vaaclipse.addons.application.handler.ExtValidateHandler" command="_ConroMD8EeSQwIz-O_iJHw"/>
   <handlers xmi:id="_jA1aUMvXEeSAOI_Qr45QBA" elementId="org.lunifera.vaaclipse.addons.application.handler.noimplementation" contributionURI="bundleclass://org.lunifera.vaaclipse.addons.application/org.lunifera.vaaclipse.addons.application.handler.NotImplementedHandler" command="_em0GEMvXEeSAOI_Qr45QBA"/>
   <handlers xmi:id="_tKHlMMvcEeSAOI_Qr45QBA" elementId="org.lunifera.vaaclipse.addons.application.handler.showView" contributionURI="bundleclass://org.semanticsoft.vaaclipse.additions/org.semanticsoft.vaaclipse.additions.view.ShowViewHandler" command="_t-dzQMvcEeSAOI_Qr45QBA"/>
-  <bindingTables xmi:id="_8Qv5kKoQEeSuAOXH-urFdQ" elementId="org.lunifera.vaaclipse.addons.bindingtable1">
-    <bindings xmi:id="_8Qv5kaoQEeSuAOXH-urFdQ" elementId="_SeXUHu8EEd6FC9cDb6iV7g" keySequence="CTRL+S">
-      <command href="CassandraApplication.e4xmi#contacts.save"/>
-    </bindings>
-    <bindings xmi:id="_8Qv5kqoQEeSuAOXH-urFdQ" elementId="_SeXUH-8EEd6FC9cDb6iV7g" keySequence="Delete"/>
-    <bindingContext href="CassandraApplication.e4xmi#_SeXUHO8EEd6FC9cDb6iV7y"/>
-  </bindingTables>
   <rootContext xmi:id="_5qzyEKoQEeSuAOXH-urFdQ" elementId="org.eclipse.ui.contexts.dialogAndWindow" name="In Dialog and Windows">
     <children xmi:id="_5qzyEaoQEeSuAOXH-urFdQ" elementId="org.eclipse.ui.contexts.window" name="In Windows"/>
     <children xmi:id="_5qzyEqoQEeSuAOXH-urFdQ" elementId="org.eclipse.ui.contexts.dialog" name="In Dialogs"/>

@@ -8,15 +8,18 @@
  * Contributors: 
  * 		Florian Pirchner - Initial implementation
  */
-package org.lunifera.vaaclipse.addons.common.api.resource;
+package org.lunifera.vaaclipse.addons.perspective.common;
 
-import java.io.IOException;
+public interface ISystemUserCapability {
 
-import org.eclipse.e4.ui.model.fragment.MModelFragments;
-import org.eclipse.e4.ui.workbench.IModelResourceHandler;
-
-public interface ICustomizedModelResourceHandler extends IModelResourceHandler {
-
-	public static final String SYSTEM_USER = "systemUser";
+	/**
+	 * Returns true, if the user is allowed to save perspectives under the
+	 * system user.
+	 * 
+	 * @param userId
+	 *            - If null, then the system needs to use the current user.
+	 * @return
+	 */
+	boolean hasCapability(String userId);
 
 }

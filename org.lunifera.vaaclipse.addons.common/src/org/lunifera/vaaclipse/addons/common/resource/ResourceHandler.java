@@ -11,7 +11,7 @@
  *     		Fix for Bug 2369 [Workbench] Would like to be able to save workspace without exiting
  *     		Implemented workbench auto-save to correctly restore state in case of crash.
  *     Terry Parker <tparker@google.com> - Bug 416673
- *     Florian Pirchner - adjusted for Vaaclipse usecases
+ *     Florian Pirchner - adjusted for Vaaclipse usecases - uses different ModelAssembler and ModelUtils
  ******************************************************************************/
 
 package org.lunifera.vaaclipse.addons.common.resource;
@@ -38,11 +38,10 @@ import org.eclipse.e4.core.services.log.Logger;
 import org.eclipse.e4.ui.internal.workbench.CommandLineOptionModelProcessor;
 import org.eclipse.e4.ui.internal.workbench.E4Workbench;
 import org.eclipse.e4.ui.internal.workbench.E4XMIResource;
-import org.eclipse.e4.ui.internal.workbench.ModelAssembler;
 import org.eclipse.e4.ui.internal.workbench.URIHelper;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.MApplicationElement;
-import org.eclipse.e4.ui.model.fragment.MModelFragments;
+import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.workbench.IWorkbench;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
@@ -53,7 +52,6 @@ import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.osgi.service.datalocation.Location;
-import org.lunifera.vaaclipse.addons.common.api.resource.ICustomizedModelHandler;
 import org.lunifera.vaaclipse.addons.common.api.resource.ICustomizedModelResourceHandler;
 import org.osgi.framework.Bundle;
 
@@ -68,10 +66,7 @@ public class ResourceHandler implements ICustomizedModelResourceHandler {
 	@Inject
 	private ResourceSet resourceSet;
 
-	private Resource resource;
-
-	@Inject
-	private ICustomizedModelHandler customizedService;
+	private E4XMIResource resource;
 
 	@Inject
 	private Logger logger;
@@ -174,7 +169,7 @@ public class ResourceHandler implements ICustomizedModelResourceHandler {
 
 		resource = null;
 		if (restore && saveAndRestore) {
-			resource = loadResource(restoreLocation);
+			resource = (E4XMIResource) loadResource(restoreLocation);
 			// If the saved model does not have any top-level windows, Eclipse
 			// will exit
 			// immediately, so throw out the persisted state and reinitialize
@@ -200,7 +195,7 @@ public class ResourceHandler implements ICustomizedModelResourceHandler {
 			}
 			MApplication theApp = (MApplication) appResource.getContents().get(
 					0);
-			resource = createResourceWithApp(theApp);
+			resource = (E4XMIResource) createResourceWithApp(theApp);
 			context.set(E4Workbench.NO_SAVED_MODEL_FOUND, Boolean.TRUE);
 			initialModel = true;
 
@@ -220,30 +215,17 @@ public class ResourceHandler implements ICustomizedModelResourceHandler {
 		// Add model items described in the model extension point
 		// This has to be done before commands are put into the context
 		MApplication appElement = (MApplication) resource.getContents().get(0);
-
+		Map<String, String> weights = getWeights(resource, appElement);
 		this.context.set(MApplication.class, appElement);
-		ModelAssembler contribProcessor = ContextInjectionFactory.make(
-				ModelAssembler.class, context);
+		VaaclipseModelAssembler contribProcessor = ContextInjectionFactory
+				.make(VaaclipseModelAssembler.class, context);
 		contribProcessor.processModel(initialModel);
 
-		// // load the customized models
-		// //
-		// CustomizedModelHandler handler = ContextInjectionFactory.make(
-		// CustomizedModelHandler.class, context);
-
-		// try {
-		// MModelFragments customizedFragments = loadCustomized(SYSTEM_USER);
-		// handler.mergeFragment(customizedFragments);
-		// } catch (IOException e) {
-		// logger.warn("{}", e);
-		// }
+		// load the customized models
 		//
-		// try {
-		// MModelFragments customizedFragments = loadCustomized(userId);
-		// handler.mergeFragment(customizedFragments);
-		// } catch (IOException e) {
-		// logger.warn("{}", e);
-		// }
+		SystemuserModelHandler handler = ContextInjectionFactory.make(
+				SystemuserModelHandler.class, context);
+		handler.mergeFragment();
 
 		if (!clearPersistedState) {
 			CommandLineOptionModelProcessor processor = ContextInjectionFactory
@@ -251,7 +233,40 @@ public class ResourceHandler implements ICustomizedModelResourceHandler {
 			processor.process();
 		}
 
+		// apply the weights
+		//
+		for (Map.Entry<String, String> entry : weights.entrySet()) {
+			MUIElement element = (MUIElement) resource.getIDToEObjectMap().get(
+					entry.getKey());
+			if (element != null) {
+				element.setContainerData(entry.getValue());
+			}
+		}
+
 		return resource;
+	}
+
+	/**
+	 * Returns the layout weights for later restore.
+	 * 
+	 * @param resource
+	 * @param appElement
+	 * @return
+	 */
+	private Map<String, String> getWeights(E4XMIResource resource,
+			MApplication appElement) {
+
+		Map<String, String> result = new HashMap<String, String>();
+		TreeIterator<EObject> treeIt = EcoreUtil.getAllContents(
+				(EObject) appElement, true);
+		while (treeIt.hasNext()) {
+			EObject eObj = treeIt.next();
+			if (eObj instanceof MUIElement) {
+				result.put(resource.getID(eObj),
+						((MUIElement) eObj).getContainerData());
+			}
+		}
+		return result;
 	}
 
 	@Override
@@ -412,36 +427,4 @@ public class ResourceHandler implements ICustomizedModelResourceHandler {
 		return appLastModified;
 	}
 
-	public void persistCustomized(String userId, MModelFragments mFragments)
-			throws IOException {
-		customizedService.persistCustomized(userId, mFragments);
-	}
-
-	public MModelFragments loadCustomized(String userId) throws IOException {
-		return customizedService.loadCustomized(userId);
-	}
-
-//	@Override
-//	public void resetModel() {
-//
-//		// remove all resources from the resource set
-//		for (Resource rs : resourceSet.getResources()) {
-//			if (rs.isLoaded()) {
-//				rs.unload();
-//			}
-//		}
-//		resourceSet.getResources().clear();
-//
-//		// Remove the mapping to the user resource
-//		resourceSet.getURIConverter().getURIMap()
-//				.remove(applicationDefinitionInstance);
-//
-//		boolean oldClearPersistedState = clearPersistedState;
-//		try {
-//			clearPersistedState = true;
-//			loadMostRecentModel();
-//		} finally {
-//			clearPersistedState = oldClearPersistedState;
-//		}
-//	}
 }

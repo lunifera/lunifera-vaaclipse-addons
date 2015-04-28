@@ -28,8 +28,8 @@ import org.eclipse.e4.ui.model.application.ui.advanced.MPlaceholder;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPlaceholderResolver;
 import org.eclipse.emf.ecore.EObject;
-import org.lunifera.vaaclipse.addons.common.api.resource.ICustomizedModelHandler;
 import org.lunifera.vaaclipse.addons.common.api.resource.ICustomizedModelResourceHandler;
+import org.lunifera.vaaclipse.addons.common.api.resource.ISystemuserModelHandler;
 import org.osgi.service.prefs.BackingStoreException;
 import org.osgi.service.prefs.Preferences;
 import org.semanticsoft.vaaclipse.publicapi.perspective.IPerspectiveHandler;
@@ -60,7 +60,7 @@ public class PerspectiveHandler implements IPerspectiveHandler {
 	private IPreferenceProvider preferenceProvider;
 
 	@Inject
-	private ICustomizedModelHandler modelHandler;
+	private ISystemuserModelHandler modelHandler;
 
 	@Inject
 	private ICustomizedModelResourceHandler resourceHandler;
@@ -119,7 +119,7 @@ public class PerspectiveHandler implements IPerspectiveHandler {
 
 		if (userId != null
 				&& userId.equals(ICustomizedModelResourceHandler.SYSTEM_USER)) {
-			// TODO define fragment for system user
+			modelHandler.addPerspectiveFragment(stack, newPerspective);
 		}
 
 		return newPerspective;

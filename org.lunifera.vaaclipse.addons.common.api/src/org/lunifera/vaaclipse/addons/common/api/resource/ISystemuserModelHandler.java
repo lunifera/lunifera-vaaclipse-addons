@@ -11,11 +11,9 @@
 package org.lunifera.vaaclipse.addons.common.api.resource;
 
 import java.io.IOException;
-import java.util.List;
 
 import org.eclipse.e4.ui.model.application.ui.advanced.MPerspective;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPerspectiveStack;
-import org.eclipse.e4.ui.model.fragment.MModelFragment;
 import org.eclipse.e4.ui.model.fragment.MModelFragments;
 
 /**

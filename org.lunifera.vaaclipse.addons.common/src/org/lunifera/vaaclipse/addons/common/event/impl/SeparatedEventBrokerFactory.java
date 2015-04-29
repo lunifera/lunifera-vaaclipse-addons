@@ -6,7 +6,6 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.services.internal.events.EventBroker;
 import org.lunifera.vaaclipse.addons.common.event.EventTopicNormalizer;
-import org.osgi.service.component.annotations.Component;
 
 @SuppressWarnings({ "restriction" })
 public class SeparatedEventBrokerFactory extends ContextFunction {

@@ -23,7 +23,6 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IContributor;
 import org.eclipse.core.runtime.IExtension;
@@ -198,7 +197,6 @@ public class VaaclipseModelAssembler {
 				String cId = r.getID(o);
 				applicationResource.setID(o, r.getID(o));
 				String nId = applicationResource.getID(o);
-				String intId = applicationResource.getInternalId(o);
 				assert(cId.equals(nId));
 				
 				if (contributorURI != null)

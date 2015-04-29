@@ -24,6 +24,7 @@ import com.vaadin.ui.VerticalLayout;
  */
 public class OutlineView {
 
+	@SuppressWarnings("unused")
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(OutlineView.class);
 

@@ -24,6 +24,7 @@ import com.vaadin.ui.VerticalLayout;
  */
 public class ProblemsView {
 
+	@SuppressWarnings("unused")
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(ProblemsView.class);
 

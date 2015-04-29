@@ -147,7 +147,7 @@ public class SeparatedEventBroker extends EventBroker implements IEventBroker {
 	}
 
 	@PreDestroy
-	void dispose() {
+	public void dodispose() {
 		Collection<ServiceRegistration> values = registrations.values();
 		ServiceRegistration[] array = values
 				.toArray(new ServiceRegistration[values.size()]);

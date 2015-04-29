@@ -10,9 +10,6 @@
  */
 package org.lunifera.vaaclipse.addons.common.api.resource;
 
-import java.io.IOException;
-
-import org.eclipse.e4.ui.model.fragment.MModelFragments;
 import org.eclipse.e4.ui.workbench.IModelResourceHandler;
 
 public interface ICustomizedModelResourceHandler extends IModelResourceHandler {

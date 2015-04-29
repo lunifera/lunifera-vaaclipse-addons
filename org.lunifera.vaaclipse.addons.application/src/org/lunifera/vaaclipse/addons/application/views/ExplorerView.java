@@ -44,6 +44,7 @@ import com.vaadin.ui.themes.Reindeer;
  * The explorer view is the main entry point for the user to deal with the
  * applications. Applications, processes,... and beeing displayed there.
  */
+@SuppressWarnings("serial")
 public class ExplorerView implements ItemClickListener, ExpandListener {
 
 	private static final Logger LOGGER = LoggerFactory
@@ -127,7 +128,6 @@ public class ExplorerView implements ItemClickListener, ExpandListener {
 		}
 	}
 
-	@SuppressWarnings("serial")
 	private class LazyInfoLoader extends HierarchicalContainer {
 
 		public LazyInfoLoader() {

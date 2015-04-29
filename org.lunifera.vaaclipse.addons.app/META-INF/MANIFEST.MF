@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Vaaclipse
+Bundle-Name: Vaaclipse Application
 Bundle-SymbolicName: org.lunifera.vaaclipse.addons.app;singleton:=true
-Bundle-Version: 2.7.3.qualifier
+Bundle-Version: 0.9.1.qualifier
 Bundle-Activator: org.lunifera.vaaclipse.addons.app.Activator
 Bundle-Vendor: Lunifera GmbH
 Require-Bundle: org.eclipse.core.runtime,

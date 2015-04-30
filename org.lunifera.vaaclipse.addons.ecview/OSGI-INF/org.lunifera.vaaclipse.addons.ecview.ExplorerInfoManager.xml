@@ -5,6 +5,6 @@
       <provide interface="org.lunifera.vaaclipse.addons.common.api.explorer.IExplorerInfoManager"/>
    </service>
    <property name="service.ranking" value="100"/>
-   <reference bind="bindECViewMetadataService" cardinality="1..1" interface="org.lunifera.ecview.xtext.builder.participant.IECViewAddonsMetadataService" name="ecviewMetadataService" policy="dynamic" unbind="unbindECViewMetadataService"/>
-   <reference bind="bindI18nService" cardinality="1..1" interface="org.lunifera.ecview.core.common.context.II18nService" name="i18nService" policy="dynamic" unbind="unbindI18nService"/>
+   <reference bind="bindECViewMetadataService" cardinality="1..1" interface="IECViewAddonsMetadataService" name="ecviewMetadataService" policy="dynamic" unbind="unbindECViewMetadataService"/>
+   <reference bind="bindI18nService" cardinality="1..1" interface="II18nService" name="i18nService" policy="dynamic" unbind="unbindI18nService"/>
 </scr:component>

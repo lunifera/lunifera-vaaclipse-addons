@@ -41,6 +41,7 @@
 		<tycho-version>0.21.0</tycho-version>
 		<tychoExtrasVersion>0.21.0</tychoExtrasVersion>
 		<xtext.version>2.7.3</xtext.version>
+		<vaadin.version>7.3.8</vaadin.version>
 
 		<lunifera.deployment.p2.name>vaaclipse.addons</lunifera.deployment.p2.name>
 		<lunifera.build.p2.project.name>org.lunifera.vaaclipse.addons.p2</lunifera.build.p2.project.name>

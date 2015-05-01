@@ -10,9 +10,6 @@
  */
 package org.lunifera.vaaclipse.addons.ecview;
 
-import javax.inject.Inject;
-
-import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.lunifera.vaaclipse.addons.common.api.explorer.AbstractExplorerInfo;
 import org.lunifera.vaaclipse.addons.common.api.explorer.IExplorerLeaf;
@@ -20,17 +17,13 @@ import org.lunifera.vaaclipse.addons.common.api.explorer.IExplorerLeaf;
 public class ExplorerApplicationLeaf extends AbstractExplorerInfo implements
 		IExplorerLeaf {
 
-	@Inject
-	IEclipseContext context;
-
 	public ExplorerApplicationLeaf() {
 	}
 
 	@Override
 	public void execute(IEclipseContext context) {
 
-		DynamicViewSupport viewSupport = ContextInjectionFactory.make(
-				DynamicViewSupport.class, context);
+		DynamicViewSupport viewSupport = context.get(DynamicViewSupport.class);
 		viewSupport
 				.openNewGenericECViewView(
 						getId(),

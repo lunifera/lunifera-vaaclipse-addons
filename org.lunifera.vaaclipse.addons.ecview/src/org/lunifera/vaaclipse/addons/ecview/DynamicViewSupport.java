@@ -47,6 +47,8 @@ public class DynamicViewSupport {
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(DynamicViewSupport.class);
 
+	private static final String PROP_VIEW_ID = "org.lunifera.vaaclipse.addons.ecview.viewId";
+
 	@Inject
 	private ISharedStateContextProvider sharedStateProvider;
 
@@ -87,7 +89,7 @@ public class DynamicViewSupport {
 
 			// determine the view category
 			String viewCategory = yView.getCategory();
-			if(viewCategory == null) {
+			if (viewCategory == null) {
 				viewCategory = IE4Constants.ID__PARTSTACK__MAIN;
 			}
 
@@ -99,8 +101,9 @@ public class DynamicViewSupport {
 					EModelService.PRESENTATION);
 			if (!containers.isEmpty()) {
 				container = containers.get(0);
-			}else{
-				LOGGER.error("Could not container for category {}", viewCategory);
+			} else {
+				LOGGER.error("Could not container for category {}",
+						viewCategory);
 				return;
 			}
 
@@ -121,7 +124,11 @@ public class DynamicViewSupport {
 			//
 			// create a child context and configure with the view model
 			//
-			createPartContext(part, getContext(container), yView, id);
+			IEclipseContext partContext = getContext(container).createChild();
+			part.setContext(partContext);
+			initializePartContext(part, partContext, yView, id);
+
+			// add the part to its container
 			container.getChildren().add(part); // Add part to stack
 
 			// show the part
@@ -137,20 +144,47 @@ public class DynamicViewSupport {
 	}
 
 	/**
-	 * Creates a child context for the part.
+	 * Creates the context for a part that is already opened and was persisted
+	 * in the user specific application model.
+	 * 
+	 * @param part
+	 * @return
+	 */
+	public YView createPartContextForPersisted(MPart part) {
+		String viewId = part.getPersistedState().get(PROP_VIEW_ID);
+		if (viewId == null) {
+			return null;
+		}
+
+		YView yView = findViewModel(viewId);
+		if (yView == null) {
+			return null;
+		}
+
+		IEclipseContext context = part.getContext();
+		String id = part.getElementId();
+
+		initializePartContext(part, context, yView, id);
+
+		return yView;
+	}
+
+	/**
+	 * Creates a child context for the part that should be opened.
 	 * 
 	 * @param part
 	 * @param context
 	 * @param yView
 	 * @param id
 	 */
-	protected void createPartContext(MPart part, IEclipseContext context,
+	private void initializePartContext(MPart part, IEclipseContext partContext,
 			YView yView, String id) {
-		IEclipseContext partContext = context.createChild();
+
+		// Store the view id in the part for later reloading
+		part.getPersistedState().put(PROP_VIEW_ID, yView.getName());
 
 		// initialize the context -> so no delegation to OSGi services is
 		// processed later
-		partContext.set(YView.class, null);
 		partContext.set(ISharedStateContext.class, null);
 		partContext.set(IDTOService.class, null);
 
@@ -175,8 +209,6 @@ public class DynamicViewSupport {
 				partContext.set(IDTOService.class, dtoService);
 			}
 		}
-
-		part.setContext(partContext);
 	}
 
 	/**
@@ -184,7 +216,7 @@ public class DynamicViewSupport {
 	 * 
 	 * @return
 	 */
-	protected YView findViewModel(String viewId) {
+	private YView findViewModel(String viewId) {
 		ServiceTracker<IECViewAddonsMetadataService, IECViewAddonsMetadataService> tracker = new ServiceTracker<IECViewAddonsMetadataService, IECViewAddonsMetadataService>(
 				Activator.getContext(), IECViewAddonsMetadataService.class,
 				null);

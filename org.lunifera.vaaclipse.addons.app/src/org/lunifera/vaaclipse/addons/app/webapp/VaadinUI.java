@@ -68,8 +68,8 @@ import org.eclipse.osgi.service.datalocation.Location;
 import org.lunifera.runtime.web.vaadin.databinding.VaadinObservables;
 import org.lunifera.vaaclipse.addons.app.VaadinE4Application;
 import org.lunifera.vaaclipse.addons.app.servlet.VaadinExecutorServiceImpl;
-import org.lunifera.vaaclipse.addons.common.api.resource.ISystemuserModelHandler;
 import org.lunifera.vaaclipse.addons.common.api.resource.ICustomizedModelResourceHandler;
+import org.lunifera.vaaclipse.addons.common.api.resource.ISystemuserModelHandler;
 import org.lunifera.vaaclipse.addons.common.resource.LayoutChangedObserver;
 import org.osgi.service.event.EventHandler;
 import org.semanticsoft.vaaclipse.api.VaadinExecutorService;
@@ -181,9 +181,7 @@ public class VaadinUI extends UI {
 				.getApplicationAuthenticationProvider();
 
 		if (authProvider == null || authProvider.trim().isEmpty()) {
-			// start workbench as usually
-			e4Workbench = createE4Workbench(context);
-			e4Workbench.createAndRunUI(e4Workbench.getApplication());
+			createAndRunWorkbench();
 		} else {
 
 			IContributionFactory contributionFactory = (IContributionFactory) appContext
@@ -224,9 +222,7 @@ public class VaadinUI extends UI {
 									userClass });
 							e4Workbench.close();
 						} else {
-							e4Workbench = createE4Workbench(context);
-							e4Workbench.createAndRunUI(e4Workbench
-									.getApplication());
+							createAndRunWorkbench();
 						}
 
 					}
@@ -456,18 +452,14 @@ public class VaadinUI extends UI {
 			resourceHandler = DEFAULT_RESOURCE_HANDLER;
 		}
 
-		modelResourceHandler = (ICustomizedModelResourceHandler) factory.create(
-				resourceHandler, eclipseContext);
+		modelResourceHandler = (ICustomizedModelResourceHandler) factory
+				.create(resourceHandler, eclipseContext);
 		eclipseContext.set(IModelResourceHandler.class, modelResourceHandler);
-		eclipseContext.set(ICustomizedModelResourceHandler.class, modelResourceHandler);
+		eclipseContext.set(ICustomizedModelResourceHandler.class,
+				modelResourceHandler);
 
 		Resource resource = modelResourceHandler.loadMostRecentModel();
 		theApp = (MApplication) resource.getContents().get(0);
-
-		// register the layout changed observer
-		layoutChangedObserver = ContextInjectionFactory.make(
-				LayoutChangedObserver.class, eclipseContext);
-		eclipseContext.set(LayoutChangedObserver.class, layoutChangedObserver);
 
 		return theApp;
 	}
@@ -629,5 +621,17 @@ public class VaadinUI extends UI {
 			layoutChangedObserver.dispose();
 		}
 		super.detach();
+	}
+
+	protected void createAndRunWorkbench() {
+		e4Workbench = createE4Workbench(context);
+		e4Workbench.createAndRunUI(e4Workbench.getApplication());
+
+		// register the layout changed observer when application was started
+		layoutChangedObserver = ContextInjectionFactory.make(
+				LayoutChangedObserver.class, e4Workbench.getApplication()
+						.getContext());
+		e4Workbench.getApplication().getContext()
+				.set(LayoutChangedObserver.class, layoutChangedObserver);
 	}
 }

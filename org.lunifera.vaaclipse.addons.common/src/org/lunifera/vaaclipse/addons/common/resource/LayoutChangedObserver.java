@@ -44,6 +44,7 @@ public class LayoutChangedObserver implements EventHandler {
 	static {
 		TOPICS.add(UIEvents.UIElement.TOPIC_CONTAINERDATA);
 		TOPICS.add(UIEvents.ElementContainer.TOPIC_SELECTEDELEMENT);
+		TOPICS.add(UIEvents.ElementContainer.TOPIC_CHILDREN);
 	}
 
 	@Inject
@@ -76,7 +77,7 @@ public class LayoutChangedObserver implements EventHandler {
 		}
 
 		synchronized (this) {
-			// Wait for 500ms before saving. Most probably several events will
+			// Wait for 1000ms before saving. Most probably several events will
 			// arrive in the next milli seconds
 			if (currentTimer == null) {
 				currentTimer = new Timer();
@@ -91,7 +92,7 @@ public class LayoutChangedObserver implements EventHandler {
 							LOGGER.warn("{}", e);
 						}
 					}
-				}, 500);
+				}, 1000);
 				LOGGER.debug("Scheduled Model-Save-Timer.");
 			} else {
 				LOGGER.debug("Timer already active.");

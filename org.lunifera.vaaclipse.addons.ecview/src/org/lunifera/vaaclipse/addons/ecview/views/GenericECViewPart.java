@@ -14,6 +14,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -411,21 +412,14 @@ public class GenericECViewPart {
 	 */
 	private void preparePartToolbar(YView yView) {
 		MToolBar mToolbar = mPart.getToolbar();
+		clearToolbar(mToolbar);
+
 		for (YExposedAction yAction : yView.getExposedActions()) {
 
 			// register the exposed actions callback to handle enabled state
 			yAction.eAdapters().add(exposedActionsCallback);
 
 			MHandledToolItem toolItem = null;
-			// if (yAction.getId().equals(IECViewConstants.ACTION__SAVE)) {
-			// toolItem = createToolItem(yAction, IE4Constants.COMMAND_SAVE);
-			// } else if
-			// (yAction.getId().equals(IECViewConstants.ACTION__DELETE)) {
-			// toolItem = createToolItem(yAction, IE4Constants.COMMAND_DELETE);
-			// } else if (yAction.getId().equals(IECViewConstants.ACTION__LOAD))
-			// {
-			// toolItem = createToolItem(yAction, IE4Constants.COMMAND_LOAD);
-			// } else
 			if (yAction.getExternalCommandId() == null) {
 				toolItem = createToolItem(yAction,
 						IE4Constants.COMMAND_DEFAULT_PART_CALLBACK);
@@ -439,6 +433,15 @@ public class GenericECViewPart {
 				// set default after rendering
 				toolItem.setEnabled(yAction.isInitialEnabled());
 			}
+		}
+	}
+
+	protected void clearToolbar(MToolBar mToolbar) {
+		// bug in Vaaclipse -> Iterate to remove all
+		for (Iterator<MToolBarElement> iterator = mToolbar.getChildren()
+				.iterator(); iterator.hasNext();) {
+			iterator.next();
+			iterator.remove();
 		}
 	}
 

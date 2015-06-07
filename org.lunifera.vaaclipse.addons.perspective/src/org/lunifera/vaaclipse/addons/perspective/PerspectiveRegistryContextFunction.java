@@ -22,16 +22,13 @@ import org.semanticsoft.vaaclipse.publicapi.perspective.IPerspectiveHandler;
  */
 @Component(service = IContextFunction.class, property = { "service.context.key=org.semanticsoft.vaaclipse.publicapi.perspective.IPerspectiveHandler" })
 public class PerspectiveRegistryContextFunction extends ContextFunction {
+
 	@Override
 	public Object compute(IEclipseContext context, String contextKey) {
-		PerspectiveHandler registry = context
-				.getLocal(PerspectiveHandler.class);
-		if (registry == null) {
-			registry = ContextInjectionFactory.make(PerspectiveHandler.class,
-					context);
-			context.set(IPerspectiveHandler.class, registry);
-			context.set(PerspectiveHandler.class, registry);
-		}
+		PerspectiveHandler registry = ContextInjectionFactory.make(
+				PerspectiveHandler.class, context);
+		context.set(IPerspectiveHandler.class, registry);
+		context.set(PerspectiveHandler.class, registry);
 		return registry;
 	}
 }

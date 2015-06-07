@@ -13,7 +13,6 @@ package org.lunifera.vaaclipse.addons.ecview.e4context;
 import org.eclipse.e4.core.contexts.ContextFunction;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.e4.ui.model.application.MApplication;
 import org.lunifera.vaaclipse.addons.ecview.DynamicViewSupport;
 import org.osgi.service.component.annotations.Component;
 
@@ -27,16 +26,9 @@ public class DynamicViewSupportContextFunctionFactory extends ContextFunction {
 
 	@Override
 	public Object compute(IEclipseContext context, String contextKey) {
-		MApplication application = context.get(MApplication.class);
-		IEclipseContext rootContext = application.getContext();
-		DynamicViewSupport support = rootContext
-				.getLocal(DynamicViewSupport.class);
-		if (support == null) {
-			support = ContextInjectionFactory.make(DynamicViewSupport.class,
-					rootContext);
-			rootContext.set(DynamicViewSupport.class, support);
-		}
-
+		DynamicViewSupport support = ContextInjectionFactory.make(DynamicViewSupport.class,
+				context);
+		context.set(DynamicViewSupport.class, support);
 		return support;
 	}
 }

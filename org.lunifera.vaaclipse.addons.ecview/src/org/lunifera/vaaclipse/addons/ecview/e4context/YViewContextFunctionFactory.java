@@ -25,13 +25,9 @@ public class YViewContextFunctionFactory extends ContextFunction {
 
 	@Override
 	public Object compute(IEclipseContext context, String contextKey) {
-		YView yView = context.getLocal(YView.class);
-		if (yView == null) {
-			MPart part = context.get(MPart.class);
-			DynamicViewSupport viewSupport = context
-					.get(DynamicViewSupport.class);
-			yView = viewSupport.createPartContextForPersisted(part);
-		}
+		MPart part = context.get(MPart.class);
+		DynamicViewSupport viewSupport = context.get(DynamicViewSupport.class);
+		YView yView = viewSupport.createPartContextForPersisted(part);
 		return yView;
 	}
 }

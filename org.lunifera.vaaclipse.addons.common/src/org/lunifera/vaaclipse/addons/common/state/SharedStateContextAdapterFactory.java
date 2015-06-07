@@ -21,13 +21,9 @@ public class SharedStateContextAdapterFactory extends ContextFunction {
 
 	@Override
 	public Object compute(IEclipseContext context, String contextKey) {
-		ISharedStateContextProvider provider = context
-				.getLocal(ISharedStateContextProvider.class);
-		if (provider == null) {
-			provider = ContextInjectionFactory.make(
-					SharedStateContextAdapter.class, context);
-			context.set(ISharedStateContextProvider.class, provider);
-		}
+		SharedStateContextAdapter provider = ContextInjectionFactory.make(
+				SharedStateContextAdapter.class, context);
+		context.set(ISharedStateContextProvider.class, provider);
 		return provider;
 	}
 }

@@ -181,9 +181,9 @@ public class VaadinUI extends UI {
 				.getApplicationAuthenticationProvider();
 
 		if (authProvider == null || authProvider.trim().isEmpty()) {
+			appContext.set("user", "Administrator");
 			createAndRunWorkbench();
 		} else {
-
 			IContributionFactory contributionFactory = (IContributionFactory) appContext
 					.get(IContributionFactory.class.getName());
 			IEclipseContext authConext = appContext.createChild();

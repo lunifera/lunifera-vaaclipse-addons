@@ -145,7 +145,7 @@ public class GenericECViewPart {
 		try {
 			viewContext = renderer.render(layout, yView, properties);
 		} catch (ContextException e) {
-			e.printStackTrace();
+			LOGGER.error("{}", e);
 		}
 
 		preparePartToolbar(yView);

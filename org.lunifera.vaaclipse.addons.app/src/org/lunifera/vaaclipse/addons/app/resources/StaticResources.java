@@ -76,15 +76,27 @@ public class StaticResources extends HttpServlet {
 	public void bind(HttpService httpService) {
 		this.httpService = httpService;
 	}
+	
+	public void unbind(HttpService httpService) {
+		this.httpService = null;
+	}
 
 	@Reference(name = "bindResourceInfoProvider", service = ResourceInfoProvider.class, cardinality = ReferenceCardinality.MANDATORY)
 	public void bindResourceInfoProvider(ResourceInfoProvider provider) {
 		this.resourceInfoProvider = provider;
 	}
+	
+	public void unbindResourceInfoProvider(ResourceInfoProvider provider) {
+		this.resourceInfoProvider = null;
+	}
 
 	@Reference(name = "bindThemeEngine", service = ThemeEngine.class, cardinality = ReferenceCardinality.MANDATORY)
 	public void bindThemeEngine(ThemeEngine themeEngine) {
 		this.themeEngine = themeEngine;
+	}
+	
+	public void unbindThemeEngine(ThemeEngine themeEngine) {
+		this.themeEngine = null;
 	}
 
 	@Activate

@@ -12,25 +12,46 @@ package org.lunifera.vaaclipse.addons.common.api.status;
 
 import java.util.List;
 
+import org.eclipse.e4.ui.model.application.ui.basic.MPart;
+import org.lunifera.runtime.common.validation.IStatus;
+
 /**
- * Collects status about errors and warnings.
+ * Collects status about errors and warnings. A status manager is attached to a
+ * Vaaclipse session.
  */
 public interface IStatusManager {
 
 	/**
-	 * Adds a new status to the list of status.
+	 * An event is sent to this topic, if the active scope was changed.
+	 */
+	public static final String ACTIVE_SCOPE_CHANGED_TOPIC = "org/lunifera/vaaclipse/statusmanager/activescope/changed";
+
+	/**
+	 * Returns a immutable list with all scopes registered within the status
+	 * manager.
 	 * 
-	 * @param status
+	 * @return
 	 */
-	public abstract void addStatus(IStatus status);
+	List<IStatusScope> getAllScopes();
 
 	/**
-	 * Removes all collected status.
+	 * Returns the scope of the active MPart.<br>
+	 * Returns a DefaultScope if no MPart is active.
+	 * 
+	 * @return
 	 */
-	public abstract void clearStatus();
+	IStatusScope getActiveScope();
 
 	/**
-	 * Returns a list with all status.
+	 * Returns the scope of the given MPart.
+	 * 
+	 * @return
+	 */
+	IStatusScope getScopeFor(MPart mPart);
+
+	/**
+	 * Returns a immutable list with all status of the active MPart. <br>
+	 * Returns <code>null</code> if no MPart is active.
 	 * 
 	 * @return
 	 */

@@ -17,12 +17,12 @@ import javax.inject.Inject;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.model.application.MApplication;
+import org.lunifera.runtime.common.validation.Status;
 import org.lunifera.vaaclipse.addons.common.api.explorer.IExplorerCategory;
 import org.lunifera.vaaclipse.addons.common.api.explorer.IExplorerInfo;
 import org.lunifera.vaaclipse.addons.common.api.explorer.IExplorerInfoManager;
 import org.lunifera.vaaclipse.addons.common.api.explorer.IExplorerLeaf;
 import org.lunifera.vaaclipse.addons.common.api.status.IStatusManager;
-import org.lunifera.vaaclipse.addons.common.api.status.Status;
 import org.osgi.framework.FrameworkUtil;
 import org.osgi.util.tracker.ServiceTracker;
 import org.slf4j.Logger;
@@ -98,12 +98,11 @@ public class ExplorerView implements ItemClickListener, ExpandListener {
 				for (IExplorerInfo newInfo : ((IExplorerCategory) itemId)
 						.getChildren()) {
 					Item item = container.addItem(newInfo);
-					if(item == null){
+					if (item == null) {
 						continue;
 					}
 					item.getItemProperty("label").setValue(newInfo.getLabel());
-					item.getItemProperty("icon")
-							.setValue(newInfo.getIcon());
+					item.getItemProperty("icon").setValue(newInfo.getIcon());
 					container.setParent(newInfo, category);
 					if (newInfo instanceof IExplorerLeaf) {
 						container.setChildrenAllowed(newInfo, false);
@@ -156,16 +155,15 @@ public class ExplorerView implements ItemClickListener, ExpandListener {
 						eclipseContext)) {
 					Item item = addItem(newInfo);
 					item.getItemProperty("label").setValue(newInfo.getLabel());
-					item.getItemProperty("icon")
-							.setValue(newInfo.getIcon());
+					item.getItemProperty("icon").setValue(newInfo.getIcon());
 					if (newInfo instanceof IExplorerLeaf) {
 						setChildrenAllowed(newInfo, false);
 					}
 				}
 			} catch (InterruptedException e) {
 				LOGGER.error("{}", e);
-				eclipseContext.get(IStatusManager.class).addStatus(
-						Status.createErrorStatus(e));
+				eclipseContext.get(IStatusManager.class).getActiveScope()
+						.addStatus(Status.createErrorStatus(e));
 			} finally {
 				tracker.close();
 			}

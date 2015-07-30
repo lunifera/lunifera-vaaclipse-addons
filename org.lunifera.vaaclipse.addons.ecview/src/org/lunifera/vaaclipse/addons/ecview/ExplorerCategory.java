@@ -15,12 +15,12 @@ import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.lunifera.runtime.common.validation.Status;
 import org.lunifera.vaaclipse.addons.common.api.explorer.AbstractExplorerInfo;
 import org.lunifera.vaaclipse.addons.common.api.explorer.IExplorerCategory;
 import org.lunifera.vaaclipse.addons.common.api.explorer.IExplorerInfo;
 import org.lunifera.vaaclipse.addons.common.api.explorer.IExplorerInfoManager;
 import org.lunifera.vaaclipse.addons.common.api.status.IStatusManager;
-import org.lunifera.vaaclipse.addons.common.api.status.Status;
 import org.osgi.framework.FrameworkUtil;
 import org.osgi.util.tracker.ServiceTracker;
 import org.slf4j.Logger;
@@ -83,8 +83,8 @@ public class ExplorerCategory extends AbstractExplorerInfo implements
 			}
 		} catch (InterruptedException e) {
 			LOGGER.error("{}", e);
-			eclipseContext.get(IStatusManager.class).addStatus(
-					Status.createErrorStatus(e));
+			eclipseContext.get(IStatusManager.class).getActiveScope()
+					.addStatus(Status.createErrorStatus(e));
 		} finally {
 			tracker.close();
 		}
